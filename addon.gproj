@@ -1,0 +1,8 @@
+GameProject {
+ ID "NightOpsCoopMissionsFramework"
+ GUID "598B131A58C0F13F"
+ TITLE "NightOps_CoopMissionsFramework"
+ Dependencies {
+  "58D0FB3206B6F859"
+ }
+}

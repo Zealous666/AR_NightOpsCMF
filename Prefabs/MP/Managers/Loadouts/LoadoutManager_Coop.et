@@ -1,0 +1,12 @@
+SCR_LoadoutManager {
+ ID "596EAE87C9ACC48E"
+ Flags 0
+ m_aPlayerLoadouts {
+  SCR_FactionPlayerLoadout "{596EB2A326D1EE2D}" {
+   m_sLoadoutName "Coop Loadout (US)"
+   m_sLoadoutResource "{26A9756790131354}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Rifleman.et"
+   m_sLoadoutImage "{2B0877799B9B6C66}UI/Textures/EditorPreviews/Characters/BLUFOR/US_Army/Character_US_Rifleman.edds"
+   m_sAffiliatedFaction "US"
+  }
+ }
+}

@@ -1,0 +1,27 @@
+SCR_PlayerController : "{6E2BB64764E3BE9B}Prefabs/Characters/Core/DefaultPlayerController.et" {
+ ID "1A9BA6BEFA06E3B1"
+ components {
+  RadioHandlerComponent "{597880B721E30D24}" {
+  }
+  SCR_ChatComponent "{597880B721E30D3E}" {
+  }
+  SCR_HUDManagerComponent "{2FDC275D9EBCDB8B}" {
+   InfoDisplays {
+    NO_UIWaypoint "{597883EAB96B9501}" {
+     m_LayoutPath "{42D927E4F2FF6FE5}UI/layouts/HUD/Tutorial/TutorialWaypoint.layout"
+     m_eLayer BACKGROUND
+    }
+   }
+  }
+  SCR_RespawnComponent "{597880B721E30D32}" {
+  }
+  SCR_TaskNetworkComponent "{597880B721E30D37}" {
+  }
+  RplComponent "{597880B721E30EC9}" {
+   "Self Insert" 0
+   Streamable Disabled
+  }
+ }
+ coords 0 0 0
+ SelfRegister 0
+}

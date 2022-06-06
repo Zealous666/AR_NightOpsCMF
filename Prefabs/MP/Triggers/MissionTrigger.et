@@ -1,0 +1,14 @@
+NO_SCR_MissionTrigger {
+ ID "5988F8DD32798C1D"
+ components {
+  RplComponent "{5988F8DD1B29B09E}" {
+   Streamable Disabled
+  }
+ }
+ TriggerShapeType Sphere
+ SphereRadius 10
+ DrawShape 1
+ ShapeColor 0.11 0.875 0.302 1
+ TriggerActivationType "All changes"
+ PeriodicQueries 1
+}

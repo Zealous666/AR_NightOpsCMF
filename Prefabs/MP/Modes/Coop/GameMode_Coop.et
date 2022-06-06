@@ -1,0 +1,47 @@
+SCR_BaseGameMode : "{0F307326459A1395}Prefabs/MP/Modes/GameMode_Base.et" {
+ ID "56B2B479C6B96951"
+ components {
+  NO_SCR_ForceTimeAndWeatherComponent "{598463A47C89F035}" {
+   m_iCustomYear 1985
+   m_iCustomMonth 9
+   m_iCustomDay 30
+   m_fCustomTimeOfTheDay 20
+   m_fCustomLatitude 47
+   m_fCustomLongitude -27
+  }
+  SCR_GameOverScreenManagerComponent "{56DEC646298AD219}" {
+   m_GameOverScreenConfig SCR_GameOverScreenConfig "{56DEC6462FFDD82D}" {
+    m_aGameOverScreens {
+     SCR_FactionVictoryGameOverScreenInfo "{568EB6DFEF507060}" {
+      m_OptionalParams SCR_BaseGameOverScreenInfoOptional "{568EB6DFF87D9C84}" {
+       m_sTitle "Test"
+       m_sSubtitle "Sub-Test"
+      }
+     }
+    }
+   }
+  }
+  SCR_PlayerSpawnPointManagerComponent "{597D4AC874B80730}" {
+   m_SpawnPointPrefab "{456EFDDA59DD6EB2}Prefabs/MP/PlayerRadioSpawnPoint.et"
+  }
+  SCR_RespawnBriefingComponent "{597B2CEE9F5D61F8}" {
+   m_Info SCR_UIInfo "{597B2CEE8BC08D5A}" {
+    Name "Name"
+    Description "Description"
+   }
+   m_aWinConditions {
+    SCR_BriefingVictoryCondition "{597B2CEE8C898900}" {
+     victoryCondition CUSTOM
+     name "Clear the Island and capture the Com Truck"
+     description "Description"
+    }
+   }
+  }
+  SCR_RespawnMenuHandlerComponent "{597B2EF80CE41F6C}" {
+   m_sFactionMenuMessage "US BlackOps Detachment"
+  }
+  SCR_RespawnTimerComponent "{597B2CEEAA71C211}" {
+  }
+ }
+ PlayerControllerPrefab "{EF9F8C2E5F59234D}Prefabs/Characters/Core/DefaultPlayerControllerMP_Coop.et"
+}

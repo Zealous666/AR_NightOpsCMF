@@ -1,0 +1,21 @@
+NO_SCR_CoopTaskManager {
+ ID "5974A9062D21D597"
+ coords 1301.333 4.054 6414.839
+ m_aSupportedTaskTypes {
+  SCR_BaseTaskSupportClass "{5974A906644EB399}" {
+   m_TaskPrefab "{1D0F815858EE24AC}Prefabs/Tasks/BaseTask.et"
+  }
+  SCR_CampaignTaskSupportClass "{5974A90787174458}" {
+   m_TaskPrefab "{A7E92298A3F916F7}Prefabs/Tasks/CampaignTask.et"
+  }
+  SCR_MoveTaskSupportClass "{5974A907B587775C}" {
+  }
+  SCR_EditorTaskSupportClass "{5974A907B0017741}" {
+  }
+  SCR_TriggerTaskSupportClass "{5974A907BF15F603}" {
+  }
+ }
+ m_aInitialTaskNames {
+  "" "" ""
+ }
+}

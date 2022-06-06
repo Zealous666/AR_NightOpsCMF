@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{CB2D4D11DF6B1F36}Prefabs/MP/Triggers/M_02"
+ Configurations {
+  FolderResourceClass PC {
+  }
+  FolderResourceClass XBOX_ONE : PC {
+  }
+  FolderResourceClass XBOX_SERIES : PC {
+  }
+  FolderResourceClass PS4 : PC {
+  }
+  FolderResourceClass HEADLESS : PC {
+  }
+ }
+}
