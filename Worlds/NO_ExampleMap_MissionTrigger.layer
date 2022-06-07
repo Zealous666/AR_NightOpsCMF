@@ -1,0 +1,49 @@
+$grp CommentEntity {
+ Comment1 {
+  coords 288.451 26.226 114.574
+  m_Comment "MISSION TRIGGER"
+  m_Size 1
+  m_Color 0.821 0.881 0.762
+  m_FaceCamera 1
+  m_VisibleOverall 1
+  m_VisibleIngame 1
+  m_TextBackground 1
+ }
+ Comment2 {
+  coords 315.92 13.254 119.782
+  m_Comment "TELEPORT DESTINATION A"
+  m_Size 1
+  m_Color 0.821 0.881 0.762
+  m_FaceCamera 1
+  m_VisibleOverall 1
+  m_VisibleIngame 1
+  m_TextBackground 1
+ }
+ Comment3 {
+  coords 255.347 13.306 117.289
+  m_Comment "TELEPORT DESTINATION B"
+  m_Size 1
+  m_Color 0.821 0.881 0.762
+  m_FaceCamera 1
+  m_VisibleOverall 1
+  m_VisibleIngame 1
+  m_TextBackground 1
+ }
+}
+NO_SCR_MissionTrigger : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/MissionTrigger.et" {
+ coords 287.574 10.001 113.712
+ m_bEnableTeleport 1
+ m_vMovePosition 435.494 14.2 100.81
+ {
+  $grp SCR_Position : "{68C0C31F6FAD7C2E}Prefabs/MP/NO_MissionTriggerPortPos.et" {
+   {
+    coords -34.645 0.626 6.669
+    angleY 89.762
+   }
+   {
+    coords 30.422 0.351 4.834
+    angleY -105.507
+   }
+  }
+ }
+}

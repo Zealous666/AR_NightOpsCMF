@@ -1,3 +1,5 @@
+#include "Scripts/NO_CustomDefines.c"
+
 [EntityEditorProps(category: "GameScripted/Triggers", description: "ScriptWizard generated script file.")]
 class NO_SCR_MissionTriggerClass : NO_SCR_PlayerTriggerEntityClass
 {
@@ -6,7 +8,7 @@ class NO_SCR_MissionTriggerClass : NO_SCR_PlayerTriggerEntityClass
 class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 {
 	protected const string WAYPOINT_ENTITY_NAME = "WP";
-	protected const int FADE_OUT_BUFFER = 1500;
+	protected const int FADE_OUT_BUFFER = 2000;
 
 	// -------------------------------------------------------
 
@@ -113,21 +115,27 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 
 	protected void NOSpawn()
 	{
+		#ifdef HAS_DYNAMIC_SPAWN_DEPENDENCY
 		foreach(string spawnTriggerName : m_sNOSpawnTriggerNames)
 		{
 			if (spawnTriggerName.IsEmpty())
 				continue;
 
-//			NO_SCR_SpawnTrigger spawnTrigger = NO_SCR_SpawnTrigger.Cast(GetGame().GetWorld().FindEntityByName(spawnTriggerName));
+			NO_SCR_SpawnTrigger spawnTrigger = NO_SCR_SpawnTrigger.Cast(GetGame().GetWorld().FindEntityByName(spawnTriggerName));
 
-//			if (spawnTrigger)
-//				spawnTrigger.Spawn();
+			if (spawnTrigger)
+				spawnTrigger.Spawn();
 		}
+		#else
+		if (!m_sNOSpawnTriggerNames.IsEmpty())
+			Print("Missing 'NightOps - DynamicSpawnFramework' dependency!", LogLevel.ERROR);
+		#endif
 	}
 
 
 	protected void FinishTask()
 	{
+		#ifdef HAS_DYNAMIC_TASK_DEPENDENCY
 		foreach (string taskName : m_sFinishTaskNames)
 		{
 			if (taskName.IsEmpty())
@@ -140,11 +148,16 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 
 			GetTaskManager().FinishTask(task);
 		}
+		#else
+		if (!m_sFinishTaskNames.IsEmpty())
+			Print("Missing 'NightOps - DynamicTaskFramework' dependency!", LogLevel.ERROR);
+		#endif
 	}
 
 
 	protected void UnlockTask()
 	{
+		#ifdef HAS_DYNAMIC_TASK_DEPENDENCY
 		foreach (string taskKey : m_sUnlockTaskKeys)
 		{
 			if (taskKey.IsEmpty())
@@ -157,6 +170,10 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 
 			taskManager.UnlockObjective(taskKey);
 		}
+		#else
+		if (!m_sUnlockTaskKeys.IsEmpty())
+			Print("Missing 'NightOps - DynamicTaskFramework' dependency!", LogLevel.ERROR);
+		#endif
 	}
 
 
@@ -221,6 +238,8 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 
 		GetGame().GetCallqueue().CallLater(Teleport, FADE_OUT_BUFFER, false);
 	}
+	
+	
 
 	protected void Teleport()
 	{

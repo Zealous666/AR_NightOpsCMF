@@ -1,0 +1,9 @@
+SCR_Position {
+ ID "598EB68B9C87D116"
+ components {
+  Hierarchy "{598EB68B0CE2D459}" {
+  }
+ }
+ coords -109.129 0.47 -18.256
+ angleY 84.224
+}

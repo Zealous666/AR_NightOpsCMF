@@ -1,8 +1,8 @@
 Layer default {
  Index 0
 }
-Layer comments {
- Index 6
+Layer MissionTrigger {
+ Index 1
 }
 Layer initialization {
  Index 2
