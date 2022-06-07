@@ -1,0 +1,82 @@
+StaticModelEntity : "{1A1020205E2B1710}Prefabs/Props/Military/Furniture/TableMilitary_USSR_01.et" {
+ ID "5272E314F01B2DBE"
+ components {
+  RigidBody "{5872F0EB7DFB5A9D}" {
+   ResponseIndex "MediumDestructible"
+  }
+  RplComponent "{5624A88DC2D9928D}" {
+  }
+ }
+ coords 261.037 10 242.542
+ angleY 0
+ {
+  GenericEntity RadioGaGa : "{34736979381CA219}Prefabs/Props/Military/Radios/RadioStation_ANGRC160_01.et" {
+   ID "598EEDAD218BC139"
+   components {
+    NO_SCR_MissionSelectionManagerComponent "{598EB036FD9E2328}" {
+    }
+    ActionsManagerComponent "{598EB02014ED6ED6}" {
+     ActionContexts {
+      UserActionContext "{598EB021DF5CF839}" {
+       ContextName "default"
+       Position PointInfo "{598EB021F0D80E21}" {
+       }
+       Radius 1.5
+       Omnidirectional 0
+      }
+     }
+     additionalActions {
+      NO_SCR_MissionSelectionAction "{598EB036CA9BA425}" {
+       ParentContextList {
+        "default"
+       }
+       UIInfo UIInfo "{598EB036D1E1B023}" {
+        Name "Start Mission A"
+        Description "Mission A"
+       }
+       Duration 3
+      }
+      NO_SCR_MissionSelectionAction "{598EB03CE15675FA}" {
+       ParentContextList {
+        "default"
+       }
+       UIInfo UIInfo "{598EB03CF1A706B5}" {
+        Name "Start Mission B"
+        Description "Mission B"
+       }
+       Duration 3
+       "Sort Priority" 1
+      }
+      NO_SCR_MissionSelectionAction "{598EB03CE2E1EDB1}" {
+       ParentContextList {
+        "default"
+       }
+       UIInfo UIInfo "{598EB03CFD2979F9}" {
+        Name "Start Mission C"
+        Description "Mission C"
+       }
+       Duration 3
+       "Sort Priority" 2
+      }
+      NO_SCR_MissionSelectionAction "{598EED93BAD3DBD2}" {
+       ParentContextList {
+        "default"
+       }
+       UIInfo UIInfo "{598EED934028D206}" {
+        Name "RESET STATE"
+        Description "Resets the mission states back to default!"
+       }
+       Duration 7
+       "Sort Priority" 100
+       m_bIsResetAction 1
+      }
+     }
+    }
+    RplComponent "{5624A88DC2D9928D}" {
+     Enabled 1
+    }
+   }
+   coords 0 0.899 0.208
+  }
+ }
+}
