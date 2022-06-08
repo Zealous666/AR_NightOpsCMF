@@ -12,44 +12,53 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 
 	// -------------------------------------------------------
 
-	[Attribute(defvalue: "0", desc: "If enabled, will teleport all players to location below.", category: "TELEPORT")]
+	[Attribute("0", UIWidgets.CheckBox, desc: "If enabled, will teleport all players to child SCR_Position's picked at random.", category: "TELEPORT")]
 	protected bool m_bEnableTeleport;
 
-	[Attribute("", UIWidgets.EditBox, desc: "World position for the players to move to.", category: "TELEPORT", params: "inf inf 0 0 purposeCoords spaceWorld")]
-	protected vector m_vMovePosition;
-
-	[Attribute("3.0", UIWidgets.Slider, desc: "Max distance from said position.", category: "TELEPORT", params: "0 1000 0.01")]
-	protected float m_fRadius;
+	[Attribute("3.0", UIWidgets.Slider, desc: "How far should we look for a safe spot from chosen position.", category: "TELEPORT", params: "0 1000 0.01")]
+	protected float m_fSafetyRadius;
 
 	// -------------------------------------------------------
 
-	[Attribute("", UIWidgets.EditBox, desc: "Name of NO_SpawnTriggers to execute.", category: "MISSION SETUP")]
+	[Attribute("0", UIWidgets.CheckBox, desc: "If enabled, mission trigger will not disable after first firing!", category: "MISSION CHANGES")]
+	protected bool m_bIsRepeatable;
+
+	[Attribute("", UIWidgets.EditBox, desc: "Name of NO_SpawnTriggers to spawn.", category: "MISSION CHANGES")]
 	protected ref array<string> m_sNOSpawnTriggerNames;
 
-	[Attribute("", UIWidgets.EditBox, desc: "Name of a SCR_BaseTask to finish.", category: "MISSION SETUP")]
-	protected ref array<string> m_sFinishTaskNames;
+	[Attribute("", UIWidgets.EditBox, desc: "Name of NO_SpawnTriggers to despawn.", category: "MISSION CHANGES")]
+	protected ref array<string> m_sNODespawnTriggerNames;
 
-	[Attribute("", UIWidgets.EditBox, desc: "Name of a SCR_BaseTask to unlock.", category: "MISSION SETUP")]
-	protected ref array<string> m_sUnlockTaskKeys;
-
-	[Attribute("", UIWidgets.EditBox, desc: "Name of a waypoint location to move the waypoint marker.", category: "MISSION SETUP")]
-	protected string m_sWaypointLocationName;
-
-	[Attribute(desc: "Spawnpoint changes to make.", category: "MISSION SETUP")]
+	[Attribute(desc: "Spawnpoint changes to make.", category: "MISSION CHANGES")]
 	protected ref array<ref NO_SCR_SpawnpointChangeEntry> m_aSpawnpointChanges;
 
-	[Attribute(desc: "Time/weather changes to make.", category: "MISSION SETUP")]
+	[Attribute("", UIWidgets.EditBox, desc: "Name of a SCR_BaseTask to finish.", category: "MISSION CHANGES")]
+	protected ref array<string> m_sFinishTaskNames;
+
+	[Attribute("", UIWidgets.EditBox, desc: "Name of a SCR_BaseTask to unlock.", category: "MISSION CHANGES")]
+	protected ref array<string> m_sUnlockTaskKeys;
+
+	[Attribute("", UIWidgets.EditBox, desc: "Name of an entity with a MissionSelectionManagerComponent.", category: "MISSION CHANGES")]
+	protected string m_sMissionSelectionManagerName;
+
+	[Attribute("", UIWidgets.EditBox, desc: "Name of MissionSelectionAction's to end on the manager above.", category: "MISSION CHANGES")]
+	protected ref array<string> m_aEndMissionSelections;
+
+	[Attribute("", UIWidgets.EditBox, desc: "Name of a waypoint location to move the waypoint marker.", category: "MISSION CHANGES")]
+	protected string m_sWaypointLocationName;
+
+	[Attribute(desc: "Time/weather changes to make.", category: "MISSION CHANGES")]
 	protected ref NO_SCR_ForceTimeAndWeatherEntry m_pChangeTimeAndWeather;
 
 	// -------------------------------------------------------
 
-	[Attribute(defvalue: "0", desc: "End game on trigger activation!", category: "MISSION END")]
+	[Attribute("0", UIWidgets.CheckBox, desc: "End game on trigger activation!", category: "GAME OVER")]
 	protected bool m_bEnableGameOver;
 
-	[Attribute(defvalue: "EDITOR_FACTION_VICTORY", UIWidgets.ComboBox, desc: "Customize these on SCR_GameOverScreenManagerComponent on SCR_BaseGameMode.", category: "MISSION END", enums: ParamEnumArray.FromEnum(ESupportedEndReasons))]
+	[Attribute("EDITOR_FACTION_VICTORY", UIWidgets.ComboBox, desc: "Customize these on SCR_GameOverScreenManagerComponent on SCR_BaseGameMode.", category: "GAME OVER", enums: ParamEnumArray.FromEnum(ESupportedEndReasons))]
 	protected int m_iGameOverType;
 
-	[Attribute("US", UIWidgets.EditBox, desc: "Key of winning faction, or player faction if draw.", category: "MISSION END")]
+	[Attribute("US", UIWidgets.EditBox, desc: "Key of winning faction, or player faction if draw.", category: "GAME OVER")]
 	protected string m_sWinningFactionKey;
 
 	// -------------------------------------------------------
@@ -97,18 +106,27 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 		if (m_pRplComponent.IsMaster())
 		{
 			NOSpawn();
+			NODespawn();
+
+			MakeSpawnpointChanges();
 
 			FinishTask();
 			UnlockTask();
 			UpdateWaypoint();
 
-			MakeSpawnpointChanges();
+			EndMissionSelections();
 
 			MovePlayers();
 
 			GetGame().GetCallqueue().CallLater(ChangeTimeWeather, FADE_OUT_BUFFER + 50, false);
 
 			GameOver();
+		}
+
+		if (!m_bIsRepeatable)
+		{
+			SetActive(false);
+			Deactivate();
 		}
 	}
 
@@ -128,6 +146,26 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 		}
 		#else
 		if (!m_sNOSpawnTriggerNames.IsEmpty())
+			Print("Missing 'NightOps - DynamicSpawnFramework' dependency!", LogLevel.ERROR);
+		#endif
+	}
+
+
+	protected void NODespawn()
+	{
+		#ifdef HAS_DYNAMIC_SPAWN_DEPENDENCY
+		foreach(string despawnTriggerName : m_sNODespawnTriggerNames)
+		{
+			if (despawnTriggerName.IsEmpty())
+				continue;
+
+			NO_SCR_SpawnTrigger despawnTrigger = NO_SCR_SpawnTrigger.Cast(GetGame().GetWorld().FindEntityByName(despawnTriggerName));
+
+			if (despawnTrigger)
+				despawnTrigger.Despawn();
+		}
+		#else
+		if (!m_sNODespawnTriggerNames.IsEmpty())
 			Print("Missing 'NightOps - DynamicSpawnFramework' dependency!", LogLevel.ERROR);
 		#endif
 	}
@@ -208,6 +246,30 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 	}
 
 
+	protected void EndMissionSelections()
+	{
+		if (m_sMissionSelectionManagerName.IsEmpty() || m_aEndMissionSelections.IsEmpty())
+			return;
+
+		IEntity entity = GetGame().GetWorld().FindEntityByName(m_sMissionSelectionManagerName);
+		if (!entity)
+		{
+			Print("MissionSelectionManager Not Found: " + m_sMissionSelectionManagerName, LogLevel.ERROR);
+			return;
+		}
+
+		NO_SCR_MissionSelectionManagerComponent missionSelectionManager = NO_SCR_MissionSelectionManagerComponent.Cast(entity.FindComponent(NO_SCR_MissionSelectionManagerComponent));
+		if (!missionSelectionManager)
+			return;
+
+		foreach (string missionSelectionName : m_aEndMissionSelections)
+		{
+			if (!missionSelectionManager.EndMission(missionSelectionName))
+				Print("EndMissionSelection Name Not Found: " + missionSelectionName, LogLevel.ERROR);
+		}
+	}
+
+
 	protected void ChangeTimeWeather()
 	{
 		if (!m_pChangeTimeAndWeather)
@@ -234,47 +296,40 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 	[RplRpc(RplChannel.Reliable, RplRcver.Broadcast)]
 	void RpcDo_Teleport()
 	{
+		// No teleport positions available
+		if (m_aChildPositions.IsEmpty())
+			return;
+
+		// Pick from available positions
+		SCR_Position positionEntity = m_aChildPositions.GetRandomElement();
+		if (!positionEntity)
+			return;
+
 		BlackoutEffect(true, 4.45);
 
-		GetGame().GetCallqueue().CallLater(Teleport, FADE_OUT_BUFFER, false);
+		// Delay for fadeout
+		GetGame().GetCallqueue().CallLater(Teleport, FADE_OUT_BUFFER, false, positionEntity);
 	}
-	
-	
 
-	protected void Teleport()
+
+	protected void Teleport(notnull SCR_Position positionEntity)
 	{
 		BlackoutEffect(true, 10);
 
-
-		vector suggestedPostion;
-		vector rotation;
-
-		// Work out which positions to use
-		if (m_aChildPositions.IsEmpty())
-		{
-			suggestedPostion = m_vMovePosition;
-		}
-		else
-		{
-			SCR_Position positionEntity = m_aChildPositions.GetRandomElement();
-
-			suggestedPostion = positionEntity.GetOrigin();
-			rotation = positionEntity.GetAngles();
-		}
+		vector suggestedPostion = positionEntity.GetOrigin();
+		vector rotation = positionEntity.GetAngles();
 
 		// Rotate the player
 		IEntity player = SCR_PlayerController.GetLocalControlledEntity();
-
-		if (player && rotation)
+		if (player)
 			player.SetAngles(rotation);
 
 		// Make sure the suggested position is safe
 		vector foundPosition;
-		SCR_WorldTools.FindEmptyTerrainPosition(foundPosition, suggestedPostion, m_fRadius);
+		SCR_WorldTools.FindEmptyTerrainPosition(foundPosition, suggestedPostion, m_fSafetyRadius);
 
 		// Teleport there
 		SCR_Global.TeleportPlayer(foundPosition);
-
 
 		BlackoutEffect(false);
 	}

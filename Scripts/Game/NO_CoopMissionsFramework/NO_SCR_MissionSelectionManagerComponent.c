@@ -88,10 +88,10 @@ class NO_SCR_MissionSelectionManagerComponent : ScriptComponent
 	}
 
 
-	void EndMission(string missionSelectionName = "")
+	bool EndMission(string missionSelectionName = "")
 	{
 		if (!m_pMissionSelectionContainer.GetMissionSelections().Contains(missionSelectionName))
-			return;
+			return false;
 
 		foreach (string selectionKey, NO_SCR_MissionSelectionData selectionData : m_pMissionSelectionContainer.GetMissionSelections())
 		{
@@ -110,6 +110,7 @@ class NO_SCR_MissionSelectionManagerComponent : ScriptComponent
 			m_pMissionSelectionContainer.SaveState(m_sSaveFileName);
 
 		m_bInDefaultState = false;
+		return true;
 	}
 
 
