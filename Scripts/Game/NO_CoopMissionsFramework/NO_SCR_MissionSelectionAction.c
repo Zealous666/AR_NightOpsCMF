@@ -1,9 +1,14 @@
 class NO_SCR_MissionSelectionAction : ScriptedUserAction
 {
+	[Attribute("", UIWidgets.EditBox, desc: "Text show when mission is active!")]
+	protected string m_sOnMissionText;
+
 	[Attribute("0", UIWidgets.CheckBox, desc: "Creates a special action that can reset the mission states!")]
 	protected bool m_bIsResetAction;
 
+
 	protected NO_SCR_MissionSelectionManagerComponent m_pMissionSelectionManagerComponent;
+
 
 	override event void Init(IEntity pOwnerEntity, GenericComponent pManagerComponent)
 	{
@@ -22,6 +27,7 @@ class NO_SCR_MissionSelectionAction : ScriptedUserAction
 		}
 	}
 
+
 	override event bool CanBePerformedScript(IEntity user)
 	{
 		if (!m_pMissionSelectionManagerComponent)
@@ -32,6 +38,7 @@ class NO_SCR_MissionSelectionAction : ScriptedUserAction
 
 		return m_pMissionSelectionManagerComponent.IsActionPerformable(this);
 	}
+
 
 	override event bool CanBeShownScript(IEntity user)
 	{
@@ -44,14 +51,24 @@ class NO_SCR_MissionSelectionAction : ScriptedUserAction
 			return m_pMissionSelectionManagerComponent.IsActionShowable(this);
 	}
 
+
 	override event bool GetActionNameScript(out string outName)
 	{
-		if (m_pMissionSelectionManagerComponent)
-			return false;
+		if (!m_pMissionSelectionManagerComponent)
+		{
+			outName = "Missing MissionSelectionManagerComponent!";
+			return true;
+		}
 
-		outName = "Missing MissionSelectionManagerComponent!";
-		return true;
+		if (m_bIsResetAction)
+		{
+			outName = " %CTX_HACK%RESET ";
+			return true;
+		}
+
+		return false;
 	}
+
 
 	override event void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity)
 	{
@@ -61,6 +78,11 @@ class NO_SCR_MissionSelectionAction : ScriptedUserAction
 		if (m_bIsResetAction)
 			m_pMissionSelectionManagerComponent.ResetState();
 		else
+		{
 			m_pMissionSelectionManagerComponent.StartMission(this);
+
+			if (!m_sOnMissionText.IsEmpty())
+				SetCannotPerformReason(m_sOnMissionText);
+		}
 	}
 }
