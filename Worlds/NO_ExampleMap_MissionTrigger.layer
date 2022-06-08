@@ -33,16 +33,117 @@ $grp CommentEntity {
 NO_SCR_MissionTrigger : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/MissionTrigger.et" {
  coords 287.574 10.001 113.712
  m_bEnableTeleport 1
- m_vMovePosition 435.494 14.2 100.81
+ m_sMissionSelectionManagerName "RadioGaGa"
+ m_aEndMissionSelections {
+  "Start Mission A" "Start Mission B"
+ }
  {
   $grp SCR_Position : "{68C0C31F6FAD7C2E}Prefabs/MP/NO_MissionTriggerPortPos.et" {
    {
-    coords -34.645 0.626 6.669
-    angleY 89.762
+    coords 28.346 -0.001 6.07
+    angleY -90
    }
    {
-    coords 30.422 0.351 4.834
-    angleY -105.507
+    coords -32.227 -0.001 3.577
+    angleY 90
+   }
+  }
+ }
+}
+$grp SCR_BaseTriggerEntity : "{5BB84B3E6A0B46C5}Prefabs/MP/Triggers/CoopTrigger_Base.et" {
+ TriggerC {
+  coords 263.512 10.357 132.923
+  angleY 146.438
+  SphereRadius 1.5
+  DrawShape 1
+  ClassFilter "ChimeraCharacter"
+  OnActivate ""\
+  "		IEntity entC = GetGame().FindEntity(\"RadioGaGa\");"\
+  "		if (!entC) return;"\
+  "		"\
+  "		NO_SCR_MissionSelectionManagerComponent missionSelectionManager = NO_SCR_MissionSelectionManagerComponent.Cast(entC.FindComponent(NO_SCR_MissionSelectionManagerComponent));"\
+  "		if (!missionSelectionManager) return;"\
+  "		"\
+  "		missionSelectionManager.EndMission(\"Start Mission C\");"\
+  "	"
+  {
+   CommentEntity {
+    coords 0 1.969 0
+    m_Comment "C"
+    m_ScaleByDistance 1
+    m_FaceCamera 1
+    m_VisibleOverall 1
+    m_VisibleIngame 1
+   }
+  }
+ }
+ TriggerB {
+  coords 265.242 10.357 130.224
+  angleY 146.438
+  SphereRadius 1.5
+  DrawShape 1
+  ClassFilter "ChimeraCharacter"
+  OnActivate ""\
+  "		IEntity entB = GetGame().FindEntity(\"RadioGaGa\");"\
+  "		if (!entB) return;"\
+  "		"\
+  "		NO_SCR_MissionSelectionManagerComponent missionSelectionManager = NO_SCR_MissionSelectionManagerComponent.Cast(entB.FindComponent(NO_SCR_MissionSelectionManagerComponent));"\
+  "		if (!missionSelectionManager) return;"\
+  "		"\
+  "		missionSelectionManager.EndMission(\"Start Mission B\");"\
+  "	"
+  {
+   CommentEntity {
+    coords 0 1.969 0
+    m_Comment "B"
+    m_ScaleByDistance 1
+    m_FaceCamera 1
+    m_VisibleOverall 1
+    m_VisibleIngame 1
+   }
+  }
+ }
+ TriggerA {
+  coords 267.325 10.357 127.699
+  angleY 146.438
+  SphereRadius 1.5
+  DrawShape 1
+  ClassFilter "ChimeraCharacter"
+  OnActivate ""\
+  "		IEntity entA = GetGame().FindEntity(\"RadioGaGa\");"\
+  "		if (!entA) return;"\
+  "		"\
+  "		NO_SCR_MissionSelectionManagerComponent missionSelectionManager = NO_SCR_MissionSelectionManagerComponent.Cast(entA.FindComponent(NO_SCR_MissionSelectionManagerComponent));"\
+  "		if (!missionSelectionManager) return;"\
+  "		"\
+  "		missionSelectionManager.EndMission(\"Start Mission A\");"\
+  "	"
+  {
+   CommentEntity {
+    coords 0 1.969 0
+    m_Comment "A"
+    m_ScaleByDistance 1
+    m_FaceCamera 1
+    m_VisibleOverall 1
+    m_VisibleIngame 1
+   }
+  }
+ }
+}
+StaticModelEntity : "{D5C135A797D4D7FC}Prefabs/SelectorRadio.et" {
+ components {
+  RplComponent "{5624A88DC2D9928D}" {
+  }
+ }
+ coords 271.419 10 128.246
+ angleY 29.782
+ {
+  GenericEntity RadioGaGa {
+   ID "598EEDAD218BC139"
+   components {
+    RplComponent "{5624A88DC2D9928D}" {
+     Streamable Disabled
+    }
    }
   }
  }
