@@ -12,6 +12,15 @@ class NO_SCR_MissionSelectionManagerComponent : ScriptComponent
 	[Attribute("0", UIWidgets.CheckBox,  desc: "Hide the active mission, or show it greyed out with the option to set custom mission text on the actions 'On Mission Text'")]
 	protected bool m_bHideActiveMission;
 
+	[Attribute("0", UIWidgets.CheckBox, desc: "End game on all mission selections complete!", category: "GAME OVER")]
+	protected bool m_bEnableGameOver;
+
+	[Attribute("EDITOR_FACTION_VICTORY", UIWidgets.ComboBox, desc: "Customize these on SCR_GameOverScreenManagerComponent on SCR_BaseGameMode.", category: "GAME OVER", enums: ParamEnumArray.FromEnum(ESupportedEndReasons))]
+	protected int m_iGameOverType;
+
+	[Attribute("US", UIWidgets.EditBox, desc: "Key of winning faction, or player faction if draw.", category: "GAME OVER")]
+	protected string m_sWinningFactionKey;
+
 
 	// Member variables
 	protected ref NO_SCR_MissionSelectionPersistence m_pMissionSelectionPersistence;
@@ -172,7 +181,12 @@ class NO_SCR_MissionSelectionManagerComponent : ScriptComponent
 
 				// But only authority will keep a persistent track of it
 				if (m_pRplComponent.Role() == RplRole.Authority)
+				{
 					m_pMissionSelectionPersistence.AddCompletedMission(selectionActionName);
+
+					if (AreAllMissionsComplete())
+						GameOver();
+				}
 			}
 			else
 				if (!actionState.IsComplete())
@@ -227,6 +241,40 @@ class NO_SCR_MissionSelectionManagerComponent : ScriptComponent
 	{
 		if (!m_sSaveFileName.IsEmpty())
 			m_pMissionSelectionPersistence.SaveState(m_sSaveFileName);
+	}
+
+
+	protected bool AreAllMissionsComplete()
+	{
+		foreach (int actionNameHash, NO_SCR_MissionSelectionActionState actionState : m_mMissionSelections)
+		{
+			if (!actionState.IsComplete())
+				return false;
+		}
+		return true;
+	}
+
+
+	protected void GameOver()
+	{
+		if (m_pRplComponent.Role() == RplRole.Proxy)
+			return;
+
+		if (!m_bEnableGameOver)
+			return;
+
+		SCR_BaseGameMode gameMode = SCR_BaseGameMode.Cast(GetGame().GetGameMode());
+		if (!gameMode)
+			return;
+
+		Faction winningFaction = GetGame().GetFactionManager().GetFactionByKey(m_sWinningFactionKey);
+		if (!winningFaction)
+			return;
+
+		int winningFactionIndex = GetGame().GetFactionManager().GetFactionIndex(winningFaction);
+
+		if (winningFactionIndex != -1)
+			gameMode.EndGameMode(SCR_GameModeEndData.CreateSimple(m_iGameOverType, -1, winningFactionIndex));
 	}
 
 
