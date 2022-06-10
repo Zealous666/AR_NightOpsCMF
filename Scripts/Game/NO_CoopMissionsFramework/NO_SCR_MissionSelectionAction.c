@@ -6,14 +6,18 @@ class NO_SCR_MissionSelectionAction : ScriptedUserAction
 	[Attribute("0", UIWidgets.CheckBox, desc: "Creates a special action that can reset the mission states!")]
 	protected bool m_bIsResetAction;
 
-
 	protected NO_SCR_MissionSelectionManagerComponent m_pMissionSelectionManagerComponent;
 
 
+	// Initialisation, runs everywhere
 	override event void Init(IEntity pOwnerEntity, GenericComponent pManagerComponent)
 	{
-		m_pMissionSelectionManagerComponent = NO_SCR_MissionSelectionManagerComponent.Cast(pOwnerEntity.FindComponent(NO_SCR_MissionSelectionManagerComponent));
+		super.Init(pOwnerEntity, pManagerComponent);
 
+		if (!GetGame().InPlayMode())
+			return;
+
+		m_pMissionSelectionManagerComponent = NO_SCR_MissionSelectionManagerComponent.Cast(pOwnerEntity.FindComponent(NO_SCR_MissionSelectionManagerComponent));
 		if (!m_pMissionSelectionManagerComponent)
 		{
 			Print("Attemping to use a MissionSelectionAction without a MissionSelectionManagerComponent!", LogLevel.ERROR);
@@ -22,12 +26,21 @@ class NO_SCR_MissionSelectionAction : ScriptedUserAction
 
 		if (!m_bIsResetAction)
 		{
-			m_pMissionSelectionManagerComponent.AddMissionSelectionAction(this);
 			SetCannotPerformReason("Finish current mission!");
+
+			// Handled on next frame so that the component can also init
+			GetGame().GetCallqueue().Call(AddActionToManager);
 		}
 	}
 
 
+	protected void AddActionToManager()
+	{
+		m_pMissionSelectionManagerComponent.AddMissionSelectionAction(this);
+	}
+
+
+	// Asks manager component if this action can currently be performed
 	override event bool CanBePerformedScript(IEntity user)
 	{
 		if (!m_pMissionSelectionManagerComponent)
@@ -40,6 +53,7 @@ class NO_SCR_MissionSelectionAction : ScriptedUserAction
 	}
 
 
+	// Asks manager component if this action can currently be shown
 	override event bool CanBeShownScript(IEntity user)
 	{
 		if (!m_pMissionSelectionManagerComponent)
@@ -52,6 +66,7 @@ class NO_SCR_MissionSelectionAction : ScriptedUserAction
 	}
 
 
+	// Action name override for specific cases
 	override event bool GetActionNameScript(out string outName)
 	{
 		if (!m_pMissionSelectionManagerComponent)
@@ -69,7 +84,7 @@ class NO_SCR_MissionSelectionAction : ScriptedUserAction
 		return false;
 	}
 
-
+	// Peforms the action, runs everywhere by default
 	override event void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity)
 	{
 		if (!m_pMissionSelectionManagerComponent)

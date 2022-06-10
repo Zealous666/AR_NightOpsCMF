@@ -251,6 +251,14 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 		if (m_sMissionSelectionManagerName.IsEmpty() || m_aEndMissionSelections.IsEmpty())
 			return;
 
+		Rpc(RpcDo_EndMissionSelections);
+		RpcDo_EndMissionSelections();
+	}
+
+
+	[RplRpc(RplChannel.Reliable, RplRcver.Broadcast)]
+	void RpcDo_EndMissionSelections()
+	{
 		IEntity entity = GetGame().GetWorld().FindEntityByName(m_sMissionSelectionManagerName);
 		if (!entity)
 		{

@@ -5,6 +5,7 @@ class NO_SCR_MissionSelectionManagerComponentClass : ScriptComponentClass
 
 class NO_SCR_MissionSelectionManagerComponent : ScriptComponent
 {
+	// Attributes
 	[Attribute("NO_CMF_SaveFileExample.json", UIWidgets.EditBox, desc: "Filename for the save file for this mission selection manager!")]
 	protected string m_sSaveFileName;
 
@@ -12,235 +13,303 @@ class NO_SCR_MissionSelectionManagerComponent : ScriptComponent
 	protected bool m_bHideActiveMission;
 
 
-	protected ref NO_SCR_MissionSelectionContainer m_pMissionSelectionContainer = new NO_SCR_MissionSelectionContainer();
+	// Member variables
+	protected ref NO_SCR_MissionSelectionPersistence m_pMissionSelectionPersistence;
 
+	protected RplComponent m_pRplComponent;
+
+
+	// Synced variables (MissionSelections is handled by RplSave/RplLoad methods (bottom of class) since map is an unsupported prop type)
+	protected ref map<int, ref NO_SCR_MissionSelectionActionState> m_mMissionSelections;
+
+	[RplProp()]
 	protected bool m_bInDefaultState = true;
 
 
-	/*
+	protected void SetDefaultState(bool state)
+	{
+		if (m_bInDefaultState != state)
+		{
+			m_bInDefaultState = state;
+			Replication.BumpMe();
+		}
+	}
+
+
 	override void OnPostInit(IEntity owner)
 	{
 		SetEventMask(owner, EntityEvent.INIT);
 	}
+
+
 	override void EOnInit(IEntity owner)
 	{
+		if (!GetGame().InPlayMode())
+			return;
+
+		m_mMissionSelections = new ref map<int, ref NO_SCR_MissionSelectionActionState>;
+
+		m_pRplComponent = RplComponent.Cast(owner.FindComponent(RplComponent));
+		if (!m_pRplComponent)
+		{
+			Print("NO_SCR_MissionSelectionManagerComponent requires an RplComponent on the same entity!", LogLevel.ERROR);
+			return;
+		}
+
+		// Authority only beyond this point
+		if (m_pRplComponent.Role() == RplRole.Proxy)
+			return;
+
+		SetDefaultState(true);
+
+		// Get previous state from disk if available
+		m_pMissionSelectionPersistence = new NO_SCR_MissionSelectionPersistence();
+		ReloadState();
 	}
-	void NO_SCR_MissionSelectionManagerComponent(IEntityComponentSource src, IEntity ent, IEntity parent)
-	{
-	}
-	void ~NO_SCR_MissionSelectionManagerComponent()
-	{
-	}
-	*/
 
 
-	void AddMissionSelectionAction(notnull NO_SCR_MissionSelectionAction missionSelection)
+	protected int GetActionNameHash(notnull NO_SCR_MissionSelectionAction selectionAction)
 	{
-		m_pMissionSelectionContainer.AddMissionSelection(missionSelection.GetActionName());
+		return selectionAction.GetActionName().Hash();
 	}
 
 
-	bool IsActionPerformable(notnull NO_SCR_MissionSelectionAction selection)
+	// Helper method for retreaving ActionState objects from map
+	protected NO_SCR_MissionSelectionActionState FindMissionSelection(int selectionActionNameHash)
 	{
-		NO_SCR_MissionSelectionData missionSelectionData = m_pMissionSelectionContainer.FindMissionSelection(selection.GetActionName());
+		NO_SCR_MissionSelectionActionState actionState;
+		m_mMissionSelections.Find(selectionActionNameHash, actionState);
+		return actionState;
+	}
 
-		if (missionSelectionData)
-			return missionSelectionData.CanPerform();
+
+	// Adding the missions to the map on initialisation
+	void AddMissionSelectionAction(notnull NO_SCR_MissionSelectionAction selectionAction)
+	{
+		// Only the authority does this as clients get potentially updated copies through RplSave/RplLoad
+		if (m_pRplComponent.Role() == RplRole.Proxy)
+			return;
+
+		string selectionActionName = selectionAction.GetActionName();
+		int selectionActionNameHash = selectionActionName.Hash();
+
+		// Checks if a mission has previously been completed according to persistence object
+		// If so, its still added but in a completed state
+		if (m_pMissionSelectionPersistence.GetCompletedMissions().Contains(selectionActionName))
+		{
+			m_mMissionSelections.Insert(selectionActionNameHash, new NO_SCR_MissionSelectionActionState(true));
+			SetDefaultState(false);
+		}
+		else
+			m_mMissionSelections.Insert(selectionActionNameHash, new NO_SCR_MissionSelectionActionState());
+	}
+
+
+	// For clients action UI (is a given missionSelection performable)
+	bool IsActionPerformable(notnull NO_SCR_MissionSelectionAction selectionAction)
+	{
+		NO_SCR_MissionSelectionActionState actionState = FindMissionSelection(GetActionNameHash(selectionAction));
+
+		if (actionState)
+			return actionState.CanPerform();
 
 		return false;
 	}
 
 
-	bool IsActionShowable(notnull NO_SCR_MissionSelectionAction selection)
+	// For clients action UI (is a given missionSelection shown)
+	bool IsActionShowable(notnull NO_SCR_MissionSelectionAction selectionAction)
 	{
-		NO_SCR_MissionSelectionData missionSelectionData = m_pMissionSelectionContainer.FindMissionSelection(selection.GetActionName());
+		NO_SCR_MissionSelectionActionState actionState = FindMissionSelection(GetActionNameHash(selectionAction));
 
-		if (missionSelectionData)
-			return missionSelectionData.CanShow();
+		if (actionState)
+			return actionState.CanShow();
 
 		return false;
 	}
 
 
-	void StartMission(notnull NO_SCR_MissionSelectionAction missionSelection)
-	{
-		string missionSelectionName =  missionSelection.GetActionName();
-
-		foreach (string selectionKey, NO_SCR_MissionSelectionData selectionData : m_pMissionSelectionContainer.GetMissionSelections())
-		{
-			if (selectionKey == missionSelectionName)
-			{
-				selectionData.SetPerfomable(false);
-
-				if (m_bHideActiveMission)
-					selectionData.SetShowable(false);
-
-				m_pMissionSelectionContainer.SetCurrentMission(missionSelectionName);
-			}
-			else
-			{
-				selectionData.SetPerfomable(false);
-			}
-		}
-
-		if (!m_sSaveFileName.IsEmpty())
-			m_pMissionSelectionContainer.SaveState(m_sSaveFileName);
-	}
-
-
-	bool EndMission(string missionSelectionName = "")
-	{
-		if (!m_pMissionSelectionContainer.GetMissionSelections().Contains(missionSelectionName))
-			return false;
-
-		foreach (string selectionKey, NO_SCR_MissionSelectionData selectionData : m_pMissionSelectionContainer.GetMissionSelections())
-		{
-			if (selectionKey == missionSelectionName)
-			{
-				selectionData.SetComplete(true);
-				selectionData.SetShowable(false);
-				m_pMissionSelectionContainer.SetCurrentMission(string.Empty);
-			}
-			else
-				if (!selectionData.IsComplete())
-					selectionData.SetPerfomable(true);
-		}
-
-		if (!m_sSaveFileName.IsEmpty())
-			m_pMissionSelectionContainer.SaveState(m_sSaveFileName);
-
-		m_bInDefaultState = false;
-		return true;
-	}
-
-
+	// For clients action UI (is reset action shown)
 	bool CanReset()
 	{
 		return !m_bInDefaultState;
 	}
 
 
-	void ResetState()
+	void StartMission(notnull NO_SCR_MissionSelectionAction selectionAction)
 	{
-		foreach (string selectionKey, NO_SCR_MissionSelectionData selectionData : m_pMissionSelectionContainer.GetMissionSelections())
+		int selectionActionNameHash = GetActionNameHash(selectionAction);
+
+		// All machines start their copy of this missionSelection
+		foreach (int actionNameHash, NO_SCR_MissionSelectionActionState actionState : m_mMissionSelections)
 		{
-			selectionData.SetComplete(false);
-			selectionData.SetPerfomable(true);
-			selectionData.SetShowable(true);
+			if (actionNameHash == selectionActionNameHash)
+			{
+				actionState.SetPerfomable(false);
+
+				if (m_bHideActiveMission)
+					actionState.SetShowable(false);
+			}
+			else
+				actionState.SetPerfomable(false);
+		}
+	}
+
+
+	bool EndMission(string selectionActionName = string.Empty)
+	{
+		int selectionActionNameHash = selectionActionName.Hash();
+
+		if (!m_mMissionSelections.Contains(selectionActionNameHash))
+			return false;
+
+		// All machines will end their copy of this missionSelection
+		foreach (int actionNameHash, NO_SCR_MissionSelectionActionState actionState : m_mMissionSelections)
+		{
+			if (actionNameHash == selectionActionNameHash)
+			{
+				actionState.SetComplete(true);
+
+				// But only authority will keep a persistent track of it
+				if (m_pRplComponent.Role() == RplRole.Authority)
+					m_pMissionSelectionPersistence.AddCompletedMission(selectionActionName);
+			}
+			else
+				if (!actionState.IsComplete())
+					actionState.SetPerfomable(true);
 		}
 
-		m_pMissionSelectionContainer.SetCurrentMission(string.Empty);
+		// Authority state update
+		if (m_pRplComponent.Role() == RplRole.Authority)
+		{
+			PersistState();
+			SetDefaultState(false);
+		}
 
-		if (!m_sSaveFileName.IsEmpty())
-			m_pMissionSelectionContainer.SaveState(m_sSaveFileName);
+		return true;
+	}
 
-		m_bInDefaultState = true;
 
+	void ResetState()
+	{
+		foreach (int actionNameHash, NO_SCR_MissionSelectionActionState actionState : m_mMissionSelections)
+			actionState.SetComplete(false);
+
+		// Clients should not be saving persistent progress
+		if (m_pRplComponent.Role() == RplRole.Proxy)
+			return;
+
+		m_pMissionSelectionPersistence.ResetCompletedMissions();
+		PersistState();
+
+		SetDefaultState(true);
+
+		// Attempts to reload the current scenario to reset world state
 		SCR_MissionHeader currentMissionHeader = SCR_MissionHeader.Cast(GetGame().GetMissionHeader());
 		if (currentMissionHeader)
 			GetGame().PlayMission(currentMissionHeader);
 	}
+
+
+	protected void ReloadState()
+	{
+		if (m_sSaveFileName.IsEmpty())
+			return;
+
+		if(m_pMissionSelectionPersistence.LoadState(m_sSaveFileName))
+			Print("Save file loaded!", LogLevel.NORMAL);
+		else
+			Print("Save file not found!", LogLevel.WARNING);
+	}
+
+
+	protected void PersistState()
+	{
+		if (!m_sSaveFileName.IsEmpty())
+			m_pMissionSelectionPersistence.SaveState(m_sSaveFileName);
+	}
+
+
+	// Write current state for JIP clients
+	override bool RplSave(ScriptBitWriter writer)
+	{
+		// Write missionSelectionsCount
+		writer.WriteInt(m_mMissionSelections.Count());
+
+		foreach (int actionNameHash, NO_SCR_MissionSelectionActionState actionState : m_mMissionSelections)
+		{
+			// Write action name hash
+			writer.WriteInt(actionNameHash);
+
+			// Write action state
+			writer.WriteBool(actionState.CanPerform());
+			writer.WriteBool(actionState.CanShow());
+			writer.WriteBool(actionState.IsComplete());
+		}
+
+		return true;
+	}
+
+
+	// Client JIP sync
+	override bool RplLoad(ScriptBitReader reader)
+	{
+		// Read missionSelectionsCount
+		int missionSelectionsCount = 0;
+		if (!reader.ReadInt(missionSelectionsCount))
+			return false;
+
+		// For the number of MissionSelectionActions
+		for (int i = 0; i < missionSelectionsCount; i++)
+		{
+			// Read action name hash
+			int actionNameHash;
+			if (!reader.ReadInt(actionNameHash))
+				return false;
+
+			// Read action state
+			bool canPerform = false;
+			if (!reader.ReadBool(canPerform))
+				return false;
+
+			bool canShow = false;
+			if (!reader.ReadBool(canShow))
+				return false;
+
+			bool isComplete = true;
+			if (!reader.ReadBool(isComplete))
+				return false;
+
+			// Create an actionState to match actual current state
+			NO_SCR_MissionSelectionActionState actionState = new NO_SCR_MissionSelectionActionState(isComplete);
+
+			if (!isComplete)
+			{
+				actionState.SetPerfomable(canPerform);
+				actionState.SetShowable(canShow);
+			}
+
+			// Insert it to the clients initialised copy of the state map
+			m_mMissionSelections.Insert(actionNameHash, actionState);
+		}
+
+		return true;
+	}
 }
 
 
 
-class NO_SCR_MissionSelectionContainer : JsonApiStruct
+class NO_SCR_MissionSelectionActionState : Managed
 {
-	private ref map<string, ref NO_SCR_MissionSelectionData> m_mMissionSelectionsMap;
-
-	private ref array<ref NO_SCR_MissionSelectionData> m_aMissionSelectionsArray;
-
-	private string m_sCurrentMissionName;
-
-	void NO_SCR_MissionSelectionContainer()
-	{
-		RegV("m_aMissionSelectionsArray");
-		RegV("m_sCurrentMissionName");
-
-		m_mMissionSelectionsMap = new ref map<string, ref NO_SCR_MissionSelectionData>;
-		m_aMissionSelectionsArray = new ref array<ref NO_SCR_MissionSelectionData>();
-	}
-
-	protected void EstablishMap()
-	{
-		m_mMissionSelectionsMap.Clear();
-
-		foreach (NO_SCR_MissionSelectionData selectionData : m_aMissionSelectionsArray)
-			m_mMissionSelectionsMap.Insert(selectionData.GetName(), selectionData);
-	}
-
-	protected void EstablishArray()
-	{
-		m_aMissionSelectionsArray.Clear();
-
-		foreach (string selectionKey, NO_SCR_MissionSelectionData selectionData : m_mMissionSelectionsMap)
-			m_aMissionSelectionsArray.Insert(selectionData);
-	}
-
-	void SaveState(string saveName)
-	{
-		EstablishArray();
-		//PackToFile("$profile:.save/" + saveName);
-	}
-
-	void LoadState(string saveName)
-	{
-	}
-
-	map<string, ref NO_SCR_MissionSelectionData> GetMissionSelections()
-	{
-		return m_mMissionSelectionsMap;
-	}
-
-	void AddMissionSelection(string selectionActionName)
-	{
-		NO_SCR_MissionSelectionData missionSelectionData = new NO_SCR_MissionSelectionData(selectionActionName);
-		m_mMissionSelectionsMap.Insert(selectionActionName, missionSelectionData);
-	}
-
-	NO_SCR_MissionSelectionData GetCurrentMission()
-	{
-		return FindMissionSelection(m_sCurrentMissionName);
-	}
-
-	void SetCurrentMission(string currentMissionActionName)
-	{
-		m_sCurrentMissionName = currentMissionActionName;
-	}
-
-	NO_SCR_MissionSelectionData FindMissionSelection(string selectionActionName)
-	{
-		NO_SCR_MissionSelectionData missionSelectionData;
-		m_mMissionSelectionsMap.Find(selectionActionName, missionSelectionData);
-		return missionSelectionData;
-	}
-}
-
-
-
-class NO_SCR_MissionSelectionData : JsonApiStruct
-{
-	private string m_sActionName;
 	private bool m_bCanPerform;
 	private bool m_bCanShow;
 	private bool m_bIsComplete;
 
-	void NO_SCR_MissionSelectionData(string actionName)
+	void NO_SCR_MissionSelectionActionState(bool previouslyCompleted = false)
 	{
-		RegV("m_sActionName");
-		RegV("m_bCanPerform");
-		RegV("m_bCanShow");
-		RegV("m_bIsComplete");
-
-		m_sActionName = actionName;
-		m_bCanPerform = true;
-		m_bCanShow = true;
-		m_bIsComplete = false;
-	}
-
-	string GetName()
-	{
-		return m_sActionName;
+		m_bCanPerform = !previouslyCompleted;
+		m_bCanShow = !previouslyCompleted;
+		m_bIsComplete = previouslyCompleted;
 	}
 
 	bool IsComplete()
@@ -258,8 +327,10 @@ class NO_SCR_MissionSelectionData : JsonApiStruct
 		return m_bCanShow;
 	}
 
-	void SetComplete(bool state = true)
+	void SetComplete(bool state)
 	{
+		m_bCanPerform = !state;
+		m_bCanShow = !state;
 		m_bIsComplete = state;
 	}
 
@@ -271,5 +342,43 @@ class NO_SCR_MissionSelectionData : JsonApiStruct
 	void SetShowable(bool state)
 	{
 		m_bCanShow = state;
+	}
+}
+
+
+
+class NO_SCR_MissionSelectionPersistence : JsonApiStruct
+{
+	private ref array<string> m_aCompletedMissions;
+
+	void NO_SCR_MissionSelectionPersistence()
+	{
+		RegV("m_aCompletedMissions");
+		m_aCompletedMissions = new array<string>();
+	}
+
+	bool AddCompletedMission(string missionSelectionName)
+	{
+		return m_aCompletedMissions.Insert(missionSelectionName);
+	}
+
+	array<string> GetCompletedMissions()
+	{
+		return m_aCompletedMissions;
+	}
+
+	void ResetCompletedMissions()
+	{
+		m_aCompletedMissions.Clear();
+	}
+
+	bool LoadState(string saveName)
+	{
+		return LoadFromFile("$profile:.save/" + saveName);
+	}
+
+	void SaveState(string saveName)
+	{
+		PackToFile("$profile:.save/" + saveName);
 	}
 }
