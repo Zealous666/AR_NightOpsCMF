@@ -32,11 +32,11 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 	[Attribute(desc: "Spawnpoint changes to make.", category: "MISSION CHANGES")]
 	protected ref array<ref NO_SCR_SpawnpointChangeEntry> m_aSpawnpointChanges;
 
-	[Attribute("", UIWidgets.EditBox, desc: "Name of a SCR_BaseTask to finish.", category: "MISSION CHANGES")]
+	[Attribute("", UIWidgets.EditBox, desc: "Name of a NO_SCR_EditorTask to finish.", category: "MISSION CHANGES")]
 	protected ref array<string> m_sFinishTaskNames;
 
-	[Attribute("", UIWidgets.EditBox, desc: "Name of a SCR_BaseTask to unlock.", category: "MISSION CHANGES")]
-	protected ref array<string> m_sUnlockTaskKeys;
+	[Attribute("", UIWidgets.EditBox, desc: "Name of a NO_SCR_EditorTask to unlock.", category: "MISSION CHANGES")]
+	protected ref array<string> m_sUnlockTaskNames;
 
 	[Attribute("", UIWidgets.EditBox, desc: "Name of an entity with a MissionSelectionManagerComponent.", category: "MISSION CHANGES")]
 	protected string m_sMissionSelectionManagerName;
@@ -179,12 +179,12 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 			if (taskName.IsEmpty())
 				continue;
 
-			SCR_BaseTask task = SCR_BaseTask.Cast(GetGame().GetWorld().FindEntityByName(taskName));
+			NO_SCR_EditorTask task = NO_SCR_EditorTask.Cast(GetGame().GetWorld().FindEntityByName(taskName));
 
 			if (!task)
 				continue;
 
-			GetTaskManager().FinishTask(task);
+			task.ChangeStateOfTask(TriggerType.Finish);
 		}
 		#else
 		if (!m_sFinishTaskNames.IsEmpty())
@@ -196,20 +196,20 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 	protected void UnlockTask()
 	{
 		#ifdef HAS_DYNAMIC_TASK_DEPENDENCY
-		foreach (string taskKey : m_sUnlockTaskKeys)
+		foreach (string taskName : m_sUnlockTaskNames)
 		{
-			if (taskKey.IsEmpty())
+			if (taskName.IsEmpty())
 				continue;
 
-			NO_SCR_CoopTaskManager taskManager = NO_SCR_CoopTaskManager.Cast(GetTaskManager());
+			NO_SCR_EditorTask task = NO_SCR_EditorTask.Cast(GetGame().GetWorld().FindEntityByName(taskName));
 
-			if (!taskManager)
+			if (!task)
 				continue;
 
-			taskManager.UnlockObjective(taskKey);
+			task.ChangeStateOfTask(TriggerType.Create);
 		}
 		#else
-		if (!m_sUnlockTaskKeys.IsEmpty())
+		if (!m_sUnlockTaskNames.IsEmpty())
 			Print("Missing 'NightOps - DynamicTaskFramework' dependency!", LogLevel.ERROR);
 		#endif
 	}
