@@ -35,23 +35,6 @@ SCR_BaseGameMode : "{986C258C450B9319}Prefabs/MP/Modes/Coop/GameMode_Coop.et" {
      Icon "{39A515BAE3795994}UI/Textures/DeployMenu/Briefing/conflict_HintBanner_3_UI.edds"
     }
    }
-   m_aWinConditions {
-    SCR_BriefingVictoryCondition "{597B2CEE8C898900}" {
-     victoryCondition SEIZE
-     name "tsk_1"
-     description "Task Description 1"
-    }
-    SCR_BriefingVictoryCondition "{597D4921D77E3D3D}" {
-     victoryCondition MOVE
-     name "tsk_2"
-     description "Task Description 2"
-    }
-    SCR_BriefingVictoryCondition "{597D4921DEAC8B51}" {
-     victoryCondition CUSTOM
-     name "tsk_3"
-     description "Task Description 3"
-    }
-   }
   }
   SCR_RespawnMenuHandlerComponent "{597B2EF80CE41F6C}" {
    m_bAllowQuickDeploy 0

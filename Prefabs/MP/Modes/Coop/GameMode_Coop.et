@@ -29,13 +29,6 @@ SCR_BaseGameMode : "{0F307326459A1395}Prefabs/MP/Modes/GameMode_Base.et" {
     Name "Name"
     Description "Description"
    }
-   m_aWinConditions {
-    SCR_BriefingVictoryCondition "{597B2CEE8C898900}" {
-     victoryCondition CUSTOM
-     name "Clear the Island and capture the Com Truck"
-     description "Description"
-    }
-   }
   }
   SCR_RespawnMenuHandlerComponent "{597B2EF80CE41F6C}" {
    m_sFactionMenuMessage "US BlackOps Detachment"
@@ -43,5 +36,4 @@ SCR_BaseGameMode : "{0F307326459A1395}Prefabs/MP/Modes/GameMode_Base.et" {
   SCR_RespawnTimerComponent "{597B2CEEAA71C211}" {
   }
  }
- PlayerControllerPrefab "{EF9F8C2E5F59234D}Prefabs/Characters/Core/DefaultPlayerControllerMP_Coop.et"
 }

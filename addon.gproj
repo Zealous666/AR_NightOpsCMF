@@ -1,8 +1,20 @@
 GameProject {
- ID "NightOpsCoopMissionsFramework"
+ ID "NightOpsCustomModesFramework"
  GUID "598B131A58C0F13F"
- TITLE "NightOps_CoopMissionsFramework"
+ TITLE "NightOps_CustomModesFramework"
  Dependencies {
-  "58D0FB3206B6F859"
+  "58D0FB3206B6F859" "598ABCE21D6DE27D" "59872DC34F427384"
+ }
+ Configurations {
+  GameProjectConfig PC {
+  }
+  GameProjectConfig XBOX_ONE {
+  }
+  GameProjectConfig XBOX_SERIES {
+  }
+  GameProjectConfig PS4 {
+  }
+  GameProjectConfig HEADLESS {
+  }
  }
 }
