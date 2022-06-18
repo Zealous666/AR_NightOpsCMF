@@ -17,7 +17,6 @@ Used in:
 - NightOps EVERON - 1985 (Coop Showcase Campaign) https://github.com/Zealous666/AR_NightOps1985
 
 
-
 Known Issues:
 =====
 - SpawnTrigger is work in progress
