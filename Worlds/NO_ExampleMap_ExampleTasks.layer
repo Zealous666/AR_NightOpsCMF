@@ -1,0 +1,66 @@
+NO_SCR_TaskManager : "{2DF590FC1A531940}Prefabs/NO_DTF/TaskManager.et" {
+ coords 285.152 10 129.933
+ {
+  $grp NO_SCR_EditorTask : "{82EC0462F27F5221}Prefabs/NO_DTF/SingleTask.et" {
+   ActivateTask {
+    coords 2.582 0 -4.496
+    m_sName "Complete me to unlock trigger!"
+    m_faction "US"
+    m_bAssignToFactionOnStart 1
+    m_bAssignFirstTask 1
+    {
+     NO_SCR_TaskTrigger : "{246978CC9E481FD6}Prefabs/NO_DTF/Triggers/MoveAreaTrigger.et" {
+      coords 0 0 0
+      SphereRadius 2
+      m_eWhenTypeTrigger One
+     }
+    }
+   }
+   ChangeStateTask {
+    coords -11.709 0 3.694
+    m_sName "Trigger has assigned me!"
+    m_faction "US"
+    {
+     NO_SCR_TaskTrigger : "{246978CC9E481FD6}Prefabs/NO_DTF/Triggers/MoveAreaTrigger.et" {
+      coords 0 0 0
+      SphereRadius 2
+      m_eWhenTypeTrigger One
+     }
+    }
+   }
+  }
+ }
+}
+NO_SCR_MissionTrigger : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/NO_MissionTrigger.et" {
+ coords 286.252 10.003 134.659
+ SphereRadius 2.5
+ ShapeColor 0.749 0.188 0.188 1
+ m_bIsActive 0
+ m_aActivateOnTaskState {
+  NO_SCR_TaskStateActivatorEntry "{59A6B7EC8ACD3E9E}" {
+   m_sTaskEntityName "ActivateTask"
+  }
+ }
+ m_aTaskStateChanges {
+  NO_SCR_TaskStateChangeEntry "{59A6B7ECA125CE58}" {
+   m_sTaskEntityName "ChangeStateTask"
+   m_eTaskState Assign
+  }
+ }
+ m_pCustomHint SCR_HintUIInfo "{59A6B7E06479BAA2}" {
+  Name "Im a hint name"
+  Description "Im a hint description"
+ }
+ {
+  CommentEntity Comment4 {
+   coords 0 3.473 0
+   m_Comment "MT Tasks"
+   m_Size 1
+   m_Color 0.821 0.881 0.762
+   m_FaceCamera 1
+   m_VisibleOverall 1
+   m_VisibleIngame 1
+   m_TextBackground 1
+  }
+ }
+}

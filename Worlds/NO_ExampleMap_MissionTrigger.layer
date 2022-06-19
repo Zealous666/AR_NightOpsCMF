@@ -1,131 +1,49 @@
-$grp CommentEntity {
- Comment1 {
-  coords 288.451 26.226 114.574
-  m_Comment "MISSION TRIGGER"
-  m_Size 1
-  m_Color 0.821 0.881 0.762
-  m_FaceCamera 1
-  m_VisibleOverall 1
-  m_VisibleIngame 1
-  m_TextBackground 1
- }
- Comment2 {
-  coords 315.92 13.254 119.782
-  m_Comment "TELEPORT DESTINATION A"
-  m_Size 1
-  m_Color 0.821 0.881 0.762
-  m_FaceCamera 1
-  m_VisibleOverall 1
-  m_VisibleIngame 1
-  m_TextBackground 1
- }
- Comment3 {
-  coords 255.347 13.306 117.289
-  m_Comment "TELEPORT DESTINATION B"
-  m_Size 1
-  m_Color 0.821 0.881 0.762
-  m_FaceCamera 1
-  m_VisibleOverall 1
-  m_VisibleIngame 1
-  m_TextBackground 1
- }
-}
-NO_SCR_MissionTrigger : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/MissionTrigger.et" {
- coords 287.574 10.001 113.712
- m_bEnableTeleport 1
- m_sMissionSelectionManagerName "RadioGaGa"
- m_aEndMissionSelections {
-  "Start Mission A" "Start Mission B"
+$grp NO_SCR_MissionTrigger : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/NO_MissionTrigger.et" {
+ {
+  coords 278.185 10.36 123.615
+  SphereRadius 1.5
+  ShapeColor 0.318 0.561 0.071 1
+  m_fDelay 1
+  m_sMissionSelectionManagerName "RadioGaGa"
+  m_aEndMissionSelections {
+   "Start Mission A"
+  }
+  {
+   CommentEntity : "{254B09DFB82E363D}Prefabs/MP/Comment.et" {
+    coords 0 2.196 0
+    m_Comment "A"
+   }
+  }
  }
  {
-  $grp SCR_Position : "{68C0C31F6FAD7C2E}Prefabs/MP/NO_MissionTriggerPortPos.et" {
-   {
-    coords 28.346 -0.001 6.07
-    angleY -90
-   }
-   {
-    coords -32.227 -0.001 3.577
-    angleY 90
-   }
-  }
- }
-}
-$grp SCR_BaseTriggerEntity : "{5BB84B3E6A0B46C5}Prefabs/MP/Triggers/CoopTrigger_Base.et" {
- TriggerC {
-  coords 263.512 10.357 132.923
-  angleY 146.438
+  coords 275.153 10.36 124.848
   SphereRadius 1.5
-  DrawShape 1
-  ClassFilter "ChimeraCharacter"
-  OnActivate ""\
-  "		IEntity entC = GetGame().FindEntity(\"RadioGaGa\");"\
-  "		if (!entC) return;"\
-  "		"\
-  "		NO_SCR_MissionSelectionManagerComponent missionSelectionManager = NO_SCR_MissionSelectionManagerComponent.Cast(entC.FindComponent(NO_SCR_MissionSelectionManagerComponent));"\
-  "		if (!missionSelectionManager) return;"\
-  "		"\
-  "		missionSelectionManager.EndMission(\"Start Mission C\");"\
-  "	"
-  {
-   CommentEntity {
-    coords 0 1.969 0
-    m_Comment "C"
-    m_ScaleByDistance 1
-    m_FaceCamera 1
-    m_VisibleOverall 1
-    m_VisibleIngame 1
-   }
+  ShapeColor 0.318 0.561 0.071 1
+  m_fDelay 1
+  m_sMissionSelectionManagerName "RadioGaGa"
+  m_aEndMissionSelections {
+   "Start Mission B"
   }
- }
- TriggerB {
-  coords 265.242 10.357 130.224
-  angleY 146.438
-  SphereRadius 1.5
-  DrawShape 1
-  ClassFilter "ChimeraCharacter"
-  OnActivate ""\
-  "		IEntity entB = GetGame().FindEntity(\"RadioGaGa\");"\
-  "		if (!entB) return;"\
-  "		"\
-  "		NO_SCR_MissionSelectionManagerComponent missionSelectionManager = NO_SCR_MissionSelectionManagerComponent.Cast(entB.FindComponent(NO_SCR_MissionSelectionManagerComponent));"\
-  "		if (!missionSelectionManager) return;"\
-  "		"\
-  "		missionSelectionManager.EndMission(\"Start Mission B\");"\
-  "	"
   {
-   CommentEntity {
-    coords 0 1.969 0
+   CommentEntity : "{254B09DFB82E363D}Prefabs/MP/Comment.et" {
+    coords 0 2.196 0
     m_Comment "B"
-    m_ScaleByDistance 1
-    m_FaceCamera 1
-    m_VisibleOverall 1
-    m_VisibleIngame 1
    }
   }
  }
- TriggerA {
-  coords 267.325 10.357 127.699
-  angleY 146.438
+ {
+  coords 272.348 10.36 126.401
   SphereRadius 1.5
-  DrawShape 1
-  ClassFilter "ChimeraCharacter"
-  OnActivate ""\
-  "		IEntity entA = GetGame().FindEntity(\"RadioGaGa\");"\
-  "		if (!entA) return;"\
-  "		"\
-  "		NO_SCR_MissionSelectionManagerComponent missionSelectionManager = NO_SCR_MissionSelectionManagerComponent.Cast(entA.FindComponent(NO_SCR_MissionSelectionManagerComponent));"\
-  "		if (!missionSelectionManager) return;"\
-  "		"\
-  "		missionSelectionManager.EndMission(\"Start Mission A\");"\
-  "	"
+  ShapeColor 0.318 0.561 0.071 1
+  m_fDelay 1
+  m_sMissionSelectionManagerName "RadioGaGa"
+  m_aEndMissionSelections {
+   "Start Mission C"
+  }
   {
-   CommentEntity {
-    coords 0 1.969 0
-    m_Comment "A"
-    m_ScaleByDistance 1
-    m_FaceCamera 1
-    m_VisibleOverall 1
-    m_VisibleIngame 1
+   CommentEntity : "{254B09DFB82E363D}Prefabs/MP/Comment.et" {
+    coords 0 2.196 0
+    m_Comment "C"
    }
   }
  }
@@ -135,8 +53,8 @@ StaticModelEntity : "{D5C135A797D4D7FC}Prefabs/SelectorRadio.et" {
   RplComponent "{5624A88DC2D9928D}" {
   }
  }
- coords 271.419 10 128.246
- angleY 29.782
+ coords 281.528 10.003 126.041
+ angleY 1.426
  {
   GenericEntity RadioGaGa {
    ID "598EEDAD218BC139"

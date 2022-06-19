@@ -1,0 +1,104 @@
+$grp NO_SCR_MissionTrigger : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/NO_MissionTrigger.et" {
+ {
+  coords 278.185 10.439 123.615
+  SphereRadius 1.5
+  ShapeColor 0.318 0.561 0.071 1
+  m_fDelay 1
+  m_sMissionSelectionManagerName "RadioGaGa"
+  m_aEndMissionSelections {
+   "Start Mission A"
+  }
+  m_pCustomPopup NO_SCR_PopupUIInfo "{59A6DBB8878A76F2}" {
+   m_sCustomPopupTitle "Mission Complete"
+   m_sCustomPopupSubtitle "A"
+   m_fCustomPopupDuration 2
+   m_fCustomPopupFade 0.25
+  }
+  {
+   CommentEntity {
+    coords 0 2.196 0
+    m_Comment "A"
+    m_Size 1
+    m_Color 0.821 0.881 0.762
+    m_FaceCamera 1
+    m_VisibleOverall 1
+    m_VisibleIngame 1
+    m_TextBackground 1
+   }
+  }
+ }
+ {
+  coords 275.153 10.439 124.848
+  SphereRadius 1.5
+  ShapeColor 0.318 0.561 0.071 1
+  m_fDelay 1
+  m_sMissionSelectionManagerName "RadioGaGa"
+  m_aEndMissionSelections {
+   "Start Mission B"
+  }
+  m_pCustomPopup NO_SCR_PopupUIInfo "{59A6DBB88608C143}" {
+   m_sCustomPopupTitle "Mission Complete"
+   m_sCustomPopupSubtitle "B"
+   m_fCustomPopupDuration 2
+   m_fCustomPopupFade 0.25
+  }
+  {
+   CommentEntity {
+    coords 0 2.196 0
+    m_Comment "B"
+    m_Size 1
+    m_Color 0.821 0.881 0.762
+    m_FaceCamera 1
+    m_VisibleOverall 1
+    m_VisibleIngame 1
+    m_TextBackground 1
+   }
+  }
+ }
+ {
+  coords 272.348 10.439 126.401
+  SphereRadius 1.5
+  ShapeColor 0.318 0.561 0.071 1
+  m_fDelay 1
+  m_sMissionSelectionManagerName "RadioGaGa"
+  m_aEndMissionSelections {
+   "Start Mission C"
+  }
+  m_pCustomPopup NO_SCR_PopupUIInfo "{59A6DBB8EA67DF0D}" {
+   m_sCustomPopupTitle "Mission Complete"
+   m_sCustomPopupSubtitle "C"
+   m_fCustomPopupDuration 2
+   m_fCustomPopupFade 0.25
+  }
+  {
+   CommentEntity {
+    coords 0 2.196 0
+    m_Comment "C"
+    m_Size 1
+    m_Color 0.821 0.881 0.762
+    m_FaceCamera 1
+    m_VisibleOverall 1
+    m_VisibleIngame 1
+    m_TextBackground 1
+   }
+  }
+ }
+}
+StaticModelEntity : "{D5C135A797D4D7FC}Prefabs/SelectorRadio.et" {
+ components {
+  RplComponent "{5624A88DC2D9928D}" {
+  }
+ }
+ coords 281.528 10.003 126.041
+ angleY 1.426
+ {
+  GenericEntity RadioGaGa {
+   ID "598EEDAD218BC139"
+   components {
+    RplComponent "{5624A88DC2D9928D}" {
+     Streamable Disabled
+    }
+   }
+  }
+ }
+}

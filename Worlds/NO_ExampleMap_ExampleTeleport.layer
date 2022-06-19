@@ -1,0 +1,56 @@
+NO_SCR_MissionTrigger : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/NO_MissionTrigger.et" {
+ coords 289.042 10.005 142.764
+ angleY -7.475
+ SphereRadius 4
+ ShapeColor 0.109 0.871 0.301 0.392
+ m_bIsRepeatable 1
+ m_bEnableTeleport 1
+ {
+  CommentEntity Comment1 {
+   coords 0 5.074 0
+   m_Comment "MT Teleport"
+   m_Size 1
+   m_Color 0.821 0.881 0.762
+   m_FaceCamera 1
+   m_VisibleOverall 1
+   m_VisibleIngame 1
+   m_TextBackground 1
+  }
+  $grp SCR_Position : "{68C0C31F6FAD7C2E}Prefabs/MP/NO_MissionTriggerPortPos.et" {
+   {
+    coords -11.516 0.002 9.748
+    angleY -173.962
+    {
+     CommentEntity Comment2 {
+      coords 0 3.254 0
+      angleY 90
+      m_Comment "DESTINATION A"
+      m_Size 1
+      m_Color 0.821 0.881 0.762
+      m_FaceCamera 1
+      m_VisibleOverall 1
+      m_VisibleIngame 1
+      m_TextBackground 1
+     }
+    }
+   }
+   {
+    coords -6.23 0.003 7.11
+    angleY -178.41
+    {
+     CommentEntity Comment3 {
+      coords 0 3.306 0
+      angleY -90
+      m_Comment "DESTINATION B"
+      m_Size 1
+      m_Color 0.821 0.881 0.762
+      m_FaceCamera 1
+      m_VisibleOverall 1
+      m_VisibleIngame 1
+      m_TextBackground 1
+     }
+    }
+   }
+  }
+ }
+}

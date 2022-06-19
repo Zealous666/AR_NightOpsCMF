@@ -1,9 +1,15 @@
 Layer default {
  Index 0
 }
-Layer MissionTrigger {
+Layer ExampleSelector {
  Index 1
 }
 Layer initialization {
  Index 2
+}
+Layer ExampleTeleport {
+ Index 3
+}
+Layer ExampleTasks {
+ Index 4
 }
