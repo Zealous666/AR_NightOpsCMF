@@ -48,9 +48,22 @@ class NO_SCR_SimpleTimeSkipEntry : NO_SCR_ChangeTimeWeatherType
 }
 
 
+enum EWeatherStates
+{
+	Clear,
+	Cloudy,
+	Overcast,
+	Rainy
+}
+
+
 [BaseContainerProps(), SCR_BaseContainerStaticTitleField("Full Time/Weather Override")]
 class NO_SCR_ForceTimeAndWeatherEntry : NO_SCR_ChangeTimeWeatherType
 {
+	//! If enabled custom date will be used on session start. Authority only.
+	[Attribute(defvalue: "0", desc: "If enabled, the settings below are ignored and dice get rolled. Individual On/Off settings are still taken into account! Authority only.", category: "ON/OFF")]
+	protected bool m_bRandomize;
+
 	//! If enabled custom date will be used on session start. Authority only.
 	[Attribute(defvalue: "0", desc: "If enabled, custom date will be used. Authority only.", category: "ON/OFF")]
 	protected bool m_bUseCustomDate;
@@ -84,8 +97,8 @@ class NO_SCR_ForceTimeAndWeatherEntry : NO_SCR_ChangeTimeWeatherType
 	protected float m_fCustomTimeOfTheDay;
 
 	//! Weather IDs are the same as used in the TimeAndWeatherManager. Weather set on game start. Authority only.
-	[Attribute(defvalue: "Clear", UIWidgets.ComboBox, desc: "Weather set on game start. Authority only.", category: "SETTINGS", enums: { ParamEnum("Clear", "Clear"), ParamEnum("Cloudy", "Cloudy"), ParamEnum("Overcast", "Overcast"), ParamEnum("Rainy", "Rainy") })]
-	protected string m_sCustomWeather;
+	[Attribute(SCR_Enum.GetDefault(EWeatherStates.Clear), UIWidgets.ComboBox, desc: "Weather set on game start. Authority only.", category: "SETTINGS", enums: ParamEnumArray.FromEnum(EWeatherStates))]
+	protected EWeatherStates m_sCustomWeather;
 
 	//! Latitude set on game start. Authority only.
 	[Attribute(defvalue: "-4", UIWidgets.Slider, desc: "Latitude set on game start. Authority only.", category: "SETTINGS", params: "-90 90 0.01")]
@@ -100,6 +113,28 @@ class NO_SCR_ForceTimeAndWeatherEntry : NO_SCR_ChangeTimeWeatherType
 		if (!m_pTimeAndWeatherManager)
 			return;
 
+		if (m_bRandomize)
+		{
+			if (m_bUseCustomDate)
+			{
+				m_iCustomYear = Math.RandomIntInclusive(1900, 2200);
+				m_iCustomMonth = Math.RandomIntInclusive(1, 12);
+				m_iCustomDay = Math.RandomIntInclusive(1, 31);
+			}
+
+			if (m_bUseCustomTime)
+				m_fCustomTimeOfTheDay = Math.RandomFloatInclusive(0, 24);
+
+			if (m_bUseCustomWeather)
+				m_sCustomWeather = GetRandomWeather();
+
+			if (m_bUseCustomLatitudeLongitude)
+			{
+				m_fCustomLatitude = Math.RandomFloatInclusive(-90, 90);
+				m_fCustomLongitude = Math.RandomFloatInclusive(-180, 180);
+			}
+		}
+
 		if (m_bUseCustomDate)
 			SetDate(m_iCustomYear, m_iCustomMonth, m_iCustomDay);
 
@@ -107,10 +142,26 @@ class NO_SCR_ForceTimeAndWeatherEntry : NO_SCR_ChangeTimeWeatherType
 			SetTimeOfTheDay(m_fCustomTimeOfTheDay);
 
 		if (m_bUseCustomWeather)
-			SetWeather(m_sCustomWeather);
+			SetWeather(GetWeatherString(m_sCustomWeather));
 
 		if (m_bUseCustomLatitudeLongitude)
 			SetLatLong(m_fCustomLatitude, m_fCustomLongitude);
+	}
+
+	protected string GetWeatherString(EWeatherStates state)
+	{
+		return SCR_Enum.GetEnumName(EWeatherStates, state);
+	}
+
+	protected int GetRandomWeather()
+	{
+		int minimum;
+		int maximum;
+		SCR_Enum.GetRange(EWeatherStates, minimum, maximum);
+
+		EWeatherStates randomState = Math.RandomIntInclusive(minimum, maximum);
+
+		return randomState;
 	}
 
 	// Forcefully sets time of the date to provided value. Authority only.
