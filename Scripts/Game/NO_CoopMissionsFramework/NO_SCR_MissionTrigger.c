@@ -1,5 +1,3 @@
-#include "Scripts/NO_CustomDefines.c"
-
 [EntityEditorProps(category: "GameScripted/Triggers", description: "ScriptWizard generated script file.")]
 class NO_SCR_MissionTriggerClass : NO_SCR_PlayerTriggerEntityClass
 {
@@ -12,16 +10,16 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 
 	// -------------------------------------------------------
 
-	[Attribute("0", UIWidgets.CheckBox, desc: "If enabled, will teleport all players to child SCR_Position's picked at random.", category: "TELEPORT")]
-	protected bool m_bEnableTeleport;
-
-	[Attribute("3.0", UIWidgets.Slider, desc: "How far should we look for a safe spot from chosen position.", category: "TELEPORT", params: "0 1000 0.01")]
-	protected float m_fSafetyRadius;
+	[Attribute(desc: "Activate once one of the specified tasks reaches the specified state. MultiTasks can also be used.", category: "PLAYER TRIGGER")]
+	protected ref array<ref NO_SCR_TaskStateActivatorEntry> m_aActivateOnTaskState;
 
 	// -------------------------------------------------------
 
 	[Attribute("0", UIWidgets.CheckBox, desc: "If enabled, mission trigger will not disable after first firing!", category: "MISSION CHANGES")]
 	protected bool m_bIsRepeatable;
+
+	[Attribute("0", UIWidgets.Slider, desc: "Delay the triggers action (in seconds).", category: "MISSION CHANGES", params: "0 60 0.001")]
+	protected float m_fDelay;
 
 	[Attribute("", UIWidgets.EditBox, desc: "Name of NO_SpawnTriggers to spawn.", category: "MISSION CHANGES")]
 	protected ref array<string> m_sNOSpawnTriggerNames;
@@ -29,14 +27,11 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 	[Attribute("", UIWidgets.EditBox, desc: "Name of NO_SpawnTriggers to despawn.", category: "MISSION CHANGES")]
 	protected ref array<string> m_sNODespawnTriggerNames;
 
+	[Attribute(desc: "Task state changes to make.", category: "MISSION CHANGES")]
+	protected ref array<ref NO_SCR_TaskStateChangeEntry> m_aTaskStateChanges;
+
 	[Attribute(desc: "Spawnpoint changes to make.", category: "MISSION CHANGES")]
 	protected ref array<ref NO_SCR_SpawnpointChangeEntry> m_aSpawnpointChanges;
-
-	[Attribute("", UIWidgets.EditBox, desc: "Name of a NO_SCR_EditorTask to finish.", category: "MISSION CHANGES")]
-	protected ref array<string> m_sFinishTaskNames;
-
-	[Attribute("", UIWidgets.EditBox, desc: "Name of a NO_SCR_EditorTask to unlock.", category: "MISSION CHANGES")]
-	protected ref array<string> m_sUnlockTaskNames;
 
 	[Attribute("", UIWidgets.EditBox, desc: "Name of an entity with a MissionSelectionManagerComponent.", category: "MISSION CHANGES")]
 	protected string m_sMissionSelectionManagerName;
@@ -52,6 +47,22 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 
 	// -------------------------------------------------------
 
+	[Attribute("0", UIWidgets.CheckBox, desc: "If enabled, will teleport all players to child SCR_Position's picked at random.", category: "TELEPORT")]
+	protected bool m_bEnableTeleport;
+
+	[Attribute("3.0", UIWidgets.Slider, desc: "How far should we look for a safe spot from chosen position.", category: "TELEPORT", params: "0 1000 0.01")]
+	protected float m_fSafetyRadius;
+
+	// -------------------------------------------------------
+
+	[Attribute(desc: "Show this hint on trigger, blank for none.", category: "UI")]
+	protected ref SCR_HintUIInfo m_pCustomHint;
+
+	[Attribute(desc: "Show this pop-up on trigger, blank for none.", category: "UI")]
+	protected ref NO_SCR_PopupUIInfo m_pCustomPopup;
+
+	// -------------------------------------------------------
+
 	[Attribute("0", UIWidgets.CheckBox, desc: "End game on trigger activation!", category: "GAME OVER")]
 	protected bool m_bEnableGameOver;
 
@@ -60,6 +71,14 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 
 	[Attribute("US", UIWidgets.EditBox, desc: "Key of winning faction, or player faction if draw.", category: "GAME OVER")]
 	protected string m_sWinningFactionKey;
+
+	// -------------------------------------------------------
+
+	[Attribute("", UIWidgets.Auto, desc: "Name of a NO_SCR_EditorTask to finish.", category: "LEGACY")]
+	protected ref array<string> m_sFinishTaskNames;
+
+	[Attribute("", UIWidgets.Auto, desc: "Name of a NO_SCR_EditorTask to unlock.", category: "LEGACY")]
+	protected ref array<string> m_sUnlockTaskNames;
 
 	// -------------------------------------------------------
 
@@ -75,6 +94,9 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 
 	override void EOnInit (IEntity owner)
 	{
+		if (!GetGame().InPlayMode())
+			return;
+
 		m_pRplComponent = RplComponent.Cast(owner.FindComponent(RplComponent));
 
 		if (!m_pRplComponent)
@@ -95,6 +117,9 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 
 			child = child.GetSibling();
 		}
+
+		if (m_pRplComponent.IsMaster() && !m_bIsActive)
+			TaskStateActivationSetup();
 	}
 
 
@@ -103,15 +128,28 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 	{
 		super.OnPlayerQuotaReached();
 
+		GetGame().GetCallqueue().CallLater(DelayedTrigger, m_fDelay * 1000, false);
+
+		if (!m_bIsRepeatable)
+			SetActive(false);
+	}
+
+
+	protected void DelayedTrigger()
+	{
 		if (m_pRplComponent.IsMaster())
 		{
+			ShowHintsOrPopups();
+
 			NOSpawn();
 			NODespawn();
 
 			MakeSpawnpointChanges();
 
-			FinishTask();
-			UnlockTask();
+			MakeTaskStateChanges();
+			FinishTask(); // LEGACY
+			UnlockTask(); // LEGACY
+
 			UpdateWaypoint();
 
 			EndMissionSelections();
@@ -124,16 +162,92 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 		}
 
 		if (!m_bIsRepeatable)
-		{
-			SetActive(false);
 			Deactivate();
+	}
+
+
+	protected void TaskStateActivationSetup()
+	{
+		if (!m_aActivateOnTaskState.IsEmpty())
+			GetTaskManager().s_OnTaskUpdate.Insert(TaskStateActivationCheck);
+	}
+
+
+	protected void TaskStateActivationCheck(SCR_BaseTask task)
+	{
+		NO_SCR_EditorTask editorTask = NO_SCR_EditorTask.Cast(task);
+		if (!editorTask)
+			return;
+
+		if (m_aActivateOnTaskState.IsEmpty())
+			GetTaskManager().s_OnTaskUpdate.Remove(TaskStateActivationCheck);
+
+		foreach(NO_SCR_TaskStateActivatorEntry activatorEntry : m_aActivateOnTaskState)
+		{
+			if (editorTask.GetName() != activatorEntry.GetTaskName())
+				return;
+
+			if (!editorTask.TaskState)
+			{
+				Print(string.Format("Null TaskState: %1", editorTask.GetName()), LogLevel.ERROR);
+				return;
+			}
+
+			if (editorTask.TaskState == activatorEntry.GetTaskState())
+			{
+				SetActive(true);
+				m_aActivateOnTaskState.RemoveItem(activatorEntry);
+			}
 		}
+	}
+
+
+	protected void ShowHintsOrPopups()
+	{
+		// Hints
+		if (m_pCustomHint)
+		{
+			// Clients
+			Rpc(RpcDo_Hint);
+
+			// Also server if not dedicated (SP)
+			if (RplSession.Mode() != RplMode.Dedicated)
+				RpcDo_Hint();
+		}
+
+		// Popups
+		if (m_pCustomPopup)
+		{
+			Rpc(RpcDo_Popup);
+
+			if (RplSession.Mode() != RplMode.Dedicated)
+				RpcDo_Popup();
+		}
+	}
+
+
+	// Network friendly player UI hint
+	[RplRpc(RplChannel.Reliable, RplRcver.Broadcast)]
+	protected void RpcDo_Hint()
+	{
+		SCR_HintManagerComponent hintComponent = SCR_HintManagerComponent.GetInstance();
+
+		if (hintComponent)
+			hintComponent.Show(m_pCustomHint);
+	}
+
+
+	// Network friendly player UI popup
+	[RplRpc(RplChannel.Reliable, RplRcver.Broadcast)]
+	protected void RpcDo_Popup()
+	{
+		if (m_pCustomPopup)
+			m_pCustomPopup.ShowPopup();
 	}
 
 
 	protected void NOSpawn()
 	{
-		#ifdef HAS_DYNAMIC_SPAWN_DEPENDENCY
 		foreach(string spawnTriggerName : m_sNOSpawnTriggerNames)
 		{
 			if (spawnTriggerName.IsEmpty())
@@ -144,16 +258,11 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 			if (spawnTrigger)
 				spawnTrigger.Spawn();
 		}
-		#else
-		if (!m_sNOSpawnTriggerNames.IsEmpty())
-			Print("Missing 'NightOps - DynamicSpawnFramework' dependency!", LogLevel.ERROR);
-		#endif
 	}
 
 
 	protected void NODespawn()
 	{
-		#ifdef HAS_DYNAMIC_SPAWN_DEPENDENCY
 		foreach(string despawnTriggerName : m_sNODespawnTriggerNames)
 		{
 			if (despawnTriggerName.IsEmpty())
@@ -164,16 +273,11 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 			if (despawnTrigger)
 				despawnTrigger.Despawn();
 		}
-		#else
-		if (!m_sNODespawnTriggerNames.IsEmpty())
-			Print("Missing 'NightOps - DynamicSpawnFramework' dependency!", LogLevel.ERROR);
-		#endif
 	}
 
 
 	protected void FinishTask()
 	{
-		#ifdef HAS_DYNAMIC_TASK_DEPENDENCY
 		foreach (string taskName : m_sFinishTaskNames)
 		{
 			if (taskName.IsEmpty())
@@ -186,16 +290,11 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 
 			task.ChangeStateOfTask(TriggerType.Finish);
 		}
-		#else
-		if (!m_sFinishTaskNames.IsEmpty())
-			Print("Missing 'NightOps - DynamicTaskFramework' dependency!", LogLevel.ERROR);
-		#endif
 	}
 
 
 	protected void UnlockTask()
 	{
-		#ifdef HAS_DYNAMIC_TASK_DEPENDENCY
 		foreach (string taskName : m_sUnlockTaskNames)
 		{
 			if (taskName.IsEmpty())
@@ -208,10 +307,18 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 
 			task.ChangeStateOfTask(TriggerType.Create);
 		}
-		#else
-		if (!m_sUnlockTaskNames.IsEmpty())
-			Print("Missing 'NightOps - DynamicTaskFramework' dependency!", LogLevel.ERROR);
-		#endif
+	}
+
+
+	protected void MakeTaskStateChanges()
+	{
+		foreach(NO_SCR_TaskStateChangeEntry changeEntry : m_aTaskStateChanges)
+		{
+			NO_SCR_EditorTask task = NO_SCR_EditorTask.Cast(GetGame().GetWorld().FindEntityByName(changeEntry.GetTaskName()));
+
+			if (task)
+				task.ChangeStateOfTask(changeEntry.GetTaskState());
+		}
 	}
 
 
@@ -230,9 +337,6 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 
 	protected void MakeSpawnpointChanges()
 	{
-		if (m_aSpawnpointChanges.Count() == 0)
-			return;
-
 		foreach(NO_SCR_SpawnpointChangeEntry spawnpointChangeEntry : m_aSpawnpointChanges)
 		{
 			if (spawnpointChangeEntry.GetSpawnpointName().IsEmpty())
@@ -406,6 +510,7 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 }
 
 
+
 enum ESupportedEndReasons
 {
 	UNDEFINED = -1,
@@ -420,6 +525,51 @@ enum ESupportedEndReasons
 	//EDITOR_FACTION_DEFEAT = 1003,
 	EDITOR_FACTION_DRAW = 1004
 }
+
+
+
+[BaseContainerProps(), BaseContainerCustomTitleField("m_sTaskEntityName")]
+class NO_SCR_TaskStateActivatorEntry : Managed
+{
+	[Attribute("", UIWidgets.EditBox, desc: "Name of a task entity to watch.")]
+	protected string m_sTaskEntityName;
+
+	[Attribute(SCR_Enum.GetDefault(TriggerType.Finish), UIWidgets.ComboBox, desc: "State to watch for.", enums: ParamEnumArray.FromEnum(TriggerType))]
+	protected TriggerType m_eTaskState;
+
+	string GetTaskName()
+	{
+		return m_sTaskEntityName;
+	}
+
+	TriggerType GetTaskState()
+	{
+		return m_eTaskState;
+	}
+}
+
+
+
+[BaseContainerProps(), BaseContainerCustomTitleField("m_sTaskEntityName")]
+class NO_SCR_TaskStateChangeEntry
+{
+	[Attribute("", UIWidgets.EditBox, desc: "Name of a task entity to change.")]
+	protected string m_sTaskEntityName;
+
+	[Attribute(SCR_Enum.GetDefault(TriggerType.Finish), UIWidgets.ComboBox, desc: "New task state.", enums: ParamEnumArray.FromEnum(TriggerType))]
+	protected TriggerType m_eTaskState;
+
+	string GetTaskName()
+	{
+		return m_sTaskEntityName;
+	}
+
+	TriggerType GetTaskState()
+	{
+		return m_eTaskState;
+	}
+}
+
 
 
 [BaseContainerProps(), BaseContainerCustomTitleField("m_sSpawnpointName")]
@@ -443,106 +593,31 @@ class NO_SCR_SpawnpointChangeEntry
 }
 
 
-[BaseContainerProps(), BaseContainerCustomTitleField("m_sSpawnpointName")]
-class NO_SCR_ForceTimeAndWeatherEntry
+
+[BaseContainerProps(), BaseContainerCustomTitleField("m_sCustomPopupTitle")]
+class NO_SCR_PopupUIInfo
 {
-	//! If enabled custom date will be used on session start. Authority only.
-	[Attribute(defvalue: "0", desc: "If enabled, custom date will be used. Authority only.", category: "ON/OFF")]
-	protected bool m_bUseCustomDate;
+	[Attribute("", UIWidgets.EditBox, desc: "Pop-up title.")]
+	protected string m_sCustomPopupTitle;
 
-	//! If enabled custom time of the day will be used on session start. Authority only.
-	[Attribute(defvalue: "0", desc: "If enabled, custom time of the day will be used. Authority only.", category: "ON/OFF")]
-	protected bool m_bUseCustomTime;
+	[Attribute("", UIWidgets.EditBox, desc: "Pop-up subtitle.")]
+	protected string m_sCustomPopupSubtitle;
 
-	//! If enabled custom weather Id will be used on session start. Authority only.
-	[Attribute(defvalue: "0", desc: "If enabled, custom weather Id will be used. Authority only.", category: "ON/OFF")]
-	protected bool m_bUseCustomWeather;
+	[Attribute("4.0", UIWidgets.Slider, desc: "Pop-up duration.", params: "0.5 60 0.001")]
+	protected float m_fCustomPopupDuration;
 
-	//! If enabled custom weather Id will be used on session start. Authority only.
-	[Attribute(defvalue: "0", desc: "If enabled, custom Latitude/Longitude will be used. Authority only.", category: "ON/OFF")]
-	protected bool m_bUseCustomLatitudeLongitude;
+	[Attribute("0.5", UIWidgets.Slider, desc: "Pop-up fade in/out.", params: "0.1 10 0.001")]
+	protected float m_fCustomPopupFade;
 
-	//! Year set on game start. Authority only.
-	[Attribute(defvalue: "1989", UIWidgets.Slider, desc: "Year set on game start. Authority only.", category: "SETTINGS", params: "1900 2200 1")]
-	protected int m_iCustomYear;
+	[Attribute("-1", UIWidgets.Slider, desc: "Pop-up priority, (12+ should beat out base game pop-ups).", params: "-1 15")]
+	protected int m_iCustomPopupPriority;
 
-	//! Month set on game start. Authority only.
-	[Attribute(defvalue: "7", UIWidgets.Slider, desc: "Month set on game start. Authority only.", category: "SETTINGS", params: "1 12 1")]
-	protected int m_iCustomMonth;
-
-	//! Day set on game start. Authority only.
-	[Attribute(defvalue: "24", UIWidgets.Slider, desc: "Day set on game start. Authority only.", category: "SETTINGS", params: "1 31 1")]
-	protected int m_iCustomDay;
-
-	//! Time of the day set on game start. Authority only.
-	[Attribute(defvalue: "9.6", UIWidgets.Slider, desc: "Time of the day set on game start. Authority only.", category: "SETTINGS", params: "0 24 0.01")]
-	protected float m_fCustomTimeOfTheDay;
-
-	//! Weather IDs are the same as used in the TimeAndWeatherManager. Weather set on game start. Authority only.
-	[Attribute(defvalue: "Clear", UIWidgets.ComboBox, desc: "Weather set on game start. Authority only.", category: "SETTINGS", enums: { ParamEnum("Clear", "Clear"), ParamEnum("Cloudy", "Cloudy"), ParamEnum("Overcast", "Overcast"), ParamEnum("Rainy", "Rainy") })]
-	protected string m_sCustomWeather;
-
-	//! Latitude set on game start. Authority only.
-	[Attribute(defvalue: "-4", UIWidgets.Slider, desc: "Latitude set on game start. Authority only.", category: "SETTINGS", params: "-90 90 0.01")]
-	protected float m_fCustomLatitude;
-
-	//! Longitude set on game start. Authority only.
-	[Attribute(defvalue: "71", UIWidgets.Slider, desc: "Longitude set on game start. Authority only.", category: "SETTINGS", params: "-180 180 0.01")]
-	protected float m_fCustomLongitude;
-
-	//! Reference to entity responsible for managing time and weather
-	protected TimeAndWeatherManagerEntity m_pTimeAndWeatherManager;
-
-	void NO_SCR_ForceTimeAndWeatherEntry()
+	void ShowPopup()
 	{
-		m_pTimeAndWeatherManager = GetGame().GetTimeAndWeatherManager();
-		if (!m_pTimeAndWeatherManager)
-			Print("Cannot initialize TimeAndWeatherManagerEntity not found!", LogLevel.ERROR);
-	}
+		SCR_PopUpNotification popupEntity = SCR_PopUpNotification.GetInstance();
 
-	void Execute()
-	{
-		if (!m_pTimeAndWeatherManager)
-			return;
-
-		if (m_bUseCustomDate)
-			SetDate(m_iCustomYear, m_iCustomMonth, m_iCustomDay);
-
-		if (m_bUseCustomTime)
-			SetTimeOfTheDay(m_fCustomTimeOfTheDay);
-
-		if (m_bUseCustomWeather)
-			SetWeather(m_sCustomWeather);
-
-		if (m_bUseCustomLatitudeLongitude)
-			SetLatLong(m_fCustomLatitude, m_fCustomLongitude);
-	}
-
-	// Forcefully sets time of the date to provided value. Authority only.
-	protected void SetDate(int year, int month, int day)
-	{
-		m_pTimeAndWeatherManager.SetDate(year, month, day, true);
-	}
-
-	// Forcefully sets time of the day to provided value. Authority only.
-	protected void SetTimeOfTheDay(float timeOfTheDay)
-	{
-		m_pTimeAndWeatherManager.SetTimeOfTheDay(timeOfTheDay, true);
-	}
-
-	// Forcefully sets weather to provided weatherId. Authority only.
-	protected void SetWeather(string weatherId)
-	{
-		if (weatherId.IsEmpty())
-			return;
-
-		m_pTimeAndWeatherManager.ForceWeatherTo(true, weatherId, 0.0);
-	}
-
-	// Forcefully sets latitude/longitude to provided values. Authority only.
-	protected void SetLatLong(float latitude, float longitude)
-	{
-		m_pTimeAndWeatherManager.SetCurrentLatitude(latitude);
-		m_pTimeAndWeatherManager.SetCurrentLongitude(longitude);
+		if (popupEntity)
+			popupEntity.PopupMsg(text: m_sCustomPopupTitle, text2: m_sCustomPopupSubtitle,
+				duration: m_fCustomPopupDuration, fade: m_fCustomPopupFade, prio: m_iCustomPopupPriority);
 	}
 }

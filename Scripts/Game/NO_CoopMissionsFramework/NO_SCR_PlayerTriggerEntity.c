@@ -7,12 +7,12 @@ class NO_SCR_PlayerTriggerEntity : SCR_BaseTriggerEntity
 {
 	protected ref ScriptInvoker m_OnPlayerQuotaReached = new ScriptInvoker();
 
+	[Attribute("0", UIWidgets.ComboBox, desc: "Quota type in use.", category: "PLAYER TRIGGER", ParamEnumArray.FromEnum(EPlayerTriggerQuota))]
+	protected EPlayerTriggerQuota m_PlayerTriggerQuota;
+	
 	// To track if the quota trigger is enabled/disabled, regular trigger will still track players entry/exit
 	[Attribute("1", UIWidgets.CheckBox, desc: "Is trigger active at game start?", category: "PLAYER TRIGGER")]
 	protected bool m_bIsActive;
-
-	[Attribute("0", UIWidgets.ComboBox, desc: "Quota type in use.", category: "PLAYER TRIGGER", ParamEnumArray.FromEnum(EPlayerTriggerQuota))]
-	protected EPlayerTriggerQuota m_PlayerTriggerQuota;
 
 	// An array of players currently within the trigger volume
 	protected ref set<int> m_aPlayerIdsInTrigger = new set<int>();
