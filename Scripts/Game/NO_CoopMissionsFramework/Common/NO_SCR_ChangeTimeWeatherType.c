@@ -1,5 +1,55 @@
-[BaseContainerProps()]
-class NO_SCR_ForceTimeAndWeatherEntry
+[BaseContainerProps(visible: false, insertable: false)]
+class NO_SCR_ChangeTimeWeatherType
+{
+	//! Reference to entity responsible for managing time and weather
+	protected TimeAndWeatherManagerEntity m_pTimeAndWeatherManager;
+
+	void NO_SCR_ChangeTimeWeatherType()
+	{
+		m_pTimeAndWeatherManager = GetGame().GetTimeAndWeatherManager();
+		if (!m_pTimeAndWeatherManager)
+			Print("Cannot initialize TimeAndWeatherManagerEntity not found!", LogLevel.ERROR);
+	}
+
+	void Execute() {};
+}
+
+
+[BaseContainerProps(), SCR_BaseContainerStaticTitleField("Simple Time Skip")]
+class NO_SCR_SimpleTimeSkipEntry : NO_SCR_ChangeTimeWeatherType
+{
+	[Attribute(defvalue: "0", UIWidgets.Slider, desc: "Will skip the time by the desired number of days. Authority only.", params: "0 31 1")]
+	protected int m_iSkipTimeByDays;
+
+	[Attribute(defvalue: "0", UIWidgets.Slider, desc: "Will skip the time by the desired number of hours. Authority only.", params: "0 24 1")]
+	protected int m_iSkipTimeByHours;
+
+	[Attribute(defvalue: "0", UIWidgets.Slider, desc: "Will skip the time by the desired number of minutes. Authority only.", params: "0 60 1")]
+	protected int m_iSkipTimeByMinutes;
+
+	[Attribute(defvalue: "0", UIWidgets.Slider, desc: "Will skip the time by the desired number of seconds. Authority only.", params: "0 60 1")]
+	protected int m_iSkipTimeBySeconds;
+
+	override void Execute()
+	{
+		if (!m_pTimeAndWeatherManager)
+			return;
+
+		TimeContainer currentTime = m_pTimeAndWeatherManager.GetTime();
+
+		int hours = currentTime.m_iHours + m_iSkipTimeByHours;
+		int minutes = currentTime.m_iMinutes + m_iSkipTimeByMinutes;
+		int seconds = currentTime.m_iSeconds + m_iSkipTimeBySeconds;
+
+		hours += m_iSkipTimeByDays * 24;
+
+		m_pTimeAndWeatherManager.SetTime(new TimeContainer(hours, minutes, seconds));
+	}
+}
+
+
+[BaseContainerProps(), SCR_BaseContainerStaticTitleField("Full Time/Weather Override")]
+class NO_SCR_ForceTimeAndWeatherEntry : NO_SCR_ChangeTimeWeatherType
 {
 	//! If enabled custom date will be used on session start. Authority only.
 	[Attribute(defvalue: "0", desc: "If enabled, custom date will be used. Authority only.", category: "ON/OFF")]
@@ -45,17 +95,7 @@ class NO_SCR_ForceTimeAndWeatherEntry
 	[Attribute(defvalue: "71", UIWidgets.Slider, desc: "Longitude set on game start. Authority only.", category: "SETTINGS", params: "-180 180 0.01")]
 	protected float m_fCustomLongitude;
 
-	//! Reference to entity responsible for managing time and weather
-	protected TimeAndWeatherManagerEntity m_pTimeAndWeatherManager;
-
-	void NO_SCR_ForceTimeAndWeatherEntry()
-	{
-		m_pTimeAndWeatherManager = GetGame().GetTimeAndWeatherManager();
-		if (!m_pTimeAndWeatherManager)
-			Print("Cannot initialize TimeAndWeatherManagerEntity not found!", LogLevel.ERROR);
-	}
-
-	void Execute()
+	override void Execute()
 	{
 		if (!m_pTimeAndWeatherManager)
 			return;

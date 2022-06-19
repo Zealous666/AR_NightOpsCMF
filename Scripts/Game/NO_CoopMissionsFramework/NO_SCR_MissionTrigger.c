@@ -43,7 +43,7 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 	protected string m_sWaypointLocationName;
 
 	[Attribute(desc: "Time/weather changes to make.", category: "MISSION CHANGES")]
-	protected ref NO_SCR_ForceTimeAndWeatherEntry m_pChangeTimeAndWeather;
+	protected ref NO_SCR_ChangeTimeWeatherType m_pChangeTimeAndWeather;
 
 	// -------------------------------------------------------
 
