@@ -50,7 +50,10 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 	[Attribute("0", UIWidgets.CheckBox, desc: "If enabled, will teleport all players to child SCR_Position's picked at random.", category: "TELEPORT")]
 	protected bool m_bEnableTeleport;
 
-	[Attribute("3.0", UIWidgets.Slider, desc: "How far should we look for a safe spot from chosen position.", category: "TELEPORT", params: "0 1000 0.01")]
+	[Attribute("3.0", UIWidgets.Slider, desc: "How far should we look for a safe spot from chosen position.", category: "TELEPORT", params: "0 500 0.01")]
+	protected float m_fTeleportRadius;
+
+	[Attribute("15.0", UIWidgets.Slider, desc: "How far should we look for a safe spot from chosen position.", category: "TELEPORT", params: "3 300 0.01")]
 	protected float m_fSafetyRadius;
 
 	// -------------------------------------------------------
@@ -428,15 +431,22 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 	{
 		BlackoutEffect(true, 10);
 
-		vector suggestedPostion = positionEntity.GetOrigin();
+		vector startPostion = positionEntity.GetOrigin();
 		vector rotation = positionEntity.GetAngles();
+
+		// Randomize the XZ components of the chosen SCR_Position
+		float positionX = startPostion[0] + Math.RandomFloatInclusive(-m_fTeleportRadius, m_fTeleportRadius);
+		float positionZ = startPostion[2] + Math.RandomFloatInclusive(-m_fTeleportRadius, m_fTeleportRadius);
+
+		// Keep height component (may now be under terrain)
+		vector suggestedPostion = {positionX, startPostion[1], positionZ};
 
 		// Rotate the player
 		IEntity player = SCR_PlayerController.GetLocalControlledEntity();
 		if (player)
 			player.SetAngles(rotation);
 
-		// Make sure the suggested position is safe
+		// Make sure the suggested position is safe (seems this also includes terrain height)
 		vector foundPosition;
 		SCR_WorldTools.FindEmptyTerrainPosition(foundPosition, suggestedPostion, m_fSafetyRadius);
 
