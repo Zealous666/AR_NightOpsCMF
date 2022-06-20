@@ -1,0 +1,208 @@
+Vehicle : "{4597626AF36C0858}Prefabs/Vehicles/Wheeled/Ural4320/Ural4320.et" {
+ ID "BBCBA43A9778AE21"
+ components {
+  NO_SCR_DTFRenamerComponent "{59A93B45EBFD78A9}" {
+   m_sNewName "sabotage_1"
+  }
+  NO_SCR_ImmobilizerComponent "{59A93B45E7325E3D}" {
+   m_bStartImmobilized 1
+  }
+  RigidBody "{51DAA09FECF52BBF}" {
+   Mass 9270
+  }
+  SCR_EditableVehicleComponent "{50DEB7C26B5EB312}" {
+   m_UIInfo SCR_EditableEntityUIInfo "{5298E609432D192D}" {
+    Name "#AR-Vehicle_Ural4320_Fuel_Name"
+    Icon "{23EE5CFFB9D43382}UI/Textures/Editor/EditableEntities/Vehicles/EditableEntity_Vehicle_Truck_Fuel.edds"
+    IconSetName ""
+    m_Image "{D5D72AE01574410E}UI/Textures/EditorPreviews/Vehicles/Wheeled/Ural4320/Ural4320_tanker.edds"
+    m_sFaction "USSR"
+    m_aAuthoredLabels + {
+     23
+    }
+    m_aAutoLabels +{
+    }
+   }
+  }
+  SCR_PreviewEntityComponent "{56FCFAC023BAA80E}" {
+   m_bRuntime 0
+   m_aEntries {
+    SCR_BasePreviewEntry "{59A93B45F9E6F129}" {
+     m_iParentID -1
+     m_Mesh "{06C865EC0B9277E5}Assets/Vehicles/Wheeled/Ural4320/Ural_4320_base.xob"
+     m_Flags 0
+     m_Shape MESH
+     m_iPivotID ""
+     m_fScale 1
+     m_vPosition 0 0 0
+     m_vAngles 0 0 0
+    }
+    SCR_BasePreviewEntry "{59A93B45F9E6F12E}" {
+     m_iParentID 0
+     m_Mesh "{BBA1B25A5AEC386B}Assets/Vehicles/Wheeled/Ural4320/Ural_4320_fuel_tank.xob"
+     m_Flags 0
+     m_Shape MESH
+     m_iPivotID ""
+     m_fScale 1
+     m_vPosition 0 0 0
+     m_vAngles 0 0 0
+    }
+    SCR_BasePreviewEntry "{59A93B45F9E6F120}" {
+     m_iParentID 1
+     m_Mesh "{0B7C3BECBBCF17AD}Assets/Structures/Commercial/FuelStations/FuelStation_E_01/FuelStation_E_01_fuelnozzle.xob"
+     m_Flags 0
+     m_Shape MESH
+     m_iPivotID ""
+     m_fScale 1
+     m_vPosition 0 1.59 -3.701
+     m_vAngles 0 90 0
+    }
+    SCR_BasePreviewEntry "{59A93B45F9E6F123}" {
+     m_iParentID 0
+     m_Mesh "{A25F28B1C7E3AB02}Assets/Vehicles/Wheeled/Ural4320/Dst/Ural4320_window_01.xob"
+     m_Flags 0
+     m_Shape MESH
+     m_iPivotID ""
+     m_fScale 1
+     m_vPosition 0 0 0
+     m_vAngles 0 0 0
+    }
+    SCR_BasePreviewEntry "{59A93B45F9E6F122}" {
+     m_iParentID 0
+     m_Mesh "{3B419128DA049A92}Assets/Vehicles/Wheeled/Ural4320/Dst/Ural4320_window_02.xob"
+     m_Flags 0
+     m_Shape MESH
+     m_iPivotID "v_door_l01"
+     m_fScale 1
+     m_vPosition 0 0 0
+     m_vAngles 0 0 0
+    }
+    SCR_BasePreviewEntry "{59A93B45F9E6F125}" {
+     m_iParentID 0
+     m_Mesh "{4C4BF9A02EA675E2}Assets/Vehicles/Wheeled/Ural4320/Dst/Ural4320_window_03.xob"
+     m_Flags 0
+     m_Shape MESH
+     m_iPivotID "v_door_l01"
+     m_fScale 1
+     m_vPosition 0 0 0
+     m_vAngles 0 0 0
+    }
+    SCR_BasePreviewEntry "{59A93B45F9E6F124}" {
+     m_iParentID 0
+     m_Mesh "{4B8C03F14820CF21}Assets/Vehicles/Wheeled/Ural4320/Dst/Ural4320_window_04.xob"
+     m_Flags 0
+     m_Shape MESH
+     m_iPivotID ""
+     m_fScale 1
+     m_vPosition 0 0 0
+     m_vAngles 0 0 0
+    }
+    SCR_BasePreviewEntry "{59A93B45F9E6F127}" {
+     m_iParentID 0
+     m_Mesh "{3C866B79BC822051}Assets/Vehicles/Wheeled/Ural4320/Dst/Ural4320_window_05.xob"
+     m_Flags 0
+     m_Shape MESH
+     m_iPivotID ""
+     m_fScale 1
+     m_vPosition 0 0 0
+     m_vAngles 0 0 0
+    }
+    SCR_BasePreviewEntry "{59A93B45F9E6F126}" {
+     m_iParentID 0
+     m_Mesh "{29F85CB88D55707A}Assets/Vehicles/Wheeled/Ural4320/Dst/Ural4320_window_06.xob"
+     m_Flags 0
+     m_Shape MESH
+     m_iPivotID ""
+     m_fScale 1
+     m_vPosition 0 0 0
+     m_vAngles 0 0 0
+    }
+    SCR_BasePreviewEntry "{59A93B45F9E6F139}" {
+     m_iParentID 0
+     m_Mesh "{5EF2343079F79F0A}Assets/Vehicles/Wheeled/Ural4320/Dst/Ural4320_window_07.xob"
+     m_Flags 0
+     m_Shape MESH
+     m_iPivotID ""
+     m_fScale 1
+     m_vPosition 0 0 0
+     m_vAngles 0 0 0
+    }
+    SCR_BasePreviewEntry "{59A93B45F9E6F138}" {
+     m_iParentID 0
+     m_Mesh "{AA1726426C686447}Assets/Vehicles/Wheeled/Ural4320/Dst/Ural4320_window_08.xob"
+     m_Flags 0
+     m_Shape MESH
+     m_iPivotID "v_door_r01"
+     m_fScale 1
+     m_vPosition 0 0 0
+     m_vAngles 0 0 0
+    }
+    SCR_BasePreviewEntry "{59A93B45F9E6F13B}" {
+     m_iParentID 0
+     m_Mesh "{DD1D4ECA98CA8B37}Assets/Vehicles/Wheeled/Ural4320/Dst/Ural4320_window_09.xob"
+     m_Flags 0
+     m_Shape MESH
+     m_iPivotID "v_door_r01"
+     m_fScale 1
+     m_vPosition 0 0 0
+     m_vAngles 0 0 0
+    }
+   }
+  }
+  SlotManagerComponent "{55BCE45E438E4CFF}" {
+   Slots {
+    RegisteringComponentSlotInfo Tank {
+     Prefab "{D946310D0CE44123}Prefabs/Vehicles/Wheeled/Ural4320/Ural4320_fuel_tank.et"
+     RegisterActions 1
+     RegisterDamage 1
+     RegisterControllers 1
+     RegisterCompartments 1
+     RegisterLights 1
+    }
+   }
+  }
+  VehicleWheeledSimulation "{731B26FCA2F19855}" {
+   Simulation Wheeled "{4D8B26DEA5F25978}" {
+    Axles {
+     Axle "{4D8B26DF957A8E1C}" {
+      Suspension Suspension "{4D8B26DFF8859A7B}" {
+       SpringRate 77.22
+      }
+     }
+     Axle "{4D8B26DF8CF2F3D8}" {
+      Suspension Suspension "{4D8B26DF2B10AE05}" {
+       SpringRate 52.65
+      }
+     }
+     Axle "{16DBA70683734F19}" {
+      Suspension Suspension "{16DBA706CF02C61F}" {
+       SpringRate 52.65
+      }
+     }
+    }
+   }
+  }
+  ActionsManagerComponent "{C97BE5489221AE18}" {
+   ActionContexts {
+    UserActionContext "{59A93B465F825722}" {
+     ContextName "sabotage"
+     Position PointInfo "{59A93B46D9D127A2}" {
+     }
+     Radius 3
+    }
+   }
+   additionalActions {
+    NO_SCR_DCP_SabotageDestr_Action "{59A93B46DCA3A21E}" {
+     ParentContextList {
+      "sabotage"
+     }
+     UIInfo UIInfo "{59A93B46C003E22E}" {
+      Name "Plant Satchel Charge"
+     }
+     Duration 1
+    }
+   }
+  }
+ }
+ m_eVehicleType FUEL_TRUCK
+}

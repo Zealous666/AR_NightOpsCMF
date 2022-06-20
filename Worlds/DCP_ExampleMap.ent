@@ -1,0 +1,15 @@
+Layer default {
+ Index 0
+}
+Layer playerHub_US {
+ Index 5
+}
+Layer initialization {
+ Index 2
+}
+Layer patrolArea_01 {
+ Index 1
+}
+Layer patrolType_sabotage {
+ Index 3
+}

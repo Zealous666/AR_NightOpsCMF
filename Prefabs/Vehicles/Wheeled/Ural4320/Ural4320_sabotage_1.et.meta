@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{A4E7EC33DC52A148}Prefabs/Vehicles/Wheeled/Ural4320/Ural4320_sabotage_1.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

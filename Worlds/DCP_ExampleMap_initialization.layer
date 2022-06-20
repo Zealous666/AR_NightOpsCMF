@@ -1,0 +1,38 @@
+SCR_BaseGameMode NO_CoopSetup : "{AAD8DA66980A1D77}Prefabs/MP/NO_CoopSetup.et" {
+ components {
+  SCR_RespawnMenuHandlerComponent "{597B2EF80CE41F6C}" {
+   m_bAllowQuickDeploy 1
+  }
+ }
+ coords 299.959 10.001 88.241
+}
+NO_SCR_TaskManager NO_TaskManager : "{2DF590FC1A531940}Prefabs/NO_DTF/TaskManager.et" {
+ coords 285.152 10 129.933
+ {
+  $grp NO_SCR_EditorTask : "{82EC0462F27F5221}Prefabs/NO_DTF/SingleTask.et" {
+   tsk_selectPatrol_US {
+    components {
+    }
+    coords -4.316 0.001 -3.479
+    m_sName "Vote for a Combat Patrol"
+    m_sDescription "Use the Radio in the US base and vote for a combat patrol type"
+    m_sMapIconName "Icon_Task_Custom"
+    m_sTaskListIconName "Icon_Task_Custom"
+    m_faction "US"
+    m_bAssignToFactionOnStart 1
+    m_sAdditionalMarkerPosition "PatrolRadioSelector_US"
+   }
+   tsk_startPatrol_US {
+    components {
+    }
+    coords -19.707 2.518 -3.715
+    m_sName "Rally players to start patrol"
+    m_sDescription "Rally all players at the designated position to start the next combat patrol"
+    m_faction "US"
+   }
+  }
+ }
+}
+NO_SCR_SpawnManager : "{BC4EF3F0E9688AE2}Prefabs/NO_DSF/MP/Managers/SpawnManager.et" {
+ coords 277.237 9.739 112.848
+}
