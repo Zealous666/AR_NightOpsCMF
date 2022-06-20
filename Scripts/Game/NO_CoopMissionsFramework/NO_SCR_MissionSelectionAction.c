@@ -91,7 +91,7 @@ class NO_SCR_MissionSelectionAction : ScriptedUserAction
 			return;
 
 		if (m_bIsResetAction)
-			m_pMissionSelectionManagerComponent.ResetState();
+			m_pMissionSelectionManagerComponent.ResetState(true);
 		else
 		{
 			m_pMissionSelectionManagerComponent.StartMission(this);

@@ -204,7 +204,7 @@ class NO_SCR_MissionSelectionManagerComponent : ScriptComponent
 	}
 
 
-	void ResetState()
+	void ResetState(bool restartGame = false)
 	{
 		foreach (int actionNameHash, NO_SCR_MissionSelectionActionState actionState : m_mMissionSelections)
 			actionState.SetComplete(false);
@@ -217,6 +217,9 @@ class NO_SCR_MissionSelectionManagerComponent : ScriptComponent
 		PersistState();
 
 		SetDefaultState(true);
+
+		if (!restartGame)
+			return;
 
 		// Attempts to reload the current scenario to reset world state
 		SCR_MissionHeader currentMissionHeader = SCR_MissionHeader.Cast(GetGame().GetMissionHeader());
@@ -262,6 +265,8 @@ class NO_SCR_MissionSelectionManagerComponent : ScriptComponent
 
 		if (!m_bEnableGameOver)
 			return;
+
+		ResetState();
 
 		SCR_BaseGameMode gameMode = SCR_BaseGameMode.Cast(GetGame().GetGameMode());
 		if (!gameMode)
