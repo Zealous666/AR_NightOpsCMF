@@ -5,7 +5,6 @@ class NO_SCR_MissionTriggerClass : NO_SCR_PlayerTriggerEntityClass
 
 class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 {
-	protected const string WAYPOINT_ENTITY_NAME = "WP";
 	protected const int FADE_OUT_BUFFER = 2000;
 
 	// -------------------------------------------------------
@@ -38,9 +37,6 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 
 	[Attribute("", UIWidgets.EditBox, desc: "Name of MissionSelectionAction's to end on the manager above.", category: "MISSION CHANGES")]
 	protected ref array<string> m_aEndMissionSelections;
-
-	[Attribute("", UIWidgets.EditBox, desc: "Name of a waypoint location to move the waypoint marker.", category: "MISSION CHANGES")]
-	protected string m_sWaypointLocationName;
 
 	[Attribute(desc: "Time/weather changes to make.", category: "MISSION CHANGES")]
 	protected ref NO_SCR_ChangeTimeWeatherType m_pChangeTimeAndWeather;
@@ -152,8 +148,6 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 			MakeTaskStateChanges();
 			FinishTask(); // LEGACY
 			UnlockTask(); // LEGACY
-
-			UpdateWaypoint();
 
 			EndMissionSelections();
 
@@ -322,19 +316,6 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 			if (task)
 				task.ChangeStateOfTask(changeEntry.GetTaskState());
 		}
-	}
-
-
-	protected void UpdateWaypoint()
-	{
-		if (m_sWaypointLocationName.IsEmpty())
-			return;
-
-		IEntity waypointLocationEntity = GetGame().GetWorld().FindEntityByName(m_sWaypointLocationName);
-		IEntity waypointEntity = GetGame().GetWorld().FindEntityByName(WAYPOINT_ENTITY_NAME);
-
-		if (waypointLocationEntity && waypointEntity)
-			waypointEntity.SetOrigin(waypointLocationEntity.GetOrigin());
 	}
 
 
