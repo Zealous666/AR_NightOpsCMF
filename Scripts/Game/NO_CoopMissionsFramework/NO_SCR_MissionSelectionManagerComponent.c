@@ -6,10 +6,10 @@ class NO_SCR_MissionSelectionManagerComponentClass : ScriptComponentClass
 class NO_SCR_MissionSelectionManagerComponent : ScriptComponent
 {
 	// Attributes
-	[Attribute("NO_CMF_SaveFileExample.json", UIWidgets.EditBox, desc: "Filename for the save file for this mission selection manager!")]
+	[Attribute("NO_CMF_SaveFileExample.json", UIWidgets.EditBox, desc: "Filename for the save file for this mission selection manager!", category: "MISSION SELECTION MANAGER")]
 	protected string m_sSaveFileName;
 
-	[Attribute("0", UIWidgets.CheckBox,  desc: "Hide the active mission, or show it greyed out with the option to set custom mission text on the actions 'On Mission Text'")]
+	[Attribute("0", UIWidgets.CheckBox,  desc: "Hide the active mission, or show it greyed out with the option to set custom mission text on the actions 'On Mission Text'", category: "MISSION SELECTION MANAGER")]
 	protected bool m_bHideActiveMission;
 
 	[Attribute("0", UIWidgets.CheckBox, desc: "End game on all mission selections complete!", category: "GAME OVER")]
