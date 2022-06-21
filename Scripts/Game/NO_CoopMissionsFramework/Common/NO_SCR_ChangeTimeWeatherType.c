@@ -18,16 +18,16 @@ class NO_SCR_ChangeTimeWeatherType
 [BaseContainerProps(), SCR_BaseContainerStaticTitleField("Simple Time Skip")]
 class NO_SCR_SimpleTimeSkipEntry : NO_SCR_ChangeTimeWeatherType
 {
-	[Attribute(defvalue: "0", UIWidgets.Slider, desc: "Will skip the time by the desired number of days. Authority only.", params: "0 31 1")]
+	[Attribute(defvalue: "0", UIWidgets.Slider, desc: "Will skip the time by the desired number of days.", params: "0 31 1")]
 	protected int m_iSkipTimeByDays;
 
-	[Attribute(defvalue: "0", UIWidgets.Slider, desc: "Will skip the time by the desired number of hours. Authority only.", params: "0 24 1")]
+	[Attribute(defvalue: "0", UIWidgets.Slider, desc: "Will skip the time by the desired number of hours.", params: "0 24 1")]
 	protected int m_iSkipTimeByHours;
 
-	[Attribute(defvalue: "0", UIWidgets.Slider, desc: "Will skip the time by the desired number of minutes. Authority only.", params: "0 60 1")]
+	[Attribute(defvalue: "0", UIWidgets.Slider, desc: "Will skip the time by the desired number of minutes.", params: "0 60 1")]
 	protected int m_iSkipTimeByMinutes;
 
-	[Attribute(defvalue: "0", UIWidgets.Slider, desc: "Will skip the time by the desired number of seconds. Authority only.", params: "0 60 1")]
+	[Attribute(defvalue: "0", UIWidgets.Slider, desc: "Will skip the time by the desired number of seconds.", params: "0 60 1")]
 	protected int m_iSkipTimeBySeconds;
 
 	override void Execute()
@@ -60,52 +60,40 @@ enum EWeatherStates
 [BaseContainerProps(), SCR_BaseContainerStaticTitleField("Full Time/Weather Override")]
 class NO_SCR_ForceTimeAndWeatherEntry : NO_SCR_ChangeTimeWeatherType
 {
-	//! If enabled custom date will be used on session start. Authority only.
-	[Attribute(defvalue: "0", desc: "If enabled, the settings below are ignored and dice get rolled. Individual On/Off settings are still taken into account! Authority only.", category: "ON/OFF")]
+	[Attribute(defvalue: "0", desc: "If enabled, the settings below are ignored and dice get rolled. Individual On/Off settings are still taken into account!", category: "ON/OFF")]
 	protected bool m_bRandomize;
 
-	//! If enabled custom date will be used on session start. Authority only.
-	[Attribute(defvalue: "0", desc: "If enabled, custom date will be used. Authority only.", category: "ON/OFF")]
+	[Attribute(defvalue: "0", desc: "If enabled, custom date will be used.", category: "ON/OFF")]
 	protected bool m_bUseCustomDate;
 
-	//! If enabled custom time of the day will be used on session start. Authority only.
-	[Attribute(defvalue: "0", desc: "If enabled, custom time of the day will be used. Authority only.", category: "ON/OFF")]
+	[Attribute(defvalue: "0", desc: "If enabled, custom time of the day will be used.", category: "ON/OFF")]
 	protected bool m_bUseCustomTime;
 
-	//! If enabled custom weather Id will be used on session start. Authority only.
-	[Attribute(defvalue: "0", desc: "If enabled, custom weather Id will be used. Authority only.", category: "ON/OFF")]
+	[Attribute(defvalue: "0", desc: "If enabled, custom weather Id will be used.", category: "ON/OFF")]
 	protected bool m_bUseCustomWeather;
 
-	//! If enabled custom weather Id will be used on session start. Authority only.
-	[Attribute(defvalue: "0", desc: "If enabled, custom Latitude/Longitude will be used. Authority only.", category: "ON/OFF")]
+	[Attribute(defvalue: "0", desc: "If enabled, custom Latitude/Longitude will be used.", category: "ON/OFF")]
 	protected bool m_bUseCustomLatitudeLongitude;
 
-	//! Year set on game start. Authority only.
-	[Attribute(defvalue: "1989", UIWidgets.Slider, desc: "Year set on game start. Authority only.", category: "SETTINGS", params: "1900 2200 1")]
+	[Attribute(defvalue: "1989", UIWidgets.Slider, desc: "Set to specified year.", category: "SETTINGS", params: "1900 2200 1")]
 	protected int m_iCustomYear;
 
-	//! Month set on game start. Authority only.
-	[Attribute(defvalue: "7", UIWidgets.Slider, desc: "Month set on game start. Authority only.", category: "SETTINGS", params: "1 12 1")]
+	[Attribute(defvalue: "7", UIWidgets.Slider, desc: "Set to specified month.", category: "SETTINGS", params: "1 12 1")]
 	protected int m_iCustomMonth;
 
-	//! Day set on game start. Authority only.
-	[Attribute(defvalue: "24", UIWidgets.Slider, desc: "Day set on game start. Authority only.", category: "SETTINGS", params: "1 31 1")]
+	[Attribute(defvalue: "24", UIWidgets.Slider, desc: "Set to specified day.", category: "SETTINGS", params: "1 31 1")]
 	protected int m_iCustomDay;
 
-	//! Time of the day set on game start. Authority only.
-	[Attribute(defvalue: "9.6", UIWidgets.Slider, desc: "Time of the day set on game start. Authority only.", category: "SETTINGS", params: "0 24 0.01")]
+	[Attribute(defvalue: "9.6", UIWidgets.Slider, desc: "Set to specified time.", category: "SETTINGS", params: "0 24 0.01")]
 	protected float m_fCustomTimeOfTheDay;
 
-	//! Weather IDs are the same as used in the TimeAndWeatherManager. Weather set on game start. Authority only.
-	[Attribute(SCR_Enum.GetDefault(EWeatherStates.Clear), UIWidgets.ComboBox, desc: "Weather set on game start. Authority only.", category: "SETTINGS", enums: ParamEnumArray.FromEnum(EWeatherStates))]
+	[Attribute(SCR_Enum.GetDefault(EWeatherStates.Clear), UIWidgets.ComboBox, desc: "Set to specified weather state.", category: "SETTINGS", enums: ParamEnumArray.FromEnum(EWeatherStates))]
 	protected EWeatherStates m_sCustomWeather;
 
-	//! Latitude set on game start. Authority only.
-	[Attribute(defvalue: "-4", UIWidgets.Slider, desc: "Latitude set on game start. Authority only.", category: "SETTINGS", params: "-90 90 0.01")]
+	[Attribute(defvalue: "-4", UIWidgets.Slider, desc: "Set to specified latitude.", category: "SETTINGS", params: "-90 90 0.01")]
 	protected float m_fCustomLatitude;
 
-	//! Longitude set on game start. Authority only.
-	[Attribute(defvalue: "71", UIWidgets.Slider, desc: "Longitude set on game start. Authority only.", category: "SETTINGS", params: "-180 180 0.01")]
+	[Attribute(defvalue: "71", UIWidgets.Slider, desc: "Set to specified longitude.", category: "SETTINGS", params: "-180 180 0.01")]
 	protected float m_fCustomLongitude;
 
 	override void Execute()

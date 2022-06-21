@@ -50,10 +50,10 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 	[Attribute("0", UIWidgets.CheckBox, desc: "If enabled, will teleport all players to child SCR_Position's picked at random.", category: "TELEPORT")]
 	protected bool m_bEnableTeleport;
 
-	[Attribute("3.0", UIWidgets.Slider, desc: "How far should we look for a safe spot from chosen position.", category: "TELEPORT", params: "0 500 0.01")]
+	[Attribute("3.0", UIWidgets.Slider, desc: "Random deviation radius from a chosen position.", category: "TELEPORT", params: "0 500 0.01")]
 	protected float m_fTeleportRadius;
 
-	[Attribute("15.0", UIWidgets.Slider, desc: "How far should we look for a safe spot from chosen position.", category: "TELEPORT", params: "3 300 0.01")]
+	[Attribute("15.0", UIWidgets.Slider, desc: "Search radius for safe spot from random chosen position.", category: "TELEPORT", params: "3 300 0.01")]
 	protected float m_fSafetyRadius;
 
 	// -------------------------------------------------------
