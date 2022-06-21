@@ -95,6 +95,9 @@ StaticModelEntity : "{D5C135A797D4D7FC}Prefabs/SelectorRadio.et" {
   GenericEntity RadioGaGa {
    ID "598EEDAD218BC139"
    components {
+    NO_SCR_MissionSelectionManagerComponent "{598EB036FD9E2328}" {
+     m_bEnableGameOver 1
+    }
     RplComponent "{5624A88DC2D9928D}" {
      Streamable Disabled
     }
