@@ -1,0 +1,35 @@
+BaseTriggerComponent {
+ PROJECTILE_EFFECTS {
+  ExplosionDamageContainer "{59AB4DC392877793}" {
+   TriggerOnce 1
+   ExplosionDamageEffects {
+    ExplosionFragmentationEffect "{59AB4DC39287779C}" {
+     DamageValue 0.2
+     DamageDistance 30
+     DamageFragmentCount 10000
+     CaseWeight 1297
+     FragSpeedScale 554.3
+    }
+    ExplosionImpulseEffect "{59AB4DC39287779D}" {
+    }
+    BaseExplosionDamageEffect "{59AB4DC39287779B}" {
+     DamageValue 5000
+     DamageDistance 20
+     ExplosionEffectSpeed 50
+     DamageFalloffCurve {
+      0.243 0.784 0.829 0.148
+     }
+    }
+   }
+   ChargeWeight 450
+   TntEquivalent 25
+  }
+  ExplosionEffect "{59AB4DC392877798}" {
+   EffectPrefab "{250CCD685336BC19}Prefabs/Weapons/Warheads/Warhead_HEAT_M72A3.et"
+   ParticleEffect "{D3F38F8AA37B77E8}Particles/Weapon/Explosion_M72LAW.ptc"
+   SoundEvent "SOUND_EXPLOSION"
+  }
+ }
+ DELETE_ON_TRIGGER 0
+ TRIGGER_ALIVE 1
+}
