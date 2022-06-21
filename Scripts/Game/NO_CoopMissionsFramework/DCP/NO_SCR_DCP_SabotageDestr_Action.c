@@ -2,6 +2,9 @@ class NO_SCR_DCP_SabotageDestr_Action : NO_SCR_OneTimeAction
 {
 	[Attribute("40", UIWidgets.Slider, desc: "Timer for big bada boom [s]", params: "0 90 1")]
 	protected int m_iTimer;
+	
+	[Attribute("1", UIWidgets.CheckBox, desc: "Show the countdown timer as a hint!")]
+	protected bool m_bShowCountdown;
 
 	override void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity)
 	{
@@ -19,7 +22,8 @@ class NO_SCR_DCP_SabotageDestr_Action : NO_SCR_OneTimeAction
 	// Show GUI hint with time remaining
 	protected void ShowCountdown()
 	{
-		SCR_HintManagerComponent.GetInstance().ShowCustomHint(string.Format("%1 seconds until satchel explodes!", m_iTimer), "Satchel Placed", 3);
+		if (m_bShowCountdown)
+			SCR_HintManagerComponent.GetInstance().ShowCustomHint(string.Format("%1 seconds until satchel explodes!", m_iTimer), "Satchel Placed", 3);
 	}
 
 	// Countdown function
