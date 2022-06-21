@@ -9,6 +9,12 @@ GenericWorldFogEntity Fog_HazeCustom {
 }
 SCR_BaseGameMode NO_CoopSetup1 : "{AAD8DA66980A1D77}Prefabs/MP/NO_CoopSetup.et" {
  components {
+  NO_SCR_ForceTimeAndWeatherComponent "{598463A47C89F035}" {
+   m_pChangeTimeAndWeather NO_SCR_ForceTimeAndWeatherEntry "{59AAB0D72A38BA23}" {
+    m_bRandomize 1
+    m_bUseCustomTime 1
+   }
+  }
   SCR_RespawnMenuHandlerComponent "{597B2EF80CE41F6C}" {
    m_bAllowQuickDeploy 1
   }
