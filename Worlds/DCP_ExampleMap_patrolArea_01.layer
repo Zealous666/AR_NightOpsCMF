@@ -1,0 +1,14 @@
+$grp CommentEntity {
+ sabotage_A_01 {
+  coords 90.853 14.852 451.887
+  m_Comment "Sabotage 1"
+  m_Size 2
+  m_VisibleIngame 1
+ }
+ infil_01 {
+  coords 113.081 15.754 408.557
+  m_Comment "Infi"
+  m_Size 2
+  m_VisibleIngame 1
+ }
+}
