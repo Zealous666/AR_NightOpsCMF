@@ -2,7 +2,7 @@ class NO_SCR_DCP_SabotageDestr_Action : NO_SCR_OneTimeAction
 {
 	[Attribute("40", UIWidgets.Slider, desc: "Timer for big bada boom [s]", params: "0 90 1")]
 	protected int m_iTimer;
-	
+
 	[Attribute("1", UIWidgets.CheckBox, desc: "Show the countdown timer as a hint!")]
 	protected bool m_bShowCountdown;
 
@@ -48,7 +48,15 @@ class NO_SCR_DCP_SabotageDestr_Action : NO_SCR_OneTimeAction
 	// Trigger BaseTriggerComponent
 	protected void DestroyVehicle()
 	{
-		BaseTriggerComponent trigger = BaseTriggerComponent.Cast(GetOwner().FindComponent(BaseTriggerComponent));
-		trigger.OnUserTrigger(GetOwner());
+		BaseTriggerComponent baseTrigger = BaseTriggerComponent.Cast(GetOwner().FindComponent(BaseTriggerComponent));
+
+		// BaseTriggerComponent may have been forgotten, log error message but avoid null pointer
+		if (!baseTrigger)
+		{
+			Print(string.Format("No BaseTriggerComponent found on %1.", GetOwner().GetName()), LogLevel.ERROR);
+			return;
+		}
+
+		baseTrigger.OnUserTrigger(GetOwner());
 	}
 }
