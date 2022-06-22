@@ -5,7 +5,7 @@ class NO_SCR_MissionTriggerClass : NO_SCR_PlayerTriggerEntityClass
 
 class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 {
-	protected const int FADE_OUT_BUFFER = 2000;
+	protected const int FADE_OUT_BUFFER = 4750;
 
 	// -------------------------------------------------------
 
@@ -153,7 +153,7 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 
 			MovePlayers();
 
-			GetGame().GetCallqueue().CallLater(ChangeTimeWeather, FADE_OUT_BUFFER + 50, false);
+			GetGame().GetCallqueue().CallLater(ChangeTimeWeather, FADE_OUT_BUFFER, false);
 
 			GameOver();
 		}
@@ -401,7 +401,7 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 		if (!positionEntity)
 			return;
 
-		BlackoutEffect(true, 4.45);
+		BlackoutEffect(true);
 
 		// Delay for fadeout
 		GetGame().GetCallqueue().CallLater(Teleport, FADE_OUT_BUFFER, false, positionEntity);
@@ -410,8 +410,6 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 
 	protected void Teleport(notnull SCR_Position positionEntity)
 	{
-		BlackoutEffect(true, 10);
-
 		vector startPostion = positionEntity.GetOrigin();
 		vector rotation = positionEntity.GetAngles();
 
@@ -438,7 +436,7 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 	}
 
 
-	protected void BlackoutEffect(bool state = false, float strength = 0)
+	protected void BlackoutEffect(bool state = false)
 	{
 		if (!m_pLocalScreenEffects)
 		{
@@ -464,10 +462,10 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 		if (m_pLocalScreenEffects)
 		{
 			if (state)
-				m_pLocalScreenEffects.BlackoutEffect(strength);
+				m_pLocalScreenEffects.ConfigurableBlackoutEffect(10, 0.2);
 			else
 			{
-				m_pLocalScreenEffects.BlackoutEffect(0);
+				m_pLocalScreenEffects.ConfigurableBlackoutEffect(0, 4.25);
 				m_pLocalScreenEffects = null;
 			}
 		}
@@ -497,6 +495,22 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 	void NO_SCR_MissionTrigger(IEntitySource src, IEntity parent)
 	{
 		SetEventMask(EntityEvent.INIT);
+	}
+}
+
+
+
+modded class SCR_ScreenEffects : SCR_InfoDisplayExtended
+{
+	void ConfigurableBlackoutEffect(float effectStrength, float effectDuration)
+	{
+		if (!m_wBlackOut)
+			return;
+
+		m_wBlackOut.SetOpacity(1);
+
+		effectStrength = effectStrength * BLACKOUT_OPACITY_MULTIPLIER;
+		WidgetAnimator.PlayAnimation(m_wBlackOut, WidgetAnimationType.AlphaMask, effectStrength, effectDuration);
 	}
 }
 
