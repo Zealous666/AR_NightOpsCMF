@@ -8,7 +8,7 @@ NO_SCR_MissionTrigger {
  TriggerShapeType Sphere
  SphereRadius 10
  DrawShape 1
- ShapeColor 0.11 0.875 0.302 1
+ ShapeColor 0.125 1 0.347 0.498
  TriggerActivationType "All changes"
  PeriodicQueries 1
 }
