@@ -103,18 +103,3 @@ SCR_WaterZoneEntity OceanWaterZone {
  m_Depth 500
  m_IsOcean 1
 }
-Vehicle Ural4320_sabotage_1 : "{A4E7EC33DC52A148}Prefabs/Vehicles/Wheeled/Ural4320/Ural4320_sabotage_1.et" {
- components {
-  SCR_VehicleDamageManagerComponent "{141326E9FD94FE40}" {
-   m_fVehicleDestroyDamage 21809.699
-  }
-  ActionsManagerComponent "{C97BE5489221AE18}" {
-   additionalActions {
-    NO_SCR_DCP_SabotageDestr_Action "{59A93B46DCA3A21E}" {
-     m_iTimer 6
-    }
-   }
-  }
- }
- coords 280.595 10.001 130.518
-}
