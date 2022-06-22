@@ -1,0 +1,38 @@
+Vehicle : "{9DD4FD3527CB46C8}Prefabs/Vehicles/Wheeled/Ural4320/Ural4320_transport_covered_closed.et" {
+ ID "BBCBA43A9778AE21"
+ components {
+  BaseTriggerComponent "{59ACA0E473548C04}" : "{39A56BB9FC9D130F}Prefabs/Vehicles/Wheeled/Ural4320/BaseTriggerComponentSatchel.ct" {
+  }
+  NO_SCR_DTFRenamerComponent "{59AC9AF4948BBAAE}" {
+   m_sNewName "typeSabotage_Truck_2"
+  }
+  NO_SCR_ImmobilizerComponent "{59AC9AF493715A74}" {
+   m_bStartImmobilized 1
+  }
+  SCR_VehicleDamageManagerComponent "{141326E9FD94FE40}" {
+   m_fVehicleDestroyDamage 21809.699
+  }
+  ActionsManagerComponent "{C97BE5489221AE18}" {
+   ActionContexts {
+    UserActionContext "{59AC9AF576C462C4}" {
+     ContextName "sabotage"
+     Position PointInfo "{59AC9AF56ACD1D25}" {
+     }
+     Radius 3
+    }
+   }
+   additionalActions {
+    NO_SCR_DCP_SabotageDestr_Action "{59AC9AF5C235FE5F}" {
+     ParentContextList {
+      "sabotage"
+     }
+     UIInfo UIInfo "{59AC9AF5CBD5A80D}" {
+      Name "Plant Satchel Charge"
+     }
+     Duration 1
+    }
+   }
+  }
+ }
+ coords 197.727 10.001 489.75
+}

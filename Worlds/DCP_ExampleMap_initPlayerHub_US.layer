@@ -13,6 +13,10 @@ NO_SCR_MissionTrigger PatrolStart_typeSabotageTrg_US : "{52FA44EBEB3115FC}Prefab
    m_sTaskEntityName "tsk_TypeSabotage_1_US"
    m_eTaskState Assign
   }
+  NO_SCR_TaskStateChangeEntry "{59ACA0E6F9474819}" {
+   m_sTaskEntityName "tsk_TypeSabotage_2_US"
+   m_eTaskState Create
+  }
  }
  m_aSpawnpointChanges {
   NO_SCR_SpawnpointChangeEntry "{59AC912A4B9A321B}" {

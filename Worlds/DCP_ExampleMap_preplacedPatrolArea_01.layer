@@ -17,12 +17,6 @@ $grp CommentEntity {
   m_Size 2
   m_VisibleIngame 1
  }
- mrk_sabotage_2_01 {
-  coords 150.627 13.154 401.026
-  m_Comment "Sabotage 2"
-  m_Size 2
-  m_VisibleIngame 1
- }
 }
 NO_SCR_SpawnTrigger factionSpawnTrg_01 : "{92D1AF50687CA748}Prefabs/NO_DSF/DynamicFaction/BaseSpawnTriggerForDynamicFaction.et" {
  coords 64.725 10.001 484.867

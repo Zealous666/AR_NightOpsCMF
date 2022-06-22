@@ -9,8 +9,62 @@ SCR_BaseGameMode NO_CoopSetup : "{AAD8DA66980A1D77}Prefabs/MP/NO_CoopSetup.et" {
 NO_SCR_TaskManager NO_TaskManager : "{2DF590FC1A531940}Prefabs/NO_DTF/TaskManager.et" {
  coords 285.152 10 129.933
  {
+  NO_SCR_EditorTask tsk_TypeSabotage_US : "{231FF93369E30084}Prefabs/NO_DTF/MultiTask.et" {
+   components {
+    NO_SCR_MultiTaskTriggerComponent "{599690AC32293EDD}" {
+     m_allowFailedTasks 0
+    }
+   }
+   coords -285.152 -10 -129.933
+   m_faction "US"
+   {
+    NO_SCR_EditorTask tsk_TypeSabotage_1_US : "{82EC0462F27F5221}Prefabs/NO_DTF/SingleTask.et" {
+     coords 285.152 10 129.933
+     m_sName "Sabotage Fuel Truck"
+     m_sDescription "Plant a satchel charge at the Fuel Truck to sabotage it"
+     m_faction "US"
+     m_sAdditionalMarkerPosition "sabotage_truck_01"
+     {
+      GenericEntity : "{DC9B59BFF1B7A41D}Prefabs/NO_DTF/Triggers/DestroyAiOrVehicleTrigger.et" {
+       components {
+        NO_SCR_TaskNamedObjectTriggerComponent "{59A0F6DCA0C8FAE0}" {
+         m_sTriggerNamedObject "typeSabotage_Truck_1"
+        }
+       }
+       coords 0 0 0
+      }
+     }
+    }
+    NO_SCR_SpawnTrigger sabotage_spawnTrg_US : "{8E854CB7405795E8}Prefabs/NO_DSF/BaseSpawnTrigger.et" {
+     coords 463.111 10.001 481.995
+     TriggerShapeType None
+     TriggerActivationType None
+     PeriodicQueries 0
+     ClassFilter ""
+     m_bDelete 0
+     {
+      GenericEntity sabotage_truck_01 : "{D8F00B5CFC8514F1}Prefabs/NO_DSF/Vehicles/SpawnVehicle.et" {
+       components {
+        NO_SCR_EnvSpawnerComponent "{59889B90E04F5D80}" {
+         m_rnDefaultPrefabs {
+          CountSpawnsByOnlinePlayer "{5988C249449C6C74}" {
+           prefab {
+            "{A4E7EC33DC52A148}Prefabs/Vehicles/Wheeled/Ural4320/Ural4320_sabotage_1.et"
+           }
+          }
+         }
+        }
+        NwkMovementComponent "{59AC91299C8D8B54}" {
+        }
+       }
+       coords -8.337 0 -2.777
+      }
+     }
+    }
+   }
+  }
   $grp NO_SCR_EditorTask : "{82EC0462F27F5221}Prefabs/NO_DTF/SingleTask.et" {
-   tsk_selectPatrol_US {
+   tsk_SelectPatrol_US {
     components {
     }
     coords -4.316 0.001 -3.479
@@ -22,7 +76,7 @@ NO_SCR_TaskManager NO_TaskManager : "{2DF590FC1A531940}Prefabs/NO_DTF/TaskManage
     m_bAssignToFactionOnStart 1
     m_sAdditionalMarkerPosition "PatrolRadioSelector_US"
    }
-   tsk_startPatrol_US {
+   tsk_StartPatrol_US {
     components {
     }
     coords -19.707 2.518 -3.715
@@ -33,6 +87,6 @@ NO_SCR_TaskManager NO_TaskManager : "{2DF590FC1A531940}Prefabs/NO_DTF/TaskManage
   }
  }
 }
-NO_SCR_SpawnManager : "{BC4EF3F0E9688AE2}Prefabs/NO_DSF/MP/Managers/SpawnManager.et" {
+NO_SCR_SpawnManager NO_SpawnManager : "{BC4EF3F0E9688AE2}Prefabs/NO_DSF/MP/Managers/SpawnManager.et" {
  coords 277.237 9.739 112.848
 }

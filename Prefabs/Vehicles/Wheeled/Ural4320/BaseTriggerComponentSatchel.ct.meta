@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{39A56BB9FC9D130F}Prefabs/Vehicles/Wheeled/Ural4320/BaseTriggerComponentSatchel.ct"
+ Configurations {
+  ComponentTemplateResourceClass PC {
+  }
+  ComponentTemplateResourceClass XBOX_ONE : PC {
+  }
+  ComponentTemplateResourceClass XBOX_SERIES : PC {
+  }
+  ComponentTemplateResourceClass PS4 : PC {
+  }
+  ComponentTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

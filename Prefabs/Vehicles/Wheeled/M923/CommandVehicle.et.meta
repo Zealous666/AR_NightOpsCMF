@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{7B56073239381DF6}Prefabs/Vehicles/Wheeled/M923/CommandVehicle.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

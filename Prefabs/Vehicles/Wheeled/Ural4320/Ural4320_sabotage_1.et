@@ -4,7 +4,7 @@ Vehicle : "{4597626AF36C0858}Prefabs/Vehicles/Wheeled/Ural4320/Ural4320.et" {
   BaseTriggerComponent "{59AB5483D2B8614D}" : "{882749F8B636DCED}Prefabs/PlacedExplosivesTrigger.ct" {
   }
   NO_SCR_DTFRenamerComponent "{59A93B45EBFD78A9}" {
-   m_sNewName "sabotage_1"
+   m_sNewName "typeSabotage_Truck_1"
   }
   NO_SCR_ImmobilizerComponent "{59A93B45E7325E3D}" {
    m_bStartImmobilized 1

@@ -1,0 +1,78 @@
+Vehicle : "{38186F12F27A61C6}Prefabs/Vehicles/Wheeled/M923A1/M923A1_command_MERDC.et" {
+ ID "5206D4E79715C115"
+ components {
+  NO_SCR_DeploymentComponent "{59AB1A302A8655DC}" {
+   m_aDeployments {
+    NO_SCR_SpawnpointDeployment "{59AB1A3028A5A70E}" {
+     m_sFactionKey "US"
+    }
+    NO_SCR_ImmobilizerDeployment "{59AB1A32457ABCEA}" {
+    }
+    NO_SCR_HintDeployment "{59AB380CDCE28F9D}" {
+     m_pDeployHint SCR_HintUIInfo "{59AB380CDDA6BB5D}" {
+      Name "Vehicle deployed"
+      Description "Spawnpoint unlocked"
+     }
+     m_pUndeployHint SCR_HintUIInfo "{59AB380CCC8AF95F}" {
+      Name "Vehicle un-deployed"
+      Description "Spawnpoint removed"
+     }
+    }
+   }
+  }
+  SCR_VehicleDamageManagerComponent "{141326E9FD94FE40}" {
+   m_fVehicleDestroyDamage 21809.699
+  }
+  ActionsManagerComponent "{C97BE5489221AE18}" {
+   ActionContexts {
+    UserActionContext "{59AB1A30F69F9FD9}" {
+     ContextName "default"
+     Position PointInfo "{59AB1A30EB61F9AE}" {
+     }
+     Radius 3
+    }
+   }
+   additionalActions {
+    NO_SCR_DeploymentAction "{59AB1A3090E9A7C7}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{59AB1A30972628AD}" {
+      Name "Command Vehicle"
+     }
+     Duration 10
+    }
+   }
+  }
+ }
+ coords 5096.455 14.259 3998.466
+ angleY 179.949
+ {
+  SCR_SpawnPoint spawnPoint : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et" {
+   ID "59AB1A335921A97E"
+   components {
+    NwkMovementComponent "{59AB1A303D278C05}" {
+    }
+   }
+   coords 0.001 0.054 -8.016
+   m_sFaction "0"
+   m_Info SCR_UIInfo "{56B4CC4ECACA2C37}" {
+    Name "Command Vehicle"
+   }
+  }
+  $grp NO_SCR_VehicleRespawner : "{9068A816F5706480}Prefabs/Vehicles/NO_VehicleRespawner.et" {
+   spawn_west_veh_hummer_1 {
+    ID "59AB1A3359219E40"
+    coords 0.238 0 11.032
+    angleY 0.467
+    m_rnSpawnPrefab "{DD774A8FD0989A78}Prefabs/Vehicles/Wheeled/M998/M1025_armed_M2HB_MERDC.et"
+   }
+   spawn_west_veh_hummer_2 {
+    ID "59AB1A3359219E43"
+    coords -0.46 0.203 -13.9
+    angleY -4.124
+    m_rnSpawnPrefab "{6B24D5AFD884D64C}Prefabs/Vehicles/Wheeled/M998/M998_MERDC.et"
+   }
+  }
+ }
+}
