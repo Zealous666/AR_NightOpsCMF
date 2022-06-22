@@ -8,9 +8,11 @@ class NO_SCR_DCP_Sabotage_US_Action : NO_SCR_MissionSelectionAction
 			
 		//Finish initital task to select a patrol type
 		IEntity taskEntityH = GetGame().GetWorld().FindEntityByName("tsk_SelectPatrol_US");
-		if (taskEntityH) {
+		if (taskEntityH)
+		{
         	NO_SCR_EditorTask taskH = NO_SCR_EditorTask.Cast(taskEntityH);
 			taskH.ChangeStateOfTask(TriggerType.Finish);
+		}
 			
 		//Unlock next task to reach mission trigger
 		IEntity taskEntity = GetGame().GetWorld().FindEntityByName("tsk_StartPatrol_US");
@@ -56,8 +58,5 @@ class NO_SCR_DCP_Sabotage_US_Action : NO_SCR_MissionSelectionAction
         GetGame().GetWorld().FindEntityByName("PatrolInfilPos_typeSabotage_US").SetOrigin(infilLocation);	
 				
 		//move exfil missionTrigger to picket patrol area marker
-			
-		}
 	}
-
 }
