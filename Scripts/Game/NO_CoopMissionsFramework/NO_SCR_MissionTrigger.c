@@ -5,10 +5,6 @@ class NO_SCR_MissionTriggerClass : NO_SCR_PlayerTriggerEntityClass
 
 class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 {
-	protected const int FADE_OUT_BUFFER = 4750;
-
-	// -------------------------------------------------------
-
 	[Attribute(desc: "Activate once one of the specified tasks reaches the specified state. MultiTasks can also be used.", category: "PLAYER TRIGGER")]
 	protected ref array<ref NO_SCR_TaskStateActivatorEntry> m_aActivateOnTaskState;
 
@@ -153,7 +149,7 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 
 			MovePlayers();
 
-			GetGame().GetCallqueue().CallLater(ChangeTimeWeather, FADE_OUT_BUFFER, false);
+			GetGame().GetCallqueue().CallLater(ChangeTimeWeather, 2000, false);
 
 			GameOver();
 		}
@@ -404,7 +400,7 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 		BlackoutEffect(true);
 
 		// Delay for fadeout
-		GetGame().GetCallqueue().CallLater(Teleport, FADE_OUT_BUFFER, false, positionEntity);
+		GetGame().GetCallqueue().CallLater(Teleport, 4750, false, positionEntity);
 	}
 
 
