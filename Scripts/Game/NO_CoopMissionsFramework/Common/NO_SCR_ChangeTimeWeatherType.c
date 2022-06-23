@@ -15,7 +15,7 @@ class NO_SCR_ChangeTimeWeatherType
 }
 
 
-[BaseContainerProps(), SCR_BaseContainerStaticTitleField("Simple Time Skip")]
+[BaseContainerProps()]
 class NO_SCR_SimpleTimeSkipEntry : NO_SCR_ChangeTimeWeatherType
 {
 	[Attribute(defvalue: "0", UIWidgets.Slider, desc: "Will skip the time by the desired number of days.", params: "0 31 1")]
@@ -57,7 +57,7 @@ enum EWeatherStates
 }
 
 
-[BaseContainerProps(), SCR_BaseContainerStaticTitleField("Full Time/Weather Override")]
+[BaseContainerProps()]
 class NO_SCR_ForceTimeAndWeatherEntry : NO_SCR_ChangeTimeWeatherType
 {
 	[Attribute(defvalue: "0", desc: "If enabled, the settings below are ignored and dice get rolled. Individual On/Off settings are still taken into account!", category: "ON/OFF")]
@@ -86,6 +86,9 @@ class NO_SCR_ForceTimeAndWeatherEntry : NO_SCR_ChangeTimeWeatherType
 
 	[Attribute(defvalue: "9.6", UIWidgets.Slider, desc: "Set to specified time.", category: "SETTINGS", params: "0 24 0.01")]
 	protected float m_fCustomTimeOfTheDay;
+
+	[Attribute(uiwidget: UIWidgets.Object, desc: "Use a time skip rather than the setting above.", category: "SETTINGS")]
+	protected ref NO_SCR_SimpleTimeSkipEntry m_pOrTimeSkip;
 
 	[Attribute(SCR_Enum.GetDefault(EWeatherStates.Clear), UIWidgets.ComboBox, desc: "Set to specified weather state.", category: "SETTINGS", enums: ParamEnumArray.FromEnum(EWeatherStates))]
 	protected EWeatherStates m_sCustomWeather;
@@ -127,7 +130,12 @@ class NO_SCR_ForceTimeAndWeatherEntry : NO_SCR_ChangeTimeWeatherType
 			SetDate(m_iCustomYear, m_iCustomMonth, m_iCustomDay);
 
 		if (m_bUseCustomTime)
-			SetTimeOfTheDay(m_fCustomTimeOfTheDay);
+		{
+			if (m_pOrTimeSkip)
+				m_pOrTimeSkip.Execute();
+			else
+				SetTimeOfTheDay(m_fCustomTimeOfTheDay);
+		}
 
 		if (m_bUseCustomWeather)
 			SetWeather(GetWeatherString(m_sCustomWeather));
