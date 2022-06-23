@@ -52,50 +52,6 @@ NO_SCR_TaskManager NO_TaskManager : "{2DF590FC1A531940}Prefabs/NO_DTF/TaskManage
       }
      }
     }
-    NO_SCR_SpawnTrigger sabotage_spawnTrg_US : "{8E854CB7405795E8}Prefabs/NO_DSF/BaseSpawnTrigger.et" {
-     coords 463.111 10.001 481.995
-     TriggerShapeType None
-     TriggerActivationType None
-     PeriodicQueries 0
-     ClassFilter ""
-     m_bDelete 0
-     {
-      $grp GenericEntity : "{D8F00B5CFC8514F1}Prefabs/NO_DSF/Vehicles/SpawnVehicle.et" {
-       spawn_sabotageTruck_1 {
-        components {
-         NO_SCR_EnvSpawnerComponent "{59889B90E04F5D80}" {
-          m_rnDefaultPrefabs {
-           CountSpawnsByOnlinePlayer "{5988C249449C6C74}" {
-            prefab {
-             "{A4E7EC33DC52A148}Prefabs/Vehicles/Wheeled/Ural4320/Ural4320_sabotage_1.et"
-            }
-           }
-          }
-         }
-         NwkMovementComponent "{59AC91299C8D8B54}" {
-         }
-        }
-        coords -8.337 0 -2.777
-       }
-       spawn_sabotageTruck_2 {
-        components {
-         NO_SCR_EnvSpawnerComponent "{59889B90E04F5D80}" {
-          m_rnDefaultPrefabs {
-           CountSpawnsByOnlinePlayer "{5988C249449C6C74}" {
-            prefab {
-             "{C8B3D8D360962E66}Prefabs/Vehicles/Wheeled/Ural4320/Ural4320_sabotage_2.et"
-            }
-           }
-          }
-         }
-         NwkMovementComponent "{59AC91299C8D8B54}" {
-         }
-        }
-        coords 4.869 0 -2.219
-       }
-      }
-     }
-    }
    }
   }
   $grp NO_SCR_EditorTask : "{82EC0462F27F5221}Prefabs/NO_DTF/SingleTask.et" {

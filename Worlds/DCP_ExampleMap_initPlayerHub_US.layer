@@ -2,9 +2,6 @@ NO_SCR_MissionTrigger PatrolStart_typeSabotageTrg_US : "{52FA44EBEB3115FC}Prefab
  coords 264.617 10.001 125.263
  m_bIsActive 0
  m_fDelay 1
- m_sNOSpawnTriggerNames {
-  "sabotage_spawnTrg_US"
- }
  m_aTaskStateChanges {
   NO_SCR_TaskStateChangeEntry "{59A93B4318BA39C5}" {
    m_sTaskEntityName "tsk_StartPatrol_US"
