@@ -27,36 +27,17 @@ class NO_SCR_VehicleRespawner : GenericEntity
         GetGame().GetCallqueue().Call(SpawnVehicle);
     }
 
-    protected bool TryRegister(IEntity targetEntity, string eventName, func callback)
-    {
-        EventHandlerManagerComponent eventHandlerManager = EventHandlerManagerComponent.Cast(targetEntity.FindComponent(EventHandlerManagerComponent));
-        if (eventHandlerManager)
-        {
-            eventHandlerManager.RegisterScriptHandler(eventName, targetEntity, callback);
-            return true;
-        }
-        else
-        	return false;
-    }
-
-    protected bool TryUnregister(IEntity targetEntity, string eventName, func callback)
-    {
-        EventHandlerManagerComponent eventHandlerManager = EventHandlerManagerComponent.Cast(targetEntity.FindComponent(EventHandlerManagerComponent));
-        if (eventHandlerManager)
-        {
-            eventHandlerManager.RemoveScriptHandler(eventName, targetEntity, callback);
-            return true;
-        }
-        else
-	         return false;
-    }
-
   	void OnVehicleDeystroyed(IEntity targetEntity)
     {
         if (targetEntity)
         {
-			TryUnregister(targetEntity, "OnDestroyed", OnVehicleDeystroyed);
-			TryUnregister(targetEntity, "OnCompartmentLeft", OnVehicleCompartmentLeft);
+			EventHandlerManagerComponent eventHandlerManager = EventHandlerManagerComponent.Cast(targetEntity.FindComponent(EventHandlerManagerComponent));
+			
+			if (eventHandlerManager)
+			{
+				eventHandlerManager.RemoveScriptHandler("OnDestroyed", targetEntity, OnVehicleDeystroyed);
+				eventHandlerManager.RemoveScriptHandler("OnCompartmentLeft", targetEntity, OnVehicleCompartmentLeft);
+			}
 		}
 
         // Delay the vehicle spawn, argument should be ms so 5000 = 5s
@@ -69,12 +50,6 @@ class NO_SCR_VehicleRespawner : GenericEntity
 		if (garbageManager)
 			if (garbageManager.IsInserted(vehicle))
 				garbageManager.Withdraw(vehicle);
-	}
-
-	protected void PrintInserted(GarbageManager garbageManager, IEntity spawnedVehicle)
-	{
-		Print(garbageManager, LogLevel.ERROR);
-		Print(garbageManager.IsInserted(spawnedVehicle));
 	}
 
     protected void SpawnVehicle()
@@ -105,18 +80,17 @@ class NO_SCR_VehicleRespawner : GenericEntity
         }
 
 		// Event registration to detect spawned vehicles death
-        TryRegister(spawnedVehicle, "OnDestroyed", OnVehicleDeystroyed);
+		EventHandlerManagerComponent eventHandlerManager = EventHandlerManagerComponent.Cast(spawnedVehicle.FindComponent(EventHandlerManagerComponent));
+		if (eventHandlerManager)
+			eventHandlerManager.RegisterScriptHandler("OnDestroyed", spawnedVehicle, OnVehicleDeystroyed);
 
 		// If using a garbageManager, make sure an exited vehicle is unset for collection.
 		// A deystroyed vehicle can still be collected.
 		GarbageManager garbageManager = GetGame().GetGarbageManager();
 		if (garbageManager)
 		{
-			EventHandlerManagerComponent eventHandlerManager = EventHandlerManagerComponent.Cast(spawnedVehicle.FindComponent(EventHandlerManagerComponent));
 			if (eventHandlerManager)
-	        	TryRegister(spawnedVehicle, "OnCompartmentLeft", OnVehicleCompartmentLeft);
-
-			GetGame().GetCallqueue().CallLater(PrintInserted, 1000, true, garbageManager, spawnedVehicle);
+				eventHandlerManager.RegisterScriptHandler("OnCompartmentLeft", spawnedVehicle, OnVehicleCompartmentLeft);
 		}
 
 		// Hint
