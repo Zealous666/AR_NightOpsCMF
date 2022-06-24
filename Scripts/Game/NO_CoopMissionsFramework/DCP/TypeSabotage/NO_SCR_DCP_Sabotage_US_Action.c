@@ -31,12 +31,14 @@ class NO_SCR_DCP_Sabotage_US_Action : NO_SCR_MissionSelectionAction
 		//spawn the enemies in picked patrol area	
 		NO_SCR_SpawnTrigger.Cast(GetGame().GetWorld().FindEntityByName("factionSpawnTrg_01")).Spawn();
 			
-		//move sabotage trucks spawner to picked patrol area marker
-		vector sabotage1lLocation = GetGame().GetWorld().FindEntityByName("mrk_sabotage_1_01").GetOrigin();
-        GetGame().GetWorld().FindEntityByName("spawn_sabotageTruck_1").SetOrigin(sabotage1lLocation);	
+		//spawns the sabotage truck at picked patrol area
+    	 IEntity sabotage1 = GetGame().GetWorld().FindEntityByName("mrk_sabotage_1_01");
+        NO_SCR_EnvSpawnerComponent spawner1 = NO_SCR_EnvSpawnerComponent.Cast(sabotage1.FindComponent(NO_SCR_EnvSpawnerComponent));
+        spawner1.DoSpawn();
 			
-		vector sabotage2lLocation = GetGame().GetWorld().FindEntityByName("mrk_sabotage_2_01").GetOrigin();
-        GetGame().GetWorld().FindEntityByName("spawn_sabotageTruck_2").SetOrigin(sabotage2lLocation);	
+	  	IEntity sabotage2 = GetGame().GetWorld().FindEntityByName("mrk_sabotage_2_01");
+        NO_SCR_EnvSpawnerComponent spawner2 = NO_SCR_EnvSpawnerComponent.Cast(sabotage2.FindComponent(NO_SCR_EnvSpawnerComponent));
+        spawner2.DoSpawn();
 			
 			
 		//move sabotage tasks to picked patrol area marker
@@ -47,7 +49,7 @@ class NO_SCR_DCP_Sabotage_US_Action : NO_SCR_MissionSelectionAction
         GetGame().GetWorld().FindEntityByName("tsk_TypeSabotage_2_US").SetOrigin(sabotage2TasklLocation);	
 
 			
-		//move infil sawnpoint to picket patrol area marker
+		//move infil spawnpoint to picket patrol area marker
 		vector infilSpawnLocation = GetGame().GetWorld().FindEntityByName("mrk_infil_01").GetOrigin();
         GetGame().GetWorld().FindEntityByName("SpawnPoint_Infil_US").SetOrigin(infilSpawnLocation);	
 			
