@@ -149,7 +149,10 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 
 			MovePlayers();
 
-			GetGame().GetCallqueue().CallLater(ChangeTimeWeather, 2000, false);
+			if (m_bEnableTeleport)
+				GetGame().GetCallqueue().CallLater(ChangeTimeWeather, 2000, false);
+			else
+				ChangeTimeWeather();
 
 			GameOver();
 		}
