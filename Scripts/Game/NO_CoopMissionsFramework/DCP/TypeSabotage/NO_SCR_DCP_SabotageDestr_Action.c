@@ -58,5 +58,13 @@ class NO_SCR_DCP_SabotageDestr_Action : NO_SCR_OneTimeAction
 		}
 
 		baseTrigger.OnUserTrigger(GetOwner());
+		GetGame().GetCallqueue().CallLater(StopPhysics, 2000, false);
+	}
+
+	// Stops vehicles sliding after being blown up
+	protected void StopPhysics()
+	{
+		if (GetOwner().GetPhysics())
+			GetOwner().GetPhysics().ChangeSimulationState(SimulationState.COLLISION);
 	}
 }
