@@ -8,6 +8,9 @@ class NO_SCR_ForceTimeAndWeatherComponentClass : SCR_BaseGameModeComponentClass
 
 class NO_SCR_ForceTimeAndWeatherComponent : SCR_BaseGameModeComponent
 {
+	[Attribute(defvalue: "0", desc: "If enabled, will set the time/weather below on every first player connection to a previously empty server!", category: "FORCE TIME AND WEATHER")]
+	protected bool m_bResetOnFirstPlayerConnect;
+
 	[Attribute(desc: "Time/weather changes to make.", category: "FORCE TIME AND WEATHER")]
 	protected ref NO_SCR_ForceTimeAndWeatherEntry m_pChangeTimeAndWeather;
 
@@ -54,6 +57,7 @@ class NO_SCR_ForceTimeAndWeatherComponent : SCR_BaseGameModeComponent
 		SetEventMask(owner, EntityEvent.INIT);
 	}
 
+	// Called on every machine.
 	protected override void EOnInit(IEntity owner)
 	{
 		super.EOnInit(owner);
@@ -61,6 +65,18 @@ class NO_SCR_ForceTimeAndWeatherComponent : SCR_BaseGameModeComponent
 		if (!GetGame().InPlayMode())
 			return;
 
+		ChangeTimeWeather();
+	}
+
+	// Called after a player is connected. Server-only.
+	override void OnPlayerConnected(int playerId)
+	{
+		if (playerId == 1 && m_bResetOnFirstPlayerConnect)
+			ChangeTimeWeather();
+	}
+
+	protected void ChangeTimeWeather()
+	{
 		// If authority and a Time/Weather change is socketed
 		if (GetGameMode().IsMaster() && m_pChangeTimeAndWeather)
 		{

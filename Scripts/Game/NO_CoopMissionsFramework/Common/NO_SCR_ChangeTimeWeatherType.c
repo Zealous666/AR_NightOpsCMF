@@ -75,6 +75,13 @@ class NO_SCR_ForceTimeAndWeatherEntry : NO_SCR_ChangeTimeWeatherType
 	[Attribute(defvalue: "0", desc: "If enabled, custom Latitude/Longitude will be used.", category: "ON/OFF")]
 	protected bool m_bUseCustomLatitudeLongitude;
 
+	[Attribute(defvalue: "1", desc: "If disabled, time will standstill.", category: "ON/OFF")]
+	protected bool m_bTimeAdvancement;
+
+	[Attribute(defvalue: "1", desc: "If disabled, the weather state will not transition.", category: "ON/OFF")]
+	protected bool m_bWeatherAdvancement;
+
+
 	[Attribute(defvalue: "1989", UIWidgets.Slider, desc: "Set to specified year.", category: "SETTINGS", params: "1900 2200 1")]
 	protected int m_iCustomYear;
 
@@ -93,11 +100,15 @@ class NO_SCR_ForceTimeAndWeatherEntry : NO_SCR_ChangeTimeWeatherType
 	[Attribute(SCR_Enum.GetDefault(EWeatherStates.Clear), UIWidgets.ComboBox, desc: "Set to specified weather state.", category: "SETTINGS", enums: ParamEnumArray.FromEnum(EWeatherStates))]
 	protected EWeatherStates m_sCustomWeather;
 
+	[Attribute(defvalue: "86400", UIWidgets.Slider, desc: "Number of realtime seconds in one in game day, default is REALTIME.", category: "SETTINGS", params: "1 86400 1")]
+	protected float m_fDayCycleDuration;
+
 	[Attribute(defvalue: "-4", UIWidgets.Slider, desc: "Set to specified latitude.", category: "SETTINGS", params: "-90 90 0.01")]
 	protected float m_fCustomLatitude;
 
 	[Attribute(defvalue: "71", UIWidgets.Slider, desc: "Set to specified longitude.", category: "SETTINGS", params: "-180 180 0.01")]
 	protected float m_fCustomLongitude;
+
 
 	override void Execute()
 	{
@@ -142,6 +153,17 @@ class NO_SCR_ForceTimeAndWeatherEntry : NO_SCR_ChangeTimeWeatherType
 
 		if (m_bUseCustomLatitudeLongitude)
 			SetLatLong(m_fCustomLatitude, m_fCustomLongitude);
+
+		// Only changing these if they need changing, just in case it affects the simulation ¯\_(ツ)_/¯
+		if (m_pTimeAndWeatherManager.GetDayDuration() != m_fDayCycleDuration)
+			m_pTimeAndWeatherManager.SetDayDuration(m_fDayCycleDuration);
+
+		if (m_pTimeAndWeatherManager.GetIsDayAutoAdvanced() != m_bTimeAdvancement)
+			m_pTimeAndWeatherManager.SetIsDayAutoAdvanced(m_bTimeAdvancement);
+
+		// If the weather is looping, it is not advancing
+		if (m_pTimeAndWeatherManager.IsWeatherLooping() == m_bWeatherAdvancement)
+			m_pTimeAndWeatherManager.SetCurrentWeatherLooping(!m_bWeatherAdvancement);
 	}
 
 	protected string GetWeatherString(EWeatherStates state)
