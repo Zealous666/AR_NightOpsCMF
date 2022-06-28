@@ -1,4 +1,4 @@
-NO_SCR_PatrolArea Saint_Philippe : "{1F98480F3F898EDC}Prefabs/DCP/PatrolArea.et" {
+NO_SCR_PatrolArea Example_Town_Name : "{1F98480F3F898EDC}Prefabs/DCP/PatrolArea.et" {
  coords 226.724 15.658 256.829
  {
   NO_SCR_PatrolMarker : "{2A32E613EB518AE8}Prefabs/DCP/Markers/SABOTAGE_1.et" {

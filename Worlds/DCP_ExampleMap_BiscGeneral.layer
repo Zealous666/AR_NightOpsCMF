@@ -81,6 +81,9 @@ StaticModelEntity RadioTable : "{1A1020205E2B1710}Prefabs/Props/Military/Furnitu
   }
  }
 }
+NO_SCR_WaypointTrigger : "{40980DEFD7BA7002}Prefabs/NO_DSF/Waypoints/Trigger/WaypointsChangeTrigger.et" {
+ coords 302.161 10.001 423.475
+}
 $grp NO_SCR_MissionTrigger : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/NO_MissionTrigger.et" {
  infil_trigger {
   coords 290.338 10.003 121.624
@@ -174,6 +177,14 @@ $grp NO_SCR_MissionTrigger : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/NO_MissionTr
     coords 0 0 0
     angleY 0
    }
+  }
+ }
+}
+NO_SCR_SpawnTrigger : "{8E854CB7405795E8}Prefabs/NO_DSF/BaseSpawnTrigger.et" {
+ coords 264.521 10.001 414.131
+ {
+  GenericEntity : "{7EB6AE656E46423B}Prefabs/NO_DSF/Groups/DynamicFaction/SpawnAiDefend.et" {
+   coords -12.365 0 3.932
   }
  }
 }
