@@ -53,7 +53,6 @@ $grp GenericEntity : "{D55DD45E074F0122}Prefabs/DCP/Tasks/SpawnTask.et" {
     }
    }
   }
-  coords 323.242 10.001 124.895
  }
  SabotagePatrol_1_US {
   components {
@@ -67,7 +66,6 @@ $grp GenericEntity : "{D55DD45E074F0122}Prefabs/DCP/Tasks/SpawnTask.et" {
     }
    }
   }
-  coords 330.919 10.001 104.753
  }
  SabotagePatrol_2_US {
   components {
@@ -81,6 +79,44 @@ $grp GenericEntity : "{D55DD45E074F0122}Prefabs/DCP/Tasks/SpawnTask.et" {
     }
    }
   }
-  coords 256.132 10.001 122.365
+ }
+ IntelPatrol_2_US {
+  components {
+   NO_SCR_EnvSpawnerComponent "{59B696A36A30E147}" {
+    m_rnDefaultPrefabs {
+     CountSpawnsByOnlinePlayer "{59B696A31848411D}" {
+      prefab {
+       "{7357BEFD57028013}Prefabs/DCP/Tasks/Intel_2_Task_US.et"
+      }
+     }
+    }
+   }
+  }
+ }
+ IntelPatrol_US {
+  components {
+   NO_SCR_EnvSpawnerComponent "{59B696A36A30E147}" {
+    m_rnDefaultPrefabs {
+     CountSpawnsByOnlinePlayer "{59B696A31848411D}" {
+      prefab {
+       "{716872A352CAFD77}Prefabs/DCP/Tasks/Intel_Task_US.et"
+      }
+     }
+    }
+   }
+  }
+ }
+ IntelPatrol_1_US {
+  components {
+   NO_SCR_EnvSpawnerComponent "{59B696A36A30E147}" {
+    m_rnDefaultPrefabs {
+     CountSpawnsByOnlinePlayer "{59B696A31848411D}" {
+      prefab {
+       "{F73BBC373A070917}Prefabs/DCP/Tasks/Intel_1_Task_US.et"
+      }
+     }
+    }
+   }
+  }
  }
 }

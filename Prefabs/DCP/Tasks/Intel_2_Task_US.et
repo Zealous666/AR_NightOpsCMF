@@ -12,6 +12,9 @@ NO_SCR_EditorTask : "{82EC0462F27F5221}Prefabs/NO_DTF/SingleTask.et" {
   }
  }
  coords 0 0 0
- m_sName "Find Intel"
+ m_sName "Aquire Frequency Codes"
+ m_sDescription "INTEL: Find and aquire the enemy frequency codes"
+ m_sMapIconName "Icon_Task_Custom"
+ m_sTaskListIconName "Icon_Task_Custom"
  m_faction "US"
 }

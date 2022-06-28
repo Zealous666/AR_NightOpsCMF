@@ -1,38 +1,3 @@
-NO_SCR_EditorTask IntelPatrol_US : "{231FF93369E30084}Prefabs/NO_DTF/MultiTask.et" {
- coords 293.011 10.001 130.715
- m_sName "Aquired both Intel pieces"
- m_sMapIconName "Task_Custom"
- m_sTaskListIconName "Icon_Custom"
- m_faction "US"
- m_bAssignToFactionOnStart 0
- m_sCreateTaskNamesSuccess {
-  "EndPatrol_Task_US"
- }
- {
-  $grp NO_SCR_EditorTask : "{82EC0462F27F5221}Prefabs/NO_DTF/SingleTask.et" {
-   IntelPatrol_1_US {
-    coords 1.342 0 0.631
-    m_sName "Collect classified documents"
-    m_sDescription "INTEL: Find and collect the classified documents"
-    m_sMapIconName "Icon_Task_Custom"
-    m_sTaskListIconName "Icon_Task_Custom"
-    m_faction "US"
-    m_bAssignToFactionOnStart 1
-    m_bAssignFirstTask 1
-   }
-   IntelPatrol_2_US {
-    coords 6.458 -0.001 3.134
-    m_sName "Aquire Frequency Codes"
-    m_sDescription "INTEL: Find and aquire the enemy frequency codes"
-    m_sMapIconName "Icon_Task_Custom"
-    m_sTaskListIconName "Icon_Task_Custom"
-    m_faction "US"
-    m_bAssignToFactionOnStart 1
-    m_bAssignFirstTask 1
-   }
-  }
- }
-}
 GenericEntity Intel_2 : "{A59F7B3A2590FDB8}Prefabs/Items/USSR_Radio_Intel_2.et" {
  coords 285.64 10.899 126.824
 }

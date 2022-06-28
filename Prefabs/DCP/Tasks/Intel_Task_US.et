@@ -11,5 +11,5 @@ NO_SCR_EditorTask : "{00F4E1E142C1DA20}Prefabs/DCP/Tasks/Sabotage_Task_US.et" {
   }
  }
  coords 0 0 0
- m_sName "All Intel taken."
+ m_sName "Aquired both Intel pieces"
 }
