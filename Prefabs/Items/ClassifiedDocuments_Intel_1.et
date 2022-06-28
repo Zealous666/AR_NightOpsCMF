@@ -1,0 +1,36 @@
+GenericEntity {
+ ID "59B9429D7956FBFD"
+ components {
+  MeshObject "{59B941247C5B2DB8}" {
+   Object "{E443663E5241622A}Assets/Items/Equipment/Maps/Map_Paper_01/Map_Paper_01_folded.xob"
+  }
+  RigidBody "{59B941247C5B2DB5}" {
+   LinearDamping 0.5
+   AngularDamping 0.5
+   ModelGeometry 1
+  }
+  ActionsManagerComponent "{59B941247C5B2EB5}" {
+   ActionContexts {
+    UserActionContext "{59B941247C5B2D78}" {
+     ContextName "default"
+     Position PointInfo "{59B941247C5B2D66}" {
+     }
+     Radius 2
+    }
+   }
+   additionalActions {
+    NO_SCR_DCP_IntelPickup_Action "{59B9429871BDA584}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{59B94298788C36C2}" {
+      Name "Pickup Classified Document"
+     }
+     Duration 1
+    }
+   }
+  }
+  RplComponent "{59B941247C5B2E49}" {
+  }
+ }
+}

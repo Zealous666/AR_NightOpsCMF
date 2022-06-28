@@ -1,0 +1,39 @@
+GenericEntity {
+ ID "59B9726A01B7A63C"
+ components {
+  MeshObject "{59B9726A45245322}" {
+   Object "{0F55504A35401163}Assets/Props/Military/Radios/RadioStation_ANPRC77_01.xob"
+  }
+  RigidBody "{59B9726A45245328}" {
+   LayerPreset "PropFireView"
+   Gravity 0
+   ModelGeometry 1
+   Static 1
+  }
+  ActionsManagerComponent "{59B9726A45245344}" {
+   ActionContexts {
+    UserActionContext "{59B9726A4524536E}" {
+     ContextName "default"
+     Position PointInfo "{59B9726A45245361}" {
+      Offset 0 0.1 0
+     }
+     Radius 2
+    }
+   }
+   additionalActions {
+    NO_SCR_DCP_IntelDownload_Action "{59B9726A5C8E4F2D}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{59B9726A69C09DEF}" {
+      Name "Aquire Frequency Codes"
+     }
+     Duration 10
+     m_sRadioChatter "SOUND_RADIO_CHATTER_US"
+    }
+   }
+  }
+  RplComponent "{59B9726A65787FD1}" {
+  }
+ }
+}

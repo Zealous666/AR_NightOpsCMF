@@ -1,0 +1,38 @@
+GenericEntity {
+ ID "59B95BEE8CB1B317"
+ components {
+  MeshObject "{59B9429D1B8BFB2B}" {
+   Object "{DBE3AEFE90AC25D0}Assets/Props/Military/Radios/RadioStation_R123M_01.xob"
+  }
+  RigidBody "{59B9429D1B8BFB26}" {
+   LayerPreset "PropFireView"
+   Gravity 0
+   ModelGeometry 1
+   Static 1
+  }
+  ActionsManagerComponent "{59B9429D1B8BE4AD}" {
+   ActionContexts {
+    UserActionContext "{59B9429D1B8BE48D}" {
+     ContextName "default"
+     Position PointInfo "{59B9429D1B8BE48A}" {
+      Offset 0 0.1 0
+     }
+     Radius 2
+    }
+   }
+   additionalActions {
+    NO_SCR_DCP_IntelDownload_Action "{59B94C684C44E92D}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{59B94C6872E3FCD6}" {
+      Name "Aquire Frequency Codes"
+     }
+     Duration 10
+    }
+   }
+  }
+  RplComponent "{59B94E4A72156509}" {
+  }
+ }
+}
