@@ -1,0 +1,9 @@
+GenericEntity {
+ ID "59B696A372418E5B"
+ components {
+  NO_SCR_EnvSpawnerComponent "{59B696A36A30E147}" {
+  }
+  RplComponent "{59B6D4B1F3E8B9FB}" {
+  }
+ }
+}

@@ -192,7 +192,8 @@ class NO_SCR_MissionTrigger : NO_SCR_PlayerTriggerEntity
 			if (editorTask.TaskState == activatorEntry.GetTaskState())
 			{
 				SetActive(true);
-				m_aActivateOnTaskState.RemoveItem(activatorEntry);
+				if (!m_bIsRepeatable)
+					m_aActivateOnTaskState.RemoveItem(activatorEntry);
 			}
 		}
 	}

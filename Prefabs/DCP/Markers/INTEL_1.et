@@ -1,0 +1,5 @@
+NO_SCR_PatrolMarker : "{7C623647E3CAC985}Prefabs/DCP/Markers/BaseMarker.et" {
+ ID "59B555F7707586A7"
+ coords 0 0 0
+ m_eMarkerType INTEL_1
+}

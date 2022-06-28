@@ -1,0 +1,221 @@
+NO_SCR_PatrolManager PatrolManager : "{0BE9B477CC47109E}Prefabs/DCP/PatrolManager.et" {
+ coords 294.254 10.001 112.94
+ m_pCombatPatrolsConfig NO_SCR_CombatPatrolsConfig "{59B909006927F5A1}" : "{F40BF4F2BEAB2A2F}Configs/DynamicCombatPatrols.conf" {
+ }
+}
+StaticModelEntity RadioTable : "{1A1020205E2B1710}Prefabs/Props/Military/Furniture/TableMilitary_USSR_01.et" {
+ components {
+  RigidBody "{5872F0EB7DFB5A9D}" {
+   ResponseIndex "MediumDestructible"
+  }
+  RplComponent "{5624A88DC2D9928D}" {
+  }
+ }
+ coords 285.154 10 126.594
+ angleY 0
+ {
+  GenericEntity Radio : "{34736979381CA219}Prefabs/Props/Military/Radios/RadioStation_ANGRC160_01.et" {
+   components {
+    NO_SCR_MissionSelectionManagerComponent "{59B4941ED02BC3FB}" {
+    }
+    ActionsManagerComponent "{598EB02014ED6ED6}" {
+     ActionContexts {
+      UserActionContext "{598EB021DF5CF839}" {
+       ContextName "default"
+       Position PointInfo "{598EB021F0D80E21}" {
+       }
+       Radius 1.5
+       Omnidirectional 0
+      }
+     }
+     additionalActions {
+      NO_SCR_StartPatrolAction "{598EB036CA9BA425}" {
+       ParentContextList {
+        "default"
+       }
+       UIInfo UIInfo "{598EB036D1E1B023}" {
+        Name "Start Intel Patrol"
+       }
+       Duration 3
+      }
+      NO_SCR_StartPatrolAction "{598EB03CE15675FA}" {
+       ParentContextList {
+        "default"
+       }
+       UIInfo UIInfo "{598EB03CF1A706B5}" {
+        Name "Start Sabotage Patrol"
+       }
+       Duration 3
+       "Sort Priority" 1
+       m_ePatrolType SABOTAGE
+      }
+      NO_SCR_StartPatrolAction "{598EB03CE2E1EDB1}" {
+       ParentContextList {
+        "default"
+       }
+       UIInfo UIInfo "{598EB03CFD2979F9}" {
+        Name "Start HVT Patrol"
+       }
+       Duration 3
+       "Sort Priority" 2
+       m_ePatrolType HVT
+      }
+      NO_SCR_StartPatrolAction "{59B32A8555E6CA7E}" {
+       ParentContextList {
+        "default"
+       }
+       UIInfo UIInfo "{59B32A85537F1D28}" {
+        Name "Start Random Patrol"
+       }
+       Duration 3
+       "Sort Priority" 3
+       m_bIsRandomPatrolType 1
+      }
+     }
+    }
+    RplComponent "{5624A88DC2D9928D}" {
+     Enabled 1
+    }
+   }
+   coords 0 0.899 0.208
+  }
+ }
+}
+$grp NO_SCR_MissionTrigger : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/NO_MissionTrigger.et" {
+ infil_trigger {
+  coords 290.338 10.003 121.624
+  SphereRadius 4.5
+  ShapeColor 0.188 0.745 0.745 0.498
+  m_bIsActive 0
+  m_bIsRepeatable 1
+  m_fDelay 1
+  m_aTaskStateChanges {
+   NO_SCR_TaskStateChangeEntry "{59B4941EFEB4E0E6}" {
+    m_sTaskEntityName "StartPatrol_Task_US"
+   }
+   NO_SCR_TaskStateChangeEntry "{59B4941E85AD2C5D}" {
+    m_sTaskEntityName "Sabotage_1_Task_US"
+    m_eTaskState Assign
+   }
+   NO_SCR_TaskStateChangeEntry "{59B4941E85CA80B5}" {
+    m_sTaskEntityName "Sabotage_2_Task_US"
+    m_eTaskState Create
+   }
+  }
+  m_aSpawnpointChanges {
+   NO_SCR_SpawnpointChangeEntry "{59B49400D5781250}" {
+    m_sSpawnpointName "SpawnPoint_Base_US"
+   }
+   NO_SCR_SpawnpointChangeEntry "{59B49400D59025A5}" {
+    m_sSpawnpointName "infil_spawnpoint"
+    m_sFactionKey "US"
+   }
+  }
+  m_bEnableTeleport 1
+  m_pCustomHint SCR_HintUIInfo "{59B4940328F39EC8}" {
+   Name "Start Combat Patrol"
+   Description " "
+  }
+  {
+   SCR_Position infil_tp_point : "{68C0C31F6FAD7C2E}Prefabs/MP/NO_MissionTriggerPortPos.et" {
+    components {
+     NwkMovementComponent "{59B6053BA17C1819}" {
+     }
+     RplComponent "{59B6053BA41F0A9D}" {
+      Streamable Disabled
+     }
+    }
+    coords 0 0 0
+    angleY 0
+   }
+  }
+ }
+ exfil_trigger {
+  coords 299.818 10.003 101.121
+  SphereRadius 4.5
+  ShapeColor 0.624 0.235 0.235 1
+  OnPlayerQuotaReached ""\
+  "		super.OnPlayerQuotaReached();"\
+  ""\
+  "		if (GetPatrolManager())"\
+  "			GetPatrolManager().FinishCurrentPatrol();"\
+  "	"
+  m_bIsActive 0
+  m_aActivateOnTaskState {
+   NO_SCR_TaskStateActivatorEntry "{59B4941E126A19AA}" {
+    m_sTaskEntityName "Sabotage_Task_US"
+   }
+  }
+  m_bIsRepeatable 1
+  m_fDelay 1
+  m_aSpawnpointChanges {
+   NO_SCR_SpawnpointChangeEntry "{59B49400D5781250}" {
+    m_sSpawnpointName "SpawnPoint_Base_US"
+    m_sFactionKey "US"
+   }
+   NO_SCR_SpawnpointChangeEntry "{59B49400D59025A5}" {
+    m_sSpawnpointName "infil_spawnpoint"
+   }
+  }
+  m_bEnableTeleport 1
+  m_pCustomHint SCR_HintUIInfo "{59B4940328F39EC8}" {
+   Name "Exit Combat Patrol"
+   Description "Returning To Base"
+  }
+  {
+   SCR_Position exfil_tp_point : "{68C0C31F6FAD7C2E}Prefabs/MP/NO_MissionTriggerPortPos.et" {
+    components {
+     NwkMovementComponent "{59B6053BBCB0CB5F}" {
+     }
+     RplComponent "{59B6053BB0EA6908}" {
+      Streamable Disabled
+     }
+    }
+    coords 0 0 0
+    angleY 0
+   }
+  }
+ }
+}
+$grp GenericEntity : "{D8F00B5CFC8514F1}Prefabs/NO_DSF/Vehicles/SpawnVehicle.et" {
+ sabotage_spawner_1 {
+  components {
+   NO_SCR_EnvSpawnerComponent "{59889B90E04F5D80}" {
+    m_rnDefaultPrefabs {
+     CountSpawnsByOnlinePlayer "{5988C249449C6C74}" {
+      prefab {
+       "{A4E7EC33DC52A148}Prefabs/Vehicles/Wheeled/Ural4320/Ural4320_sabotage_1.et"
+      }
+     }
+    }
+   }
+  }
+  coords 292.901 10 457.97
+ }
+ sabotage_spawner_2 {
+  components {
+   NO_SCR_EnvSpawnerComponent "{59889B90E04F5D80}" {
+    m_rnDefaultPrefabs {
+     CountSpawnsByOnlinePlayer "{5988C249449C6C74}" {
+      prefab {
+       "{C8B3D8D360962E66}Prefabs/Vehicles/Wheeled/Ural4320/Ural4320_sabotage_2.et"
+      }
+     }
+    }
+   }
+  }
+  coords 46.983 10 443.088
+ }
+}
+SCR_SpawnPoint infil_spawnpoint : "{E7F4D5562F48DDE4}Prefabs/MP/Spawning/SpawnPoint_Base.et" {
+ components {
+  NwkMovementComponent "{59B6053939942B30}" {
+  }
+ }
+ coords 271.491 10.001 156.018
+ m_sFaction ""
+ m_Info SCR_UIInfo "{56B4CC4ECACA2C37}" {
+  Name "Patrol Infil"
+  Icon "{46FB2FB2C2125A3C}UI/Textures/Flags/US-flag-base-3it.edds"
+ }
+}

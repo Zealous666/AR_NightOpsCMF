@@ -1,0 +1,86 @@
+$grp GenericEntity : "{D55DD45E074F0122}Prefabs/DCP/Tasks/SpawnTask.et" {
+ StartPatrol_US {
+  components {
+   NO_SCR_EnvSpawnerComponent "{59B696A36A30E147}" {
+    m_rnDefaultPrefabs {
+     CountSpawnsByOnlinePlayer "{59B696A31848411D}" {
+      prefab {
+       "{7751BE180CC73DD0}Prefabs/DCP/Tasks/StartPatrol_Task_US.et"
+      }
+     }
+    }
+   }
+  }
+  coords 290.338 10.003 121.624
+ }
+ SelectPatrol_US {
+  components {
+   NO_SCR_EnvSpawnerComponent "{59B696A36A30E147}" {
+    m_rnDefaultPrefabs {
+     CountSpawnsByOnlinePlayer "{59B696A6C6560997}" {
+      prefab {
+       "{C09F6A359576B6E4}Prefabs/DCP/Tasks/SelectPatrol_Task_US.et"
+      }
+     }
+    }
+   }
+  }
+  coords 285.125 10.002 127.232
+ }
+ EndPatrol_US {
+  components {
+   NO_SCR_EnvSpawnerComponent "{59B696A36A30E147}" {
+    m_rnDefaultPrefabs {
+     CountSpawnsByOnlinePlayer "{59B696A31848411D}" {
+      prefab {
+       "{F7C8687E186D45BA}Prefabs/DCP/Tasks/EndPatrol_Task_US.et"
+      }
+     }
+    }
+   }
+  }
+  coords 291.932 10.002 128.568
+ }
+ SabotagePatrol_US {
+  components {
+   NO_SCR_EnvSpawnerComponent "{59B696A36A30E147}" {
+    m_rnDefaultPrefabs {
+     CountSpawnsByOnlinePlayer "{59B696A31848411D}" {
+      prefab {
+       "{00F4E1E142C1DA20}Prefabs/DCP/Tasks/Sabotage_Task_US.et"
+      }
+     }
+    }
+   }
+  }
+  coords 323.242 10.001 124.895
+ }
+ SabotagePatrol_1_US {
+  components {
+   NO_SCR_EnvSpawnerComponent "{59B696A36A30E147}" {
+    m_rnDefaultPrefabs {
+     CountSpawnsByOnlinePlayer "{59B696A31848411D}" {
+      prefab {
+       "{AF8913C2BB95C6FC}Prefabs/DCP/Tasks/Sabotage_1_Task_US.et"
+      }
+     }
+    }
+   }
+  }
+  coords 330.919 10.001 104.753
+ }
+ SabotagePatrol_2_US {
+  components {
+   NO_SCR_EnvSpawnerComponent "{59B696A36A30E147}" {
+    m_rnDefaultPrefabs {
+     CountSpawnsByOnlinePlayer "{59B696A31848411D}" {
+      prefab {
+       "{50534E963B6156BA}Prefabs/DCP/Tasks/Sabotage_2_Task_US.et"
+      }
+     }
+    }
+   }
+  }
+  coords 256.132 10.001 122.365
+ }
+}

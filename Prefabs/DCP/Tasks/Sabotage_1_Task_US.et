@@ -1,0 +1,22 @@
+NO_SCR_EditorTask : "{82EC0462F27F5221}Prefabs/NO_DTF/SingleTask.et" {
+ ID "59953E02005EB511"
+ components {
+  NO_SCR_DTFRenamerComponent "{59B696A1E942884A}" {
+   m_sNewName "Sabotage_1_Task_US"
+  }
+ }
+ m_sName "Sabotage Fuel Truck"
+ m_sDescription "Plant a satchel charge at the Fuel Truck to sabotage it"
+ m_faction "US"
+ {
+  GenericEntity : "{DC9B59BFF1B7A41D}Prefabs/NO_DTF/Triggers/DestroyAiOrVehicleTrigger.et" {
+   ID "59B6C095ACC1B21F"
+   components {
+    NO_SCR_TaskNamedObjectTriggerComponent "{59A0F6DCA0C8FAE0}" {
+     m_sTriggerNamedObject "typeSabotage_Truck_1"
+    }
+   }
+   coords 0 0 0
+  }
+ }
+}

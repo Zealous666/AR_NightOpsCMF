@@ -1,0 +1,10 @@
+NO_SCR_PatrolManager {
+ ID "59B6053A9AB8E351"
+ components {
+  RplComponent "{59B5033248B2C3F6}" {
+   Streamable Disabled
+  }
+ }
+ m_pPatrolItemsConfig NO_SCR_PatrolItemsConfig "{59B6053A93BE139A}" : "{BE51C108B700CCDF}Configs/Patrols.conf" {
+ }
+}

@@ -1,0 +1,8 @@
+NO_SCR_PatrolMarker {
+ ID "59B555F7707586A7"
+ components {
+  Hierarchy "{59B32A8070893FEB}" {
+  }
+ }
+ coords 0 0 0
+}

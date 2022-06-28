@@ -1,0 +1,11 @@
+NO_SCR_EditorTask : "{82EC0462F27F5221}Prefabs/NO_DTF/SingleTask.et" {
+ ID "59953E02005EB511"
+ components {
+  NO_SCR_DTFRenamerComponent "{59B696A1FEEED3A5}" {
+   m_sNewName "StartPatrol_Task_US"
+  }
+ }
+ m_sName "Rally players to start patrol"
+ m_sDescription "Rally all players at the designated position to start the next combat patrol"
+ m_faction "US"
+}
