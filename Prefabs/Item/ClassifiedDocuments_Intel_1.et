@@ -1,0 +1,82 @@
+GenericEntity {
+ ID "59B9429D7956FBFD"
+ components {
+  InventoryItemComponent "{59B941247C5B2DAF}" {
+   Attributes SCR_ItemAttributeCollection "{59B941247C5B2D92}" {
+    ItemDisplayName UIInfo "{59B941247C5B2C2D}" {
+     Name "#AR-Item_MapDefault_Name"
+     Description "#AR-Item_MapDefault_Description"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{59B941247C5B2DCE}" {
+     Weight 0.1
+     SizeSetupStrategy Volume
+     ItemVolume 200
+    }
+    ItemAnimationAttributes ItemAnimationAttributes "{59B941247C5B2DEC}" {
+     AnimationAttachments {
+      AnimationAttachmentInfo "{59B941247C5B2DEA}" {
+       AnimGraph "{83675D0B0AB1B2C3}Assets/Items/Equipment/workspaces/paper_map.agr"
+       AnimInstance "{56794534F6B8C3D7}Assets/Items/Equipment/workspaces/player_map.asi"
+       BindingName "Gadget"
+      }
+     }
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{59B941247C5B2DE6}" {
+      CameraPreset Top
+      CameraOrbitAngles 0 0 0
+      CameraDistanceToItem 1.4
+      CameraOffset 0 0 0
+      FOV 10
+     }
+     CharacterModifierAttributes "{59B941247C5B2DFC}" {
+      ADSSpeedLimit 1
+     }
+    }
+    m_Size SLOT_1x1
+    m_SlotType SLOT_GADGETS_STORAGE
+   }
+  }
+  MeshObject "{59B941247C5B2DB8}" {
+   Object "{E443663E5241622A}Assets/Items/Equipment/Maps/Map_Paper_01/Map_Paper_01_folded.xob"
+  }
+  RigidBody "{59B941247C5B2DB5}" {
+   LinearDamping 0.5
+   AngularDamping 0.5
+   ModelGeometry 1
+  }
+  SCR_MapGadgetComponent "{59B941247C5B2D4B}" {
+   m_eAnimVariable MAP
+  }
+  SimpleSoundComponent "{59B941247C5B2D5C}" {
+   Filenames {
+    "{13F8D0DE67678118}Sounds/Items/_SharedData/PickUp/Items_PickUp_Map.acp"
+   }
+   DistanceManagement 0
+  }
+  ActionsManagerComponent "{59B941247C5B2EB5}" {
+   ActionContexts {
+    UserActionContext "{59B941247C5B2D78}" {
+     ContextName "default"
+     Position PointInfo "{59B941247C5B2D66}" {
+     }
+     Radius 2
+    }
+   }
+   additionalActions {
+    NO_SCR_DCP_IntelPickup_Action "{59B9429871BDA584}" {
+     ParentContextList {
+      "default"
+     }
+     UIInfo UIInfo "{59B94298788C36C2}" {
+      Name "Pickup Classified Document"
+     }
+     Duration 1
+    }
+   }
+  }
+  RplComponent "{59B941247C5B2E49}" {
+  }
+ }
+ coords 290.584 10.001 128.895
+}

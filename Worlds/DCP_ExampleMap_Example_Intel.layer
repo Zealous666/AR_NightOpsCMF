@@ -1,0 +1,169 @@
+$grp GenericEntity {
+ Intel_1 {
+  components {
+   InventoryItemComponent "{59B941247C5B2DAF}" {
+    Attributes SCR_ItemAttributeCollection "{59B941247C5B2D92}" {
+     ItemDisplayName UIInfo "{59B941247C5B2C2D}" {
+      Name "#AR-Item_MapDefault_Name"
+      Description "#AR-Item_MapDefault_Description"
+     }
+     ItemPhysAttributes ItemPhysicalAttributes "{59B941247C5B2DCE}" {
+      Weight 0.1
+      SizeSetupStrategy Volume
+      ItemVolume 200
+     }
+     ItemAnimationAttributes ItemAnimationAttributes "{59B941247C5B2DEC}" {
+      AnimationAttachments {
+       AnimationAttachmentInfo "{59B941247C5B2DEA}" {
+        AnimGraph "{83675D0B0AB1B2C3}Assets/Items/Equipment/workspaces/paper_map.agr"
+        AnimInstance "{56794534F6B8C3D7}Assets/Items/Equipment/workspaces/player_map.asi"
+        BindingName "Gadget"
+       }
+      }
+     }
+     CustomAttributes {
+      PreviewRenderAttributes "{59B941247C5B2DE6}" {
+       CameraPreset Top
+       CameraOrbitAngles 0 0 0
+       CameraDistanceToItem 1.4
+       CameraOffset 0 0 0
+       FOV 10
+      }
+      CharacterModifierAttributes "{59B941247C5B2DFC}" {
+       ADSSpeedLimit 1
+      }
+     }
+     m_Size SLOT_1x1
+     m_SlotType SLOT_GADGETS_STORAGE
+    }
+   }
+   MeshObject "{59B941247C5B2DB8}" {
+    Object "{E443663E5241622A}Assets/Items/Equipment/Maps/Map_Paper_01/Map_Paper_01_folded.xob"
+   }
+   RigidBody "{59B941247C5B2DB5}" {
+    LinearDamping 0.5
+    AngularDamping 0.5
+    ModelGeometry 1
+   }
+   SCR_MapGadgetComponent "{59B941247C5B2D4B}" {
+    m_eAnimVariable MAP
+   }
+   SimpleSoundComponent "{59B941247C5B2D5C}" {
+    Filenames {
+     "{13F8D0DE67678118}Sounds/Items/_SharedData/PickUp/Items_PickUp_Map.acp"
+    }
+    DistanceManagement 0
+   }
+   ActionsManagerComponent "{59B941247C5B2EB5}" {
+    ActionContexts {
+     UserActionContext "{59B941247C5B2D78}" {
+      ContextName "default"
+      Position PointInfo "{59B941247C5B2D66}" {
+      }
+      Radius 2
+     }
+    }
+    additionalActions {
+     NO_SCR_DCP_IntelPickup_Action "{59B9429871BDA584}" {
+      ParentContextList {
+       "default"
+      }
+      UIInfo UIInfo "{59B94298788C36C2}" {
+       Name "Pickup Classified Document"
+      }
+      Duration 1
+     }
+    }
+   }
+   RplComponent "{59B941247C5B2E49}" {
+   }
+  }
+  coords 290.584 10.001 128.895
+ }
+ Intel_2 {
+  components {
+   SoundComponent "{59B9429D1B8BFB50}" {
+    Filenames {
+     "{4340FAB152ACD12D}Sounds/UI/UI_Radio_Establish_Action.acp"
+    }
+    DistanceManagement 0
+    IncludeInactive 1
+   }
+   MeshObject "{59B9429D1B8BFB2B}" {
+    Object "{DBE3AEFE90AC25D0}Assets/Props/Military/Radios/RadioStation_R123M_01.xob"
+   }
+   RigidBody "{59B9429D1B8BFB26}" {
+    LayerPreset "PropFireView"
+    Gravity 0
+    ModelGeometry 1
+    Static 1
+   }
+   SCR_AISmartActionComponent "{59B9429D1B8BFB37}" {
+    AIBehaviorTree "{99DCE6C8599D6C0B}AI/BehaviorTrees/SmartActions/SA_CaptureHQ.bt"
+    Tags {
+     "CapturePoint"
+    }
+   }
+   ActionsManagerComponent "{59B9429D1B8BE4AD}" {
+    ActionContexts {
+     UserActionContext "{59B9429D1B8BE48D}" {
+      ContextName "default"
+      Position PointInfo "{59B9429D1B8BE48A}" {
+       Offset 0 0.1 0
+      }
+      Radius 2
+     }
+    }
+    additionalActions {
+     NO_SCR_DCP_IntelDownload_Action "{59B94C684C44E92D}" {
+      ParentContextList {
+       "default"
+      }
+      UIInfo UIInfo "{59B94C6872E3FCD6}" {
+       Name "Aquire Frequency Codes"
+      }
+      Duration 10
+     }
+    }
+   }
+   RplComponent "{59B94E4A72156509}" {
+   }
+  }
+  coords 299.774 10.001 135.056
+ }
+}
+NO_SCR_EditorTask IntelPatrol_US : "{231FF93369E30084}Prefabs/NO_DTF/MultiTask.et" {
+ coords 293.011 10.001 130.715
+ m_sName "Aquired both Intel pieces"
+ m_sMapIconName "Task_Custom"
+ m_sTaskListIconName "Icon_Custom"
+ m_faction "US"
+ m_bAssignToFactionOnStart 0
+ m_sCreateTaskNamesSuccess {
+  "EndPatrol_Task_US"
+ }
+ {
+  $grp NO_SCR_EditorTask : "{82EC0462F27F5221}Prefabs/NO_DTF/SingleTask.et" {
+   IntelPatrol_1_US {
+    coords 1.342 0 0.631
+    m_sName "Collect classified documents"
+    m_sDescription "INTEL: Find and collect the classified documents"
+    m_sMapIconName "Icon_Task_Custom"
+    m_sTaskListIconName "Icon_Task_Custom"
+    m_faction "US"
+    m_bAssignToFactionOnStart 1
+    m_bAssignFirstTask 1
+   }
+   IntelPatrol_2_US {
+    coords 6.458 -0.001 3.134
+    m_sName "Aquire Frequency Codes"
+    m_sDescription "INTEL: Find and aquire the enemy frequency codes"
+    m_sMapIconName "Icon_Task_Custom"
+    m_sTaskListIconName "Icon_Task_Custom"
+    m_faction "US"
+    m_bAssignToFactionOnStart 1
+    m_bAssignFirstTask 1
+   }
+  }
+ }
+}

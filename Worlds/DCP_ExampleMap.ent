@@ -16,3 +16,12 @@ Layer BiscPatrolAreas {
 Layer initPlayerHub_US {
  Index 5
 }
+Layer Example_HVT {
+ Index 1
+}
+Layer Example_Intel {
+ Index 7
+}
+Layer Example_Hub_Prefab_US {
+ Index 8
+}

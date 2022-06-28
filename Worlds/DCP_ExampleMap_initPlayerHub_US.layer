@@ -5,4 +5,38 @@ SCR_SpawnPoint SpawnPoint_Base_US : "{CEA2B24051A44525}PrefabsEditable/SpawnPoin
  m_Info SCR_UIInfo "{56B4CC4ECACA2C37}" {
   Name "Base"
  }
+ {
+  $grp SCR_Position {
+   {
+    components {
+     Hierarchy "{59B94E4B78E0F015}" {
+     }
+     RplComponent "{59B94E4B7A441236}" {
+     }
+    }
+    coords 26.522 0.027 -12.872
+    angleY -138.403
+   }
+   {
+    components {
+     Hierarchy "{59B94E4B6218E759}" {
+     }
+     RplComponent "{59B94E4B7CD0526E}" {
+     }
+    }
+    coords 29.641 0.052 -9.041
+    angleY 83.194
+   }
+   {
+    components {
+     Hierarchy "{59B94E4B643AE82D}" {
+     }
+     RplComponent "{59B94E4B6641C987}" {
+     }
+    }
+    coords 28.106 0.03 -10.927
+    angleY 83.194
+   }
+  }
+ }
 }

@@ -1,0 +1,61 @@
+NO_SCR_EditorTask tsk_hvt_US : "{82EC0462F27F5221}Prefabs/NO_DTF/SingleTask.et" {
+ components {
+  NwkMovementComponent "{59B9429B098C0BC2}" {
+  }
+ }
+ coords 146.418 10.001 417.743
+ m_sName "Neutralize HVT"
+ m_sDescription "Chase & neutralize High Valuable Target"
+ m_sMapIconName "Icon_Task_Seize"
+ m_sTaskListIconName "Icon_Task_Seize"
+ m_faction "US"
+ m_sCreateTaskNamesSuccess {
+  "EndPatrol_Task_US"
+ }
+ m_bAssignFirstTask 1
+ {
+  GenericEntity : "{DC9B59BFF1B7A41D}Prefabs/NO_DTF/Triggers/DestroyAiOrVehicleTrigger.et" {
+   components {
+    NO_SCR_TaskNamedObjectTriggerComponent "{59A0F6DCA0C8FAE0}" {
+     m_sTriggerNamedObject "char_hvt"
+    }
+   }
+   coords 14.015 0 -23.348
+  }
+ }
+}
+NO_SCR_SpawnTrigger HVT_example_US : "{8E854CB7405795E8}Prefabs/NO_DSF/BaseSpawnTrigger.et" {
+ coords 264.521 10.001 414.131
+ {
+  GenericEntity : "{7EB6AE656E46423B}Prefabs/NO_DSF/Groups/DynamicFaction/SpawnAiDefend.et" {
+   components {
+    NO_SCR_AISpawnerComponent "{59889B97C35F8467}" {
+     m_bSpawnImmediately 1
+     m_rnDefaultPrefabs {
+      CountSpawnsByOnlinePlayer "{59B9429A07424A33}" {
+       prefab {
+        "{6FFB8B57C9BD2A40}Prefabs/Groups/Group_USSR_HVT.et"
+       }
+      }
+     }
+     m_bIgnoreSpawnManagerAndUsePrefabs 1
+    }
+   }
+   coords -12.365 0 3.932
+   {
+    NO_SCR_WaypointTrigger : "{884FD8DA31F5CE73}Prefabs/NO_DSF/Waypoints/TriggerAiDefend.et" {
+     coords -1.827 0 1.516
+     SphereRadius 200
+     DrawShape 1
+     m_faction "US"
+     {
+      SCR_DefendWaypoint {
+       ID "59B49094BA3B759A"
+       coords 213.624 0 0
+      }
+     }
+    }
+   }
+  }
+ }
+}
