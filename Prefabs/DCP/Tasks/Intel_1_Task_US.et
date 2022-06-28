@@ -1,0 +1,17 @@
+NO_SCR_EditorTask : "{82EC0462F27F5221}Prefabs/NO_DTF/SingleTask.et" {
+ ID "59953E02005EB511"
+ components {
+  Hierarchy "{59953E01C8D3BEF5}" {
+  }
+  NO_SCR_DTFRenamerComponent "{59B696A1E942884A}" {
+   m_sNewName "Intel_1_Task_US"
+  }
+  SCR_MapDescriptorComponent "{59969C4C43106004}" {
+  }
+  RplComponent "{59953E01C8D3BE05}" {
+  }
+ }
+ coords 0 0 0
+ m_sName "Find Intel"
+ m_faction "US"
+}
