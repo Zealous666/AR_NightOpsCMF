@@ -1,0 +1,15 @@
+NO_SCR_EditorTask : "{00F4E1E142C1DA20}Prefabs/DCP/Tasks/Sabotage_Task_US.et" {
+ ID "59953E0245B66B53"
+ components {
+  NO_SCR_DTFRenamerComponent "{59B696A1EDE41B16}" {
+   m_sNewName "Intel_Task_US"
+  }
+  NO_SCR_MultiTaskTriggerComponent "{599690AC32293EDD}" {
+   m_sTaskNames {
+    "Intel_1_Task_US" "Intel_2_Task_US"
+   }
+  }
+ }
+ coords 0 0 0
+ m_sName "All Intel taken."
+}

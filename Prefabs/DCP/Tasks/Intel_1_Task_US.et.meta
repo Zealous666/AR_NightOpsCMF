@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{F73BBC373A070917}Prefabs/DCP/Tasks/Intel_1_Task_US_Fix.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}
