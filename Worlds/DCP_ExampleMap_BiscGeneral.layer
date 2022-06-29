@@ -83,7 +83,7 @@ StaticModelEntity RadioTable : "{1A1020205E2B1710}Prefabs/Props/Military/Furnitu
 }
 $grp NO_SCR_MissionTrigger : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/NO_MissionTrigger.et" {
  infil_trigger {
-  coords 290.338 10.003 121.624
+  coords 267.964 10.003 117.867
   SphereRadius 4.5
   ShapeColor 0.188 0.745 0.745 0.498
   OnPlayerQuotaReached ""\
