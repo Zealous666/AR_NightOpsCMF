@@ -11,5 +11,5 @@ NO_SCR_EditorTask : "{82EC0462F27F5221}Prefabs/NO_DTF/SingleTask.et" {
  m_sTaskListIconName "Icon_Task_Custom"
  m_faction "US"
  m_bAssignToFactionOnStart 1
- m_sAdditionalMarkerPosition "Radio"
+ m_sAdditionalMarkerPosition "Patrol_Map_US"
 }

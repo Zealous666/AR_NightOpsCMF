@@ -14,39 +14,18 @@ CommentEntity PlayerHub_US {
  m_TextBackground 1
  m_BackgroundColor 0 0.004 1
  {
-  GenericEntity Patrol_map {
+  GenericEntity Patrol_Map_US {
    components {
-    InventoryItemComponent "{59B94E4BF824C751}" {
-     Attributes SCR_ItemAttributeCollection "{59B94E4BF824C741}" {
-      ItemDisplayName UIInfo "{59B94E4BF824C7E7}" {
-       Name "#AR-Item_MapDefault_Name"
-       Description "#AR-Item_MapDefault_Description"
-      }
-      ItemPhysAttributes ItemPhysicalAttributes "{59B94E4BF824C79C}" {
-       Weight 0.1
-       SizeSetupStrategy Volume
-       ItemVolume 200
-      }
-      m_Size SLOT_1x1
-      m_SlotType SLOT_LOADOUT_STORAGE
-     }
-    }
     MeshObject "{59B94E4BF824C701}" {
      Object "{E0CFE517CA1C358B}Assets/Items/Equipment/Maps/Map_Paper_01/Map_Paper_01_full.xob"
     }
     NO_SCR_DTFRenamerComponent "{59BAAB2F762AFAFC}" {
-     m_sNewName "patrolSelector"
+     m_sNewName "Patrol_Map_US"
     }
     RigidBody "{59B94E4BF824C71B}" {
      LinearDamping 0.5
      AngularDamping 0.5
      ModelGeometry 1
-    }
-    SimpleSoundComponent "{59B94E4BF824C72E}" {
-     Filenames {
-      "{13F8D0DE67678118}Sounds/Items/_SharedData/PickUp/Items_PickUp_Map.acp"
-     }
-     DistanceManagement 0
     }
     ActionsManagerComponent "{59B94E4BF824C0EA}" {
      ActionContexts {
@@ -63,20 +42,20 @@ CommentEntity PlayerHub_US {
         "default"
        }
        UIInfo UIInfo "{59B94E4BEA1028F3}" {
-        Name "Vote for SABOTAGE patrol"
+        Name "Vote for INTEL patrol"
        }
        Duration 1
-       m_ePatrolType SABOTAGE
       }
       NO_SCR_StartPatrolAction "{59BAA22168531EF0}" {
        ParentContextList {
         "default"
        }
        UIInfo UIInfo "{59BAA22110960E1F}" {
-        Name "Vote for INTEL patrol"
+        Name "Vote for SABOTAGE patrol"
        }
        Duration 1
        "Sort Priority" 1
+       m_ePatrolType SABOTAGE
       }
       NO_SCR_StartPatrolAction "{59BAA221029141D9}" {
        ParentContextList {
@@ -103,6 +82,7 @@ CommentEntity PlayerHub_US {
      }
     }
     RplComponent "{59B94E4BF824C0E1}" {
+     Streamable Disabled
     }
    }
    coords -15.575 -6.763 1.335
@@ -150,7 +130,7 @@ CommentEntity PlayerHub_US {
       RplComponent "{59B94E4B3E7F48EE}" {
       }
      }
-     coords 0.253 -1.226 -1.015
+     coords 0.253 -1.137 -1.017
      angleY 90
      angleZ -88.902
      {
@@ -715,7 +695,7 @@ CommentEntity PlayerHub_US {
         angleY 2.881
        }
        {
-        coords 1.266 0.024 -0.653
+        coords 1.192 0.024 -0.653
         angleY 0
         {
          GenericEntity : "{172585DCA4F947FE}Prefabs/Props/Furniture/PhoneTable_01_khaki.et" {
@@ -748,7 +728,7 @@ CommentEntity PlayerHub_US {
           Enabled 1
          }
         }
-        coords 1.266 0.024 0.139
+        coords 1.192 0.024 0.139
         angleY 0
         {
          GenericEntity : "{34C2F623958FCACE}Prefabs/Props/Civilian/Ashtray_01_Full_clear.et" {
@@ -1062,7 +1042,7 @@ CommentEntity PlayerHub_US {
      Streamable Disabled
     }
    }
-   coords 15.051 -7.421 0.44
+   coords 15.126 -7.802 0.05
    angleY -90
    m_fSpawnRadius 5
    m_fNoPlayerRadius 2
@@ -1177,7 +1157,7 @@ CommentEntity PlayerHub_US {
    }
   }
   StaticModelEntity Tent_Medical_US : "{059125C8BBD5ECED}Prefabs/Compositions/Misc/SubCompositions/Tent_Medical_Cluttered_US_02.et" {
-   coords 5.069 -7.801 -11.105
+   coords 5.069 -7.801 -10.819
    angleY 180
    {
     GenericEntity : "{651C94FCE07504DD}Prefabs/Structures/Signs/Military/SignRectangle_01_140x100/Sign_FieldHospital_US_01.et" {
@@ -1208,7 +1188,7 @@ CommentEntity PlayerHub_US {
     RplComponent "{59BA6484099FA471}" {
     }
    }
-   coords 5.069 -7.801 11.35
+   coords 5.069 -7.801 11.636
    {
     GenericEntity Armory_Interiour {
      components {
@@ -2606,7 +2586,7 @@ CommentEntity PlayerHub_US {
   }
   $grp StaticModelEntity : "{95A4CF49FC9C0481}Prefabs/Compositions/Misc/SubCompositions/Tent_Barrack_Cluttered_US_01.et" {
    Tent_Barracks_US_1 {
-    coords -4.185 -7.801 11.35
+    coords -4.185 -7.801 11.636
     angleY 0
     {
      $grp GenericEntity : "{6762F7C5C3A2419B}Prefabs/Props/Military/Sandbags/Sandbag_01_short_plastic.et" {
@@ -2620,7 +2600,7 @@ CommentEntity PlayerHub_US {
     }
    }
    Tent_Barracks_US_2 {
-    coords -3.999 -7.802 -11.105
+    coords -3.999 -7.802 -10.819
     angleY 180
     {
      $grp GenericEntity : "{6762F7C5C3A2419B}Prefabs/Props/Military/Sandbags/Sandbag_01_short_plastic.et" {
