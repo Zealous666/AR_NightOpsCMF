@@ -29,6 +29,9 @@ class NO_SCR_PatrolManager : GenericEntity
 	protected NO_SCR_PatrolFactionConfig m_pFactionConfig;
 
 	protected ref array<NO_SCR_EnvSpawnerComponent> m_aCoreTaskSpawners = new array<NO_SCR_EnvSpawnerComponent>();
+	protected ref array<NO_SCR_EnvSpawnerComponent> m_aIntelTaskSpawners = new array<NO_SCR_EnvSpawnerComponent>();
+	protected ref array<NO_SCR_EnvSpawnerComponent> m_aSabotageTaskSpawners = new array<NO_SCR_EnvSpawnerComponent>();
+	protected ref array<NO_SCR_EnvSpawnerComponent> m_aHVTTaskSpawners = new array<NO_SCR_EnvSpawnerComponent>();
 
 	// Synchronised variables
 	[RplProp()]
@@ -64,7 +67,7 @@ class NO_SCR_PatrolManager : GenericEntity
 		ReadConfig();
 		Replication.BumpMe();
 
-		GetGame().GetCallqueue().Call(SpawnPatrolCoreTasks);
+		GetGame().GetCallqueue().Call(SpawnCoreTasks);
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -86,11 +89,28 @@ class NO_SCR_PatrolManager : GenericEntity
 			return;
 
 		// Find relevant task spawner entities for this faction
-		foreach (string taskSpawnerName : m_pFactionConfig.GetTaskSpawnerNames())
+		foreach (string taskSpawnerName : m_pFactionConfig.GetCoreTaskSpawnerNames())
 		{
 			NO_SCR_EnvSpawnerComponent spawnerComponent = FindSpawnerComponent(taskSpawnerName);
-			if (spawnerComponent)
-				m_aCoreTaskSpawners.Insert(spawnerComponent);
+			if (spawnerComponent) m_aCoreTaskSpawners.Insert(spawnerComponent);
+		}
+
+		foreach (string taskSpawnerName : m_pFactionConfig.GetIntelTaskSpawnerNames())
+		{
+			NO_SCR_EnvSpawnerComponent spawnerComponent = FindSpawnerComponent(taskSpawnerName);
+			if (spawnerComponent) m_aIntelTaskSpawners.Insert(spawnerComponent);
+		}
+
+		foreach (string taskSpawnerName : m_pFactionConfig.GetSabotageTaskSpawnerNames())
+		{
+			NO_SCR_EnvSpawnerComponent spawnerComponent = FindSpawnerComponent(taskSpawnerName);
+			if (spawnerComponent) m_aSabotageTaskSpawners.Insert(spawnerComponent);
+		}
+
+		foreach (string taskSpawnerName : m_pFactionConfig.GetHVTTaskSpawnerNames())
+		{
+			NO_SCR_EnvSpawnerComponent spawnerComponent = FindSpawnerComponent(taskSpawnerName);
+			if (spawnerComponent) m_aHVTTaskSpawners.Insert(spawnerComponent);
 		}
 
 		BaseWorld world = GetWorld();
@@ -132,15 +152,20 @@ class NO_SCR_PatrolManager : GenericEntity
 			m_aAvailablePatrolTypes.Insert(ENightOpsPatrolType.HVT);
 	}
 
-	protected void SpawnPatrolCoreTasks()
+	protected void SpawnTasks(array<NO_SCR_EnvSpawnerComponent> taskSpawners)
 	{
-		foreach (NO_SCR_EnvSpawnerComponent taskSpawner : m_aCoreTaskSpawners)
+		foreach (NO_SCR_EnvSpawnerComponent spawner : taskSpawners)
 		{
-			if (taskSpawner.IsSpawned())
-				taskSpawner.RemoveSpawned();
+			if (spawner.IsSpawned())
+				spawner.RemoveSpawned();
 
-			taskSpawner.DoSpawn();
+			spawner.DoSpawn();
 		}
+	}
+
+	protected void SpawnCoreTasks()
+	{
+		SpawnTasks(m_aCoreTaskSpawners);
 	}
 
 	protected NO_SCR_EnvSpawnerComponent FindSpawnerComponent(string entityName)
@@ -242,8 +267,24 @@ class NO_SCR_PatrolManager : GenericEntity
 
 		SetIsOnPatrol(true);
 
+		if (pickedPatrolType == ENightOpsPatrolType.INTEL)
+			SpawnTasks(m_aIntelTaskSpawners);
+		else if (pickedPatrolType == ENightOpsPatrolType.SABOTAGE)
+			SpawnTasks(m_aSabotageTaskSpawners);
+		else if (pickedPatrolType == ENightOpsPatrolType.HVT)
+			SpawnTasks(m_aHVTTaskSpawners);
+
 		chosenPatrol.StartPatrolType(pickedPatrolType);
 		m_pActivePatrol = chosenPatrol;
+	}
+
+	void AssignPatrolTasks()
+	{
+		if (m_pRplComponent.IsProxy())
+			return;
+
+		if (m_pActivePatrol)
+			m_pActivePatrol.AssignTasks();
 	}
 
 	void FinishCurrentPatrol()
@@ -266,7 +307,7 @@ class NO_SCR_PatrolManager : GenericEntity
 			task.ChangeStateOfTask(TriggerType.Finish);
 		}
 
-		GetGame().GetCallqueue().Call(SpawnPatrolCoreTasks);
+		GetGame().GetCallqueue().Call(SpawnCoreTasks);
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -361,20 +402,37 @@ class NO_SCR_PatrolFactionConfig
 
 	NO_SCR_PatrolAssetsConfig GetAssetsConfig() { return m_pFactionAssets; }
 
-	array<string> GetTaskSpawnerNames()
+	array<string> GetCoreTaskSpawnerNames()
 	{
 		array<string> taskSpawnerNames = new array<string>();
 		taskSpawnerNames.Insert(m_pFactionTaskSpawners.SelectPatrol);
 		taskSpawnerNames.Insert(m_pFactionTaskSpawners.StartPatrol);
 		taskSpawnerNames.Insert(m_pFactionTaskSpawners.EndPatrol);
+		return taskSpawnerNames;
+	}
+
+	array<string> GetIntelTaskSpawnerNames()
+	{
+		array<string> taskSpawnerNames = new array<string>();
 		taskSpawnerNames.Insert(m_pFactionTaskSpawners.IntelPatrolObj1);
 		taskSpawnerNames.Insert(m_pFactionTaskSpawners.IntelPatrolObj2);
 		taskSpawnerNames.Insert(m_pFactionTaskSpawners.IntelPatrolMain);
+		return taskSpawnerNames;
+	}
+
+	array<string> GetSabotageTaskSpawnerNames()
+	{
+		array<string> taskSpawnerNames = new array<string>();
 		taskSpawnerNames.Insert(m_pFactionTaskSpawners.SabotagePatrolObj1);
 		taskSpawnerNames.Insert(m_pFactionTaskSpawners.SabotagePatrolObj2);
 		taskSpawnerNames.Insert(m_pFactionTaskSpawners.SabotagePatrolMain);
-		taskSpawnerNames.Insert(m_pFactionTaskSpawners.HVTPatrolMain);
+		return taskSpawnerNames;
+	}
 
+	array<string> GetHVTTaskSpawnerNames()
+	{
+		array<string> taskSpawnerNames = new array<string>();
+		taskSpawnerNames.Insert(m_pFactionTaskSpawners.HVTPatrolMain);
 		return taskSpawnerNames;
 	}
 }

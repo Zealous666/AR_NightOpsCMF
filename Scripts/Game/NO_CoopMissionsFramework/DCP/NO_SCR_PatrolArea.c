@@ -7,9 +7,16 @@ class NO_SCR_PatrolArea : CommentEntity
 {
 	protected ref array<NO_SCR_EnvSpawnerComponent> m_aInUseEnvSpawners = new array<NO_SCR_EnvSpawnerComponent>();
 
+	protected ENightOpsPatrolType m_eLastUsedPatrolType;
+
 	protected vector m_vInfilPos;
 	protected vector m_vInfilRot;
 	protected vector m_vExfilPos;
+
+	protected vector m_vIntelPos1;
+	protected vector m_vIntelPos2;
+	protected vector m_vIntelRot1;
+	protected vector m_vIntelRot2;
 
 	protected vector m_vSabotagePos1;
 	protected vector m_vSabotagePos2;
@@ -45,6 +52,8 @@ class NO_SCR_PatrolArea : CommentEntity
 				{
 					case ENightOpsPatrolMarkerType.INFIL: { m_vInfilPos = patrolMarker.GetOrigin(); m_vInfilRot = patrolMarker.GetAngles(); break; }
 					case ENightOpsPatrolMarkerType.EXFIL: { m_vExfilPos = patrolMarker.GetOrigin(); break; }
+					case ENightOpsPatrolMarkerType.INTEL_1: { m_vIntelPos1 = patrolMarker.GetOrigin(); m_vIntelRot1 = patrolMarker.GetAngles(); break; }
+					case ENightOpsPatrolMarkerType.INTEL_2: { m_vIntelPos2 = patrolMarker.GetOrigin(); m_vIntelRot2 = patrolMarker.GetAngles(); break; }
 					case ENightOpsPatrolMarkerType.SABOTAGE_1: { m_vSabotagePos1 = patrolMarker.GetOrigin(); m_vSabotageRot1 = patrolMarker.GetAngles(); break; }
 					case ENightOpsPatrolMarkerType.SABOTAGE_2: { m_vSabotagePos2 = patrolMarker.GetOrigin(); m_vSabotageRot2 = patrolMarker.GetAngles(); break; }
 					default: { Print(string.Format("Unconfigured patrol marker detected: ", patrolMarker.GetName())); break; }
@@ -57,6 +66,8 @@ class NO_SCR_PatrolArea : CommentEntity
 
 	bool StartPatrolType(ENightOpsPatrolType patrolType)
 	{
+		m_eLastUsedPatrolType = patrolType;
+
 		// TEMPORARY TASK STUFF
 		//Finish initital task to select a patrol type
 		IEntity taskEntityH = GetGame().GetWorld().FindEntityByName("SelectPatrol_Task_US");
@@ -113,7 +124,15 @@ class NO_SCR_PatrolArea : CommentEntity
 		// Setup patrol type
 		if (patrolType == ENightOpsPatrolType.INTEL)
 		{
-			// TODO
+			// Spawn intel 1 prefab
+			SpawnPatrolObjective("intel_spawner_1", m_vIntelPos1, m_vIntelRot1);
+
+			// Spawn intel 2 prefab
+			SpawnPatrolObjective("intel_spawner_2", m_vIntelPos2, m_vIntelRot2);
+
+			// Move intel task locations
+	        GetGame().GetWorld().FindEntityByName("Intel_1_Task_US").SetOrigin(m_vIntelPos1);
+	        GetGame().GetWorld().FindEntityByName("Intel_2_Task_US").SetOrigin(m_vIntelPos2);
 		}
 		else if (patrolType == ENightOpsPatrolType.SABOTAGE)
 		{
@@ -151,6 +170,29 @@ class NO_SCR_PatrolArea : CommentEntity
 				spawnerComponent.DoSpawn();
 				m_aInUseEnvSpawners.Insert(spawnerComponent);
 			}
+		}
+	}
+
+	void AssignTasks()
+	{
+		if (m_eLastUsedPatrolType == ENightOpsPatrolType.INTEL)
+		{
+			NO_SCR_EditorTask task1 = NO_SCR_EditorTask.Cast(GetGame().GetWorld().FindEntityByName("Intel_1_Task_US"));
+	        NO_SCR_EditorTask task2 = NO_SCR_EditorTask.Cast(GetGame().GetWorld().FindEntityByName("Intel_2_Task_US"));
+	        task1.ChangeStateOfTask(TriggerType.Assign);
+			task2.ChangeStateOfTask(TriggerType.Create);
+		}
+		else if (m_eLastUsedPatrolType == ENightOpsPatrolType.SABOTAGE)
+		{
+	        NO_SCR_EditorTask task1 = NO_SCR_EditorTask.Cast(GetGame().GetWorld().FindEntityByName("Sabotage_1_Task_US"));
+	        NO_SCR_EditorTask task2 = NO_SCR_EditorTask.Cast(GetGame().GetWorld().FindEntityByName("Sabotage_2_Task_US"));
+			task1.ChangeStateOfTask(TriggerType.Assign);
+			task2.ChangeStateOfTask(TriggerType.Create);
+		}
+		else if (m_eLastUsedPatrolType == ENightOpsPatrolType.HVT)
+		{
+	        NO_SCR_EditorTask task = NO_SCR_EditorTask.Cast(GetGame().GetWorld().FindEntityByName("HVT_Task_US"));
+			task.ChangeStateOfTask(TriggerType.Assign);
 		}
 	}
 
