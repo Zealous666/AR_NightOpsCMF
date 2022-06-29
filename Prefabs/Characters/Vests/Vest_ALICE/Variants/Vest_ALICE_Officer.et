@@ -1,0 +1,63 @@
+GenericEntity : "{FD0890CE5C6D26CB}Prefabs/Characters/Vests/Vest_ALICE/Vest_ALICE_assembled_base.et" {
+ ID "526492DCB8322C65"
+ components {
+  ClothNodeStorageComponent "{59BAFE5B74CC7FAF}" {
+   Attributes SCR_ItemAttributeCollection "{59BAFE5B74CC7FA3}" {
+    ItemDisplayName UIInfo "{59BAFE5B74CC7FA2}" {
+     Name "Alice Vest"
+     Description "Alice Vest (Basic Suspenders)"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{59BAFE5B74CC7FA4}" {
+     Weight 2
+     SizeSetupStrategy Volume
+     ItemVolume 5000
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{59BAFE5B74CC7FA6}" {
+      CameraOrbitAngles -40 25 0
+      CameraDistanceToItem 3
+      CameraOffset 0.02 0 0
+      FOV 10
+     }
+    }
+    m_Size SLOT_2x2
+   }
+   Priority 10
+   UseCapacityCoefficient 0
+   MaxCumulativeVolume 4500
+  }
+  BaseLoadoutClothComponent "{5312D798A71DFBB1}" {
+   WearAction SCR_WearClothUserAction "{5174C3E970DD39B8}" {
+    UIInfo UIInfo "{5174C3E901672ED3}" {
+    }
+   }
+   Slots {
+    LoadoutSlotInfo "{5174C3E96ACD276B}" {
+     Prefab "{B95BD66EA8F863C8}Prefabs/Characters/Vests/Vest_ALICE/Vest_ALICE_suspenders_2.et"
+    }
+    LoadoutSlotInfo MagPouch {
+    }
+    LoadoutSlotInfo MagPouch2 {
+    }
+    LoadoutSlotInfo Etool {
+     PivotID ""
+    }
+    LoadoutSlotInfo Buttpack {
+     Prefab "{9A21918AC35AC182}Prefabs/Characters/Vests/Vest_ALICE/Vest_ALICE_buttpack.et"
+    }
+    LoadoutSlotInfo FirstAid {
+     Prefab "{02DF51DB063ABD36}Prefabs/Characters/Vests/Vest_ALICE/Vest_ALICE_firstaid.et"
+    }
+    LoadoutSlotInfo Cateen {
+     Prefab "{630FB4AD4A735264}Prefabs/Items/Equipment/Canteens/Canteen_US_01.et"
+     Area Attachment4
+    }
+    LoadoutSlotInfo Bayonet {
+     Offset 0.075 0.03 0.105
+     Angles 0.8 37.3 -1.9
+     Prefab "{EE7FBAD35CA9D0F2}Prefabs/Items/Equipment/Accessories/Scabbard_Bayonet_M9/Scabbard_Bayonet_M9.et"
+    }
+   }
+  }
+ }
+}

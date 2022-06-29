@@ -61,8 +61,8 @@ SCR_BaseGameMode : "{986C258C450B9319}Prefabs/MP/Modes/Coop/GameMode_Coop.et" {
    }
   }
   SCR_RespawnMenuHandlerComponent "{597B2EF80CE41F6C}" {
-   m_bAllowQuickDeploy 1
-   m_sFactionMenuMessage "Custom Message"
+   m_bAllowQuickDeploy 0
+   m_sFactionMenuMessage "Arsenal Crate in base available"
   }
   SCR_RespawnSystemComponent "{56B2B4793051E7C9}" {
   }
@@ -117,8 +117,16 @@ SCR_BaseGameMode : "{986C258C450B9319}Prefabs/MP/Modes/Coop/GameMode_Coop.et" {
   SCR_LoadoutManager LoadoutManager_Coop : "{D0DE5EFEE00509C9}Prefabs/MP/Managers/Loadouts/LoadoutManager_Coop.et" {
    coords -1992.859 -6.968 -2080.74
    m_aPlayerLoadouts {
-    SCR_PlayerArsenalLoadout "{596EB2A326D1EE2D}" {
-     m_sLoadoutName "Arsenal Player Loadout"
+    SCR_FactionPlayerLoadout "{596EB2A326D1EE2D}" {
+     m_sLoadoutName "Starting Loadout"
+     m_sLoadoutResource "{05682BDC8D9B1983}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Pistolman.et"
+     m_sLoadoutImage "{047ABB4F19374DB4}UI/Textures/EditorPreviews/Characters/BLUFOR/US_Army/Character_US_Unarmed.edds"
+    }
+    SCR_PlayerArsenalLoadout "{59BAE247EF0E0FD8}" {
+     m_sLoadoutName "Arsenal Loadout"
+     m_sLoadoutResource "{26A9756790131354}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Rifleman.et"
+     m_sLoadoutImage "{2B0877799B9B6C66}UI/Textures/EditorPreviews/Characters/BLUFOR/US_Army/Character_US_Rifleman.edds"
+     m_sAffiliatedFaction "US"
     }
    }
   }

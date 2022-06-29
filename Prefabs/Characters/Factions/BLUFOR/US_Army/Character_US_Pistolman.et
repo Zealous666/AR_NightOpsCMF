@@ -1,0 +1,72 @@
+SCR_ChimeraCharacter : "{836E7E39AAC5888B}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Base.et" {
+ ID "520EC961A090BBD5"
+ components {
+  BaseWeaponManagerComponent "{520EA1D2F659CE5D}" {
+   DefaultWeaponIndex 0
+  }
+  CharacterGrenadeSlotComponent "{520EA1D2F659CE6E}" {
+  }
+  CharacterWeaponSlotComponent "{520EA1D2F659CFAB}" {
+  }
+  CharacterWeaponSlotComponent "{520EA1D2F659CFDC}" {
+   WeaponTemplate "{1353C6EAD1DCFE43}Prefabs/Weapons/Handguns/M9/Handgun_M9.et"
+  }
+  SCR_EditableCharacterComponent "{520EA1D2F659C85C}" {
+   m_UIInfo SCR_EditableEntityUIInfo "{5298E609432D192D}" {
+    Name "#AR-Role_AutomaticRifleman"
+    Icon "{EF1F445746A3391A}UI/Textures/Editor/EditableEntities/Characters/EditableEntity_Character_MachineGunner.edds"
+    IconSetName ""
+    m_Image "{43EA535E240F0B17}UI/Textures/EditorPreviews/Characters/BLUFOR/US_Army/Character_US_AR.edds"
+    m_sFaction "US"
+    m_aAuthoredLabels + {
+     34
+    }
+    m_aAutoLabels {
+     122 43
+    }
+   }
+  }
+  SCR_GadgetManagerComponent "{520EA1D2DB118DF3}" {
+  }
+  BaseLoadoutManagerComponent "{520EA1D2DB11821E}" {
+   Slots {
+    LoadoutSlotInfo Jacket {
+     Prefab "{3CCA7A9BB4FD3197}Prefabs/Characters/Uniforms/Jacket_US_BDU_rolledup.et"
+    }
+    LoadoutSlotInfo Hat {
+     Prefab "{B74A4FF0DD8BB116}Prefabs/Characters/HeadGear/Helmet_PASGT_01/Helmet_PASGT_01.et"
+    }
+    LoadoutSlotInfo Back {
+    }
+    LoadoutSlotInfo Vest {
+     Prefab "{7B251A2915A966B2}Prefabs/Characters/Vests/Vest_ALICE/Variants/Vest_ALICE_Officer.et"
+    }
+   }
+  }
+  SCR_InventoryStorageManagerComponent "{520EA1D2DB118DE5}" {
+   InitialInventoryItems {
+    ItemsInitConfigurationItem "{54A49B42D138207E}" {
+    }
+    ItemsInitConfigurationItem "{56607B916E51CA58}" {
+     PrefabsToSpawn {
+      "{61D4F80E49BF9B12}Prefabs/Items/Equipment/Compass/Compass_SY183.et" "{13772C903CB5E4F7}Prefabs/Items/Equipment/Maps/PaperMap_01_folded.et" "{73950FBA2D7DB5C5}Prefabs/Items/Equipment/Radios/Radio_ANPRC68.et"
+     }
+    }
+    ItemsInitConfigurationItem "{596EB9E21ADFEEBB}" {
+     TargetStorage "Prefabs/Characters/Uniforms/Jacket_US_BDU_rolledup.et"
+     TargetPurpose 64
+     PrefabsToSpawn {
+      "{3A421547BC29F679}Prefabs/Items/Equipment/Flashlights/Flashlight_MX991.et"
+     }
+    }
+    ItemsInitConfigurationItem "{596EBD514CD7ED29}" {
+     TargetStorage "Prefabs/Characters/Vests/Vest_ALICE/Vest_ALICE_buttpack.et"
+     PrefabsToSpawn {
+      "{9C05543A503DB80E}Prefabs/Weapons/Magazines/Magazine_9x19_M9_15rnd_Ball.et" "{9C05543A503DB80E}Prefabs/Weapons/Magazines/Magazine_9x19_M9_15rnd_Ball.et"
+     }
+    }
+   }
+  }
+ }
+ coords 0 0 0
+}
