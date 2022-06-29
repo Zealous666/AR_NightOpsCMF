@@ -1,6 +1,0 @@
-GenericEntity Intel_2 : "{A59F7B3A2590FDB8}Prefabs/Items/USSR_Radio_Intel_2.et" {
- coords 285.64 10.899 126.824
-}
-GenericEntity Intel_1 : "{A69F2C244B480734}Prefabs/Items/ClassifiedDocuments_Intel_1.et" {
- coords 284.658 10.899 126.777
-}
