@@ -3,7 +3,7 @@ NO_SCR_EditorTask : "{82EC0462F27F5221}Prefabs/NO_DTF/SingleTask.et" {
  components {
   Hierarchy "{59953E01C8D3BEF5}" {
   }
-  NO_SCR_DTFRenamerComponent "{59B696A1E942884A}" {
+  NO_SCR_DTFRenamerComponent "{59BA16E46EBDEE3D}" {
    m_sNewName "Intel_2_Task_US"
   }
   SCR_MapDescriptorComponent "{59969C4C43106004}" {

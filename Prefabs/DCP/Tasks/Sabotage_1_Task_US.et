@@ -1,7 +1,7 @@
 NO_SCR_EditorTask : "{82EC0462F27F5221}Prefabs/NO_DTF/SingleTask.et" {
  ID "59953E02005EB511"
  components {
-  NO_SCR_DTFRenamerComponent "{59B696A1E942884A}" {
+  NO_SCR_DTFRenamerComponent "{59BA16E471BCD5CD}" {
    m_sNewName "Sabotage_1_Task_US"
   }
  }
