@@ -86,20 +86,18 @@ $grp NO_SCR_MissionTrigger : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/NO_MissionTr
   coords 290.338 10.003 121.624
   SphereRadius 4.5
   ShapeColor 0.188 0.745 0.745 0.498
+  OnPlayerQuotaReached ""\
+  "		super.OnPlayerQuotaReached();"\
+  ""\
+  "		if (GetPatrolManager())"\
+  "			GetPatrolManager().AssignPatrolTasks();"\
+  "	"
   m_bIsActive 0
   m_bIsRepeatable 1
   m_fDelay 1
   m_aTaskStateChanges {
    NO_SCR_TaskStateChangeEntry "{59B4941EFEB4E0E6}" {
     m_sTaskEntityName "StartPatrol_Task_US"
-   }
-   NO_SCR_TaskStateChangeEntry "{59B4941E85AD2C5D}" {
-    m_sTaskEntityName "Sabotage_1_Task_US"
-    m_eTaskState Assign
-   }
-   NO_SCR_TaskStateChangeEntry "{59B4941E85CA80B5}" {
-    m_sTaskEntityName "Sabotage_2_Task_US"
-    m_eTaskState Create
    }
   }
   m_aSpawnpointChanges {
@@ -142,8 +140,9 @@ $grp NO_SCR_MissionTrigger : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/NO_MissionTr
   "	"
   m_bIsActive 0
   m_aActivateOnTaskState {
-   NO_SCR_TaskStateActivatorEntry "{59B4941E126A19AA}" {
-    m_sTaskEntityName "Sabotage_Task_US"
+   NO_SCR_TaskStateActivatorEntry "{59BA16E5CEF842CF}" {
+    m_sTaskEntityName "EndPatrol_Task_US"
+    m_eTaskState Assign
    }
   }
   m_bIsRepeatable 1
@@ -205,6 +204,34 @@ $grp GenericEntity : "{D8F00B5CFC8514F1}Prefabs/NO_DSF/Vehicles/SpawnVehicle.et"
    }
   }
   coords 46.983 10 443.088
+ }
+ intel_spawner_2 {
+  components {
+   NO_SCR_EnvSpawnerComponent "{59889B90E04F5D80}" {
+    m_rnDefaultPrefabs {
+     CountSpawnsByOnlinePlayer "{5988C249449C6C74}" {
+      prefab {
+       "{A59F7B3A2590FDB8}Prefabs/Items/USSR_Radio_Intel_2.et"
+      }
+     }
+    }
+   }
+  }
+  coords 254.772 10.001 103.747
+ }
+ intel_spawner_1 {
+  components {
+   NO_SCR_EnvSpawnerComponent "{59889B90E04F5D80}" {
+    m_rnDefaultPrefabs {
+     CountSpawnsByOnlinePlayer "{5988C249449C6C74}" {
+      prefab {
+       "{A69F2C244B480734}Prefabs/Items/ClassifiedDocuments_Intel_1.et"
+      }
+     }
+    }
+   }
+  }
+  coords 254.671 10.001 104.108
  }
 }
 SCR_SpawnPoint infil_spawnpoint : "{E7F4D5562F48DDE4}Prefabs/MP/Spawning/SpawnPoint_Base.et" {
