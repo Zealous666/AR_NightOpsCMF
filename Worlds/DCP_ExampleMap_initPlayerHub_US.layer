@@ -990,21 +990,15 @@ CommentEntity PlayerHub_US {
         $grp GenericEntity : "{78AB783E28EDEBD4}Prefabs/Props/Military/Sandbags/Sandbag_01_long_plastic.et" {
          {
           coords 0.073 0.002 2.666
-          angleX 0
           angleY 178.098
-          angleZ -0
          }
          {
           coords 2.308 0.002 1.602
-          angleX 0
           angleY -91.235
-          angleZ 0
          }
          {
           coords -2.046 0.002 1.531
-          angleX 0
           angleY -91.235
-          angleZ 0
          }
         }
        }

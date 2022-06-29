@@ -1,15 +1,124 @@
-SCR_BaseGameMode NO_CoopSetup : "{AAD8DA66980A1D77}Prefabs/MP/NO_CoopSetup.et" {
+SCR_BaseGameMode : "{986C258C450B9319}Prefabs/MP/Modes/Coop/GameMode_Coop.et" {
  components {
+  NO_SCR_ForceTimeAndWeatherComponent "{598463A47C89F035}" {
+   m_fCustomTimeOfTheDay 18
+   m_sCustomWeather "Cloudy"
+  }
+  SCR_ArsenalManagerComponent "{59BACC8364D433F8}" {
+  }
+  SCR_CallsignManagerComponent "{56B6E8B2652E1419}" {
+  }
+  SCR_DestructionManagerComponent "{56B6E8B263C4FF7D}" {
+  }
+  SCR_GameOverScreenManagerComponent "{56DEC646298AD219}" {
+   m_GameOverScreenConfig SCR_GameOverScreenConfig "{56DEC6462FFDD82D}" {
+    m_aGameOverScreens {
+     SCR_FactionVictoryGameOverScreenInfo "{568EB6DFEF507060}" {
+      m_OptionalParams SCR_BaseGameOverScreenInfoOptional "{568EB6DFF87D9C84}" {
+       m_sTitle "Mission Name"
+       m_sSubtitle "Mission Completed"
+      }
+     }
+    }
+   }
+  }
+  SCR_GroupsManagerComponent "{5706EC99934496F5}" {
+   m_sDefaultGroupPrefab "{8B4D49A9F324E7D5}Prefabs/Groups/PlayableGroup.et"
+   m_iPlayableGroupFrequencyOffset 500
+  }
+  SCR_HintManagerComponent "{5702B54C6CBC9D7F}" {
+  }
+  SCR_NametagConfigComponent "{571AA9E54FC9210D}" {
+  }
+  SCR_NotificationSenderComponent "{56FA84B04BE7D4C0}" {
+  }
+  SCR_PlayerProfileManagerComponent "{56B6E8B26E75F6B3}" {
+  }
+  SCR_PlayerSpawnPointManagerComponent "{597D4AC874B80730}" {
+   m_SpawnPointPrefab "{456EFDDA59DD6EB2}Prefabs/MP/PlayerRadioSpawnPoint.et"
+  }
+  SCR_PlayersRestrictionZoneManagerComponent "{56D09BEE802CA7C5}" {
+  }
+  SCR_PossessingManagerComponent "{56E0B02F4D91C3EF}" {
+  }
+  SCR_RespawnBriefingComponent "{597B2CEE9F5D61F8}" {
+   m_aGameModeHints {
+    SCR_UIInfo "{597D4ACAA84A8F75}" {
+     Name "Hint Headline"
+     Description "Hint Description 1"
+     Icon "{324E923535DCACF8}UI/Textures/DeployMenu/Briefing/conflict_HintBanner_1_UI.edds"
+    }
+    SCR_UIInfo "{597D4ACB34DE8633}" {
+     Name "Hint Headline"
+     Description "Hint Description 2"
+     Icon "{3C50D67D082BA322}UI/Textures/DeployMenu/Briefing/conflict_HintBanner_2_UI.edds"
+    }
+    SCR_UIInfo "{597D4ACBC52503DB}" {
+     Name "Hint Headline"
+     Description "Hint Description 3"
+     Icon "{39A515BAE3795994}UI/Textures/DeployMenu/Briefing/conflict_HintBanner_3_UI.edds"
+    }
+   }
+  }
   SCR_RespawnMenuHandlerComponent "{597B2EF80CE41F6C}" {
    m_bAllowQuickDeploy 1
+   m_sFactionMenuMessage "Custom Message"
+  }
+  SCR_RespawnSystemComponent "{56B2B4793051E7C9}" {
+  }
+  SCR_RespawnTimerComponent "{597B2CEEAA71C211}" {
+  }
+  SCR_SaveLoadComponent "{58FA739CBE3E9FC5}" {
+  }
+  SCR_VotingManagerComponent "{5650BB6B6089393A}" {
+   m_aVotingTemplates {
+    SCR_VotingKick "{58EA836E8F9304A4}" {
+    }
+    SCR_VotingKick "{58D06C7263CC3888}" {
+     m_Info SCR_VotingUIInfo "{58D06C72C5074F23}" {
+     }
+    }
+   }
+  }
+  RplComponent "{56B2B4793BF2E1B4}" {
+   "Rpl State Override" Static
+   Streamable Disabled
   }
  }
  coords 299.959 10.001 88.241
  {
-  SCR_LoadoutManager {
-   ID "598B45657FF3F701"
+  SCR_AIWorld AIWorld : "{E0A05C76552E7F58}Prefabs/AI/SCR_AIWorld.et" {
+   components {
+    NavmeshWorldComponent "{5584F30E67F617AD}" {
+     NavmeshSettings NavmeshWorld "{50FC63BEBE3973C5}" {
+     }
+    }
+   }
+   coords -11260.038 0 -10572.646
+  }
+  PerceptionManager PerceptionManager_Coop : "{028DAEAD63E056BE}Prefabs/World/Game/PerceptionManager.et" {
+   coords -4816.637 2.665 -7608.337
+  }
+  TagManager TagManager_Coop : "{2FA9E172CAB1857A}Prefabs/MP/Managers/TagManager.et" {
+   coords 166.76 1.893 114.903
+  }
+  RadioManagerEntity RadioManager_Coop : "{B8E09FAB91C4ECCD}Prefabs/Radio/RadioManager.et" {
+   coords 93.217 0 91.5
+  }
+  SCR_FactionManager FactionManager_Coop : "{E4075339B4E24E10}Prefabs/MP/Managers/Factions/FactionsManager_Coop.et" {
+   coords -11427.474 0 -10757.089
+  }
+  ScriptedChatEntity ChatEntity_Coop : "{F69BC912AC8236F9}Prefabs/MP/ScriptedChatEntity.et" {
+   coords -11428.639 -8.693 -10730.898
+  }
+  SCR_MPDestructionManager DestructionManager_Coop : "{9BB369F2803C6F71}Prefabs/MP/MPDestructionManager.et" {
+   coords -21.183 -1 -14.982
+  }
+  SCR_LoadoutManager LoadoutManager_Coop : "{D0DE5EFEE00509C9}Prefabs/MP/Managers/Loadouts/LoadoutManager_Coop.et" {
+   coords -1992.859 -6.968 -2080.74
    m_aPlayerLoadouts {
     SCR_PlayerArsenalLoadout "{596EB2A326D1EE2D}" {
+     m_sLoadoutName "Arsenal Player Loadout"
     }
    }
   }
