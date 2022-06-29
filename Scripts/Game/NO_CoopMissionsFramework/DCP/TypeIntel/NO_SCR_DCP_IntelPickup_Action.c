@@ -3,7 +3,7 @@ class NO_SCR_DCP_IntelPickup_Action : ScriptedUserAction
 	override void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity)
 	{
 		// Get intel task
-		IEntity taskEntity = GetGame().GetWorld().FindEntityByName("IntelPatrol_1_US");
+		IEntity taskEntity = GetGame().GetWorld().FindEntityByName("Intel_1_Task_US");
 		if (!taskEntity) return;
         NO_SCR_EditorTask task = NO_SCR_EditorTask.Cast(taskEntity);
 		if (!task) return;

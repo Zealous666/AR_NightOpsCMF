@@ -12,7 +12,7 @@ class NO_SCR_DCP_IntelDownload_Action : NO_SCR_OneTimeAction
 		super.PerformAction(pOwnerEntity, pUserEntity);
 
 		// Get intel task
-		IEntity taskEntity = GetGame().GetWorld().FindEntityByName("IntelPatrol_2_US");
+		IEntity taskEntity = GetGame().GetWorld().FindEntityByName("Intel_2_Task_US");
 		if (!taskEntity) return;
         NO_SCR_EditorTask task = NO_SCR_EditorTask.Cast(taskEntity);
 		if (!task) return;
