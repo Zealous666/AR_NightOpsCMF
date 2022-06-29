@@ -2,7 +2,7 @@ NO_SCR_EditorTask : "{82EC0462F27F5221}Prefabs/NO_DTF/SingleTask.et" {
  ID "59953E02005EB511"
  components {
   NO_SCR_DTFRenamerComponent "{59B696A1E291BEE7}" {
-   m_sNewName "EndPatrol_Task_US"
+   m_sNewName "EndPatrol_Task"
   }
  }
  m_sName "Rally players to exfil point"

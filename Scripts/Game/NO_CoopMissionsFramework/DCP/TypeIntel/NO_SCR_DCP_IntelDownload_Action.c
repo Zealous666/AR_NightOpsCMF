@@ -11,13 +11,24 @@ class NO_SCR_DCP_IntelDownload_Action : NO_SCR_OneTimeAction
 		// Required for one time action
 		super.PerformAction(pOwnerEntity, pUserEntity);
 
-		// Get intel task
-		IEntity taskEntity = GetGame().GetWorld().FindEntityByName("Intel_2_Task_US");
-		if (!taskEntity) return;
+		if (!GetPatrolManager())
+		{
+			Print("No PatrolManager could be found!", LogLevel.ERROR);
+			return;
+		}
+
+		// Get intel 2 task
+		IEntity taskEntity = GetGame().GetWorld().FindEntityByName(GetPatrolManager().INTEL_PATROL_OBJ2_TASKNAME);
+		if (!taskEntity)
+		{
+			Print("Task could not be found!", LogLevel.ERROR);
+			return;
+		}
+
         NO_SCR_EditorTask task = NO_SCR_EditorTask.Cast(taskEntity);
 		if (!task) return;
 
-		// Finish intel task
+		// Finish intel 2 task
 		task.ChangeStateOfTask(TriggerType.Finish);
 
 		// Play the set faction chatter (3D)

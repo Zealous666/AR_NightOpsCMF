@@ -2,7 +2,7 @@ NO_SCR_EditorTask : "{82EC0462F27F5221}Prefabs/NO_DTF/SingleTask.et" {
  ID "59953E02005EB511"
  components {
   NO_SCR_DTFRenamerComponent "{59B696A1FC378FEC}" {
-   m_sNewName "SelectPatrol_Task_US"
+   m_sNewName "SelectPatrol_Task"
   }
  }
  m_sName "Vote for a Combat Patrol"

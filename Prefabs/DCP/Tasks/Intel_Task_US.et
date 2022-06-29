@@ -2,11 +2,11 @@ NO_SCR_EditorTask : "{231FF93369E30084}Prefabs/NO_DTF/MultiTask.et" {
  ID "59953E0245B66B53"
  components {
   NO_SCR_DTFRenamerComponent "{59BA16E44C7A5C72}" {
-   m_sNewName "Intel_Task_US"
+   m_sNewName "Intel_Task"
   }
   NO_SCR_MultiTaskTriggerComponent "{599690AC32293EDD}" {
    m_sTaskNames {
-    "Intel_1_Task_US" "Intel_2_Task_US"
+    "Intel_1_Task" "Intel_2_Task"
    }
    m_allowFailedTasks 0
   }
@@ -18,7 +18,7 @@ NO_SCR_EditorTask : "{231FF93369E30084}Prefabs/NO_DTF/MultiTask.et" {
  m_faction "US"
  m_bAssignToFactionOnStart 0
  m_sCreateTaskNamesSuccess {
-  "EndPatrol_Task_US"
+  "EndPatrol_Task"
  }
  m_bAssignFirstTask 1
 }

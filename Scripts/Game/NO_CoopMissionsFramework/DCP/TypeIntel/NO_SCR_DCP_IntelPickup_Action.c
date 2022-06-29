@@ -2,13 +2,24 @@ class NO_SCR_DCP_IntelPickup_Action : ScriptedUserAction
 {
 	override void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity)
 	{
-		// Get intel task
-		IEntity taskEntity = GetGame().GetWorld().FindEntityByName("Intel_1_Task_US");
-		if (!taskEntity) return;
+		if (!GetPatrolManager())
+		{
+			Print("No PatrolManager could be found!", LogLevel.ERROR);
+			return;
+		}
+
+		// Get intel 1 task
+		IEntity taskEntity = GetGame().GetWorld().FindEntityByName(GetPatrolManager().INTEL_PATROL_OBJ1_TASKNAME);
+		if (!taskEntity)
+		{
+			Print("Task could not be found!", LogLevel.ERROR);
+			return;
+		}
+
         NO_SCR_EditorTask task = NO_SCR_EditorTask.Cast(taskEntity);
 		if (!task) return;
 
-		// Finish pickup intel task
+		// Finish intel 1 task
 		task.ChangeStateOfTask(TriggerType.Finish);
 
 		// Play the map pickup sound (3D)

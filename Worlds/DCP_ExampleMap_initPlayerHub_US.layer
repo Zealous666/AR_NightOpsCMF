@@ -810,6 +810,10 @@ CommentEntity PlayerHub_US {
        coords 0.9 0.9 3.461
       }
       GenericEntity : "{B4F2701CBBE49C48}Prefabs/Props/Military/Antennas/Antenna_RC292_01.et" {
+       components {
+        SCR_HorizontalAlignComponent "{55B890D2B67E0C35}" {
+        }
+       }
        coords -10.938 -0.002 -0.105
        angleY 116.675
       }
@@ -2546,7 +2550,7 @@ CommentEntity PlayerHub_US {
    m_fDelay 1
    m_aTaskStateChanges {
     NO_SCR_TaskStateChangeEntry "{59B4941EFEB4E0E6}" {
-     m_sTaskEntityName "StartPatrol_Task_US"
+     m_sTaskEntityName "StartPatrol_Task"
     }
    }
    m_aSpawnpointChanges {

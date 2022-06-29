@@ -15,7 +15,7 @@ NO_SCR_MissionTrigger exfil_trigger : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/NO_
  m_bIsActive 0
  m_aActivateOnTaskState {
   NO_SCR_TaskStateActivatorEntry "{59BA16E5CEF842CF}" {
-   m_sTaskEntityName "EndPatrol_Task_US"
+   m_sTaskEntityName "EndPatrol_Task"
    m_eTaskState Assign
   }
  }

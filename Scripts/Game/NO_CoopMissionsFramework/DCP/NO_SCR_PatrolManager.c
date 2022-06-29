@@ -16,10 +16,24 @@ class NO_SCR_PatrolManager : GenericEntity
 	[Attribute("", UIWidgets.Object, desc: "Change items within config file, not through Object Properties!", category: "COMBAT PATROLS", params: "noDetails")]
 	protected ref NO_SCR_CombatPatrolsConfig m_pCombatPatrolsConfig;
 
-	protected RplComponent m_pRplComponent;
+	// The task prefabs and their spawners are for each faction, the task names are shared among factions
+	const string SELECT_PATROL_TASKNAME = "SelectPatrol_Task";
+	const string START_PATROL_TASKNAME = "StartPatrol_Task";
+	const string END_PATROL_TASKNAME = "EndPatrol_Task";
+
+	const string INTEL_PATROL_TASKNAME = "Intel_Task";
+	const string INTEL_PATROL_OBJ1_TASKNAME = "Intel_1_Task";
+	const string INTEL_PATROL_OBJ2_TASKNAME = "Intel_2_Task";
+	const string SABOTAGE_PATROL_TASKNAME = "Sabotage_Task";
+
+	const string SABOTAGE_PATROL_OBJ1_TASKNAME = "Sabotage_1_Task";
+	const string SABOTAGE_PATROL_OBJ2_TASKNAME = "Sabotage_2_Task";
+
+	const string HVT_PATROL_TASKNAME = "HVT_Task";
 
 	// Patrol area related
 	protected NO_SCR_PatrolArea m_pActivePatrol;
+	protected ENightOpsPatrolType m_eActivePatrolType;
 
 	protected ref array<NO_SCR_PatrolArea> m_aIntelPatrols = new array<NO_SCR_PatrolArea>();
 	protected ref array<NO_SCR_PatrolArea> m_aSabotagePatrols = new array<NO_SCR_PatrolArea>();
@@ -27,11 +41,14 @@ class NO_SCR_PatrolManager : GenericEntity
 
 	// Faction entities/spawners related
 	protected NO_SCR_PatrolFactionConfig m_pFactionConfig;
+	protected NO_SCR_PatrolAssetsConfig m_pFactionAssets;
 
 	protected ref array<NO_SCR_EnvSpawnerComponent> m_aCoreTaskSpawners = new array<NO_SCR_EnvSpawnerComponent>();
 	protected ref array<NO_SCR_EnvSpawnerComponent> m_aIntelTaskSpawners = new array<NO_SCR_EnvSpawnerComponent>();
 	protected ref array<NO_SCR_EnvSpawnerComponent> m_aSabotageTaskSpawners = new array<NO_SCR_EnvSpawnerComponent>();
 	protected ref array<NO_SCR_EnvSpawnerComponent> m_aHVTTaskSpawners = new array<NO_SCR_EnvSpawnerComponent>();
+
+	protected RplComponent m_pRplComponent;
 
 	// Synchronised variables
 	[RplProp()]
@@ -87,6 +104,9 @@ class NO_SCR_PatrolManager : GenericEntity
 		m_pFactionConfig = m_pCombatPatrolsConfig.GetFactionConfigByKey();
 		if (!m_pFactionConfig || !m_pFactionConfig.IsValid())
 			return;
+
+		// Assets for selected faction (names of key entities)
+		m_pFactionAssets = m_pFactionConfig.GetAssetsConfig();
 
 		// Find relevant task spawner entities for this faction
 		foreach (string taskSpawnerName : m_pFactionConfig.GetCoreTaskSpawnerNames())
@@ -187,6 +207,25 @@ class NO_SCR_PatrolManager : GenericEntity
 		return spawnerComponent;
 	}
 
+	protected NO_SCR_EditorTask FindTaskByName(string taskName)
+	{
+		IEntity taskEntity = GetGame().GetWorld().FindEntityByName(taskName);
+		if (!taskEntity)
+		{
+			Print(string.Format("Could not find task entity named: %1", taskName), LogLevel.ERROR);
+			return null;
+		}
+
+		NO_SCR_EditorTask task = NO_SCR_EditorTask.Cast(taskEntity);
+		if (!task)
+		{
+			Print(string.Format("Entity %1 found, but is not of type NO_SCR_EditorTask!", taskName), LogLevel.ERROR);
+			return null;
+		}
+
+		return task;
+	}
+
 	protected NO_SCR_PatrolArea ChoosePatrol(ENightOpsPatrolType patrolType)
 	{
 		NO_SCR_PatrolArea chosenPatrol;
@@ -274,8 +313,19 @@ class NO_SCR_PatrolManager : GenericEntity
 		else if (pickedPatrolType == ENightOpsPatrolType.HVT)
 			SpawnTasks(m_aHVTTaskSpawners);
 
-		chosenPatrol.StartPatrolType(pickedPatrolType);
+		// Finish patrol selection task
+		NO_SCR_EditorTask selectPatrolTask = FindTaskByName(SELECT_PATROL_TASKNAME);
+		if (selectPatrolTask)
+			selectPatrolTask.ChangeStateOfTask(TriggerType.Finish);
+
+		// Start patrol group up task
+		NO_SCR_EditorTask startPatrolTask = FindTaskByName(START_PATROL_TASKNAME);
+		if (startPatrolTask)
+			startPatrolTask.ChangeStateOfTask(TriggerType.Assign);
+
+		chosenPatrol.StartPatrolType(pickedPatrolType, m_pFactionAssets);
 		m_pActivePatrol = chosenPatrol;
+		m_eActivePatrolType = pickedPatrolType;
 	}
 
 	void AssignPatrolTasks()
@@ -283,8 +333,34 @@ class NO_SCR_PatrolManager : GenericEntity
 		if (m_pRplComponent.IsProxy())
 			return;
 
-		if (m_pActivePatrol)
-			m_pActivePatrol.AssignTasks();
+		if (m_eActivePatrolType == ENightOpsPatrolType.INTEL)
+		{
+			NO_SCR_EditorTask task1 = FindTaskByName(INTEL_PATROL_OBJ1_TASKNAME);
+	        NO_SCR_EditorTask task2 = FindTaskByName(INTEL_PATROL_OBJ2_TASKNAME);
+
+			if (task1)
+				task1.ChangeStateOfTask(TriggerType.Assign);
+
+			if (task2)
+				task2.ChangeStateOfTask(TriggerType.Create);
+		}
+		else if (m_eActivePatrolType == ENightOpsPatrolType.SABOTAGE)
+		{
+	        NO_SCR_EditorTask task1 = FindTaskByName(SABOTAGE_PATROL_OBJ1_TASKNAME);
+	        NO_SCR_EditorTask task2 = FindTaskByName(SABOTAGE_PATROL_OBJ2_TASKNAME);
+
+			if (task1)
+				task1.ChangeStateOfTask(TriggerType.Assign);
+
+			if (task2)
+				task2.ChangeStateOfTask(TriggerType.Create);
+		}
+		else if (m_eActivePatrolType == ENightOpsPatrolType.HVT)
+		{
+	        NO_SCR_EditorTask task = FindTaskByName(HVT_PATROL_TASKNAME);
+			if (task)
+				task.ChangeStateOfTask(TriggerType.Assign);
+		}
 	}
 
 	void FinishCurrentPatrol()
@@ -296,11 +372,10 @@ class NO_SCR_PatrolManager : GenericEntity
 		{
 			m_pActivePatrol.EndPatrol();
 			m_pActivePatrol = null;
+			m_eActivePatrolType = null;
 		}
 
-		SetIsOnPatrol(false);
-
-		IEntity exfilTask = GetGame().GetWorld().FindEntityByName("EndPatrol_Task_US");
+		IEntity exfilTask = GetGame().GetWorld().FindEntityByName(END_PATROL_TASKNAME);
 		if (exfilTask)
 		{
         	NO_SCR_EditorTask task = NO_SCR_EditorTask.Cast(exfilTask);
@@ -308,6 +383,8 @@ class NO_SCR_PatrolManager : GenericEntity
 		}
 
 		GetGame().GetCallqueue().Call(SpawnCoreTasks);
+
+		SetIsOnPatrol(false);
 	}
 
 	//------------------------------------------------------------------------------------------------
