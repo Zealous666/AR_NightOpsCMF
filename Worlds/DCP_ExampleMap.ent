@@ -16,6 +16,3 @@ Layer BiscPatrolAreas {
 Layer initPlayerHub_US {
  Index 5
 }
-Layer Example_HVT {
- Index 1
-}

@@ -17,7 +17,7 @@ NO_SCR_PatrolArea Example_Town_Name : "{1F98480F3F898EDC}Prefabs/DCP/PatrolArea.
    angleY -139.378
    m_eMarkerType SABOTAGE_2
   }
-  NO_SCR_PatrolMarker : "{4E6363AAC3742AAC}Prefabs/DCP/Markers/HVT.et" {
+  NO_SCR_PatrolMarker : "{4E6363AAC3742AAC}Prefabs/DCP/Markers/HVT_1.et" {
    coords 0.491 -5.658 5.741
   }
   NO_SCR_PatrolMarker : "{69AFB55FC21189D1}Prefabs/DCP/Markers/EXFIL.et" {
@@ -27,6 +27,9 @@ NO_SCR_PatrolArea Example_Town_Name : "{1F98480F3F898EDC}Prefabs/DCP/PatrolArea.
   NO_SCR_PatrolMarker : "{95C57EAEC4CFC838}Prefabs/DCP/Markers/INFIL.et" {
    coords -3.758 -5.658 -7.248
    m_eMarkerType INFIL
+  }
+  NO_SCR_PatrolMarker : "{B8F038D6AC0F7A15}Prefabs/DCP/Markers/HVT_2.et" {
+   coords -5.734 -5.658 49.363
   }
  }
 }

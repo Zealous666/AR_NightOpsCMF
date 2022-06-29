@@ -335,8 +335,14 @@ class NO_SCR_PatrolManager : GenericEntity
 		if (selectPatrolTask)
 			selectPatrolTask.ChangeStateOfTask(TriggerType.Finish);
 
-		// Start patrol group up task
 		NO_SCR_EditorTask startPatrolTask = FindTaskByName(START_PATROL_TASKNAME);
+
+		// Set position of start patrol task to the infil trigger of the played faction
+		IEntity infilTrigger = GetGame().GetWorld().FindEntityByName(m_pFactionAssets.InfilTrigger);
+		if (startPatrolTask && infilTrigger)
+			startPatrolTask.SetOrigin(infilTrigger.GetOrigin());
+
+		// Assign start patrol (group up) task
 		if (startPatrolTask)
 			startPatrolTask.ChangeStateOfTask(TriggerType.Assign);
 

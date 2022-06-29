@@ -7,6 +7,7 @@ class NO_SCR_PatrolAreaClass : CommentEntityClass
 class NO_SCR_PatrolArea : CommentEntity
 {
 	protected ref array<NO_SCR_EnvSpawnerComponent> m_aInUseEnvSpawners = new array<NO_SCR_EnvSpawnerComponent>();
+	protected ref array<NO_SCR_AISpawnerComponent> m_aInUseAiSpawners = new array<NO_SCR_AISpawnerComponent>();
 
 	protected vector m_vInfilPos;
 	protected vector m_vInfilRot;
@@ -21,6 +22,10 @@ class NO_SCR_PatrolArea : CommentEntity
 	protected vector m_vSabotagePos2;
 	protected vector m_vSabotageRot1;
 	protected vector m_vSabotageRot2;
+
+	protected vector m_vHVTPos1;
+	protected vector m_vHVTPos2;
+	protected vector m_vHVTRot1;
 
 
 	override void EOnInit(IEntity owner)
@@ -55,6 +60,8 @@ class NO_SCR_PatrolArea : CommentEntity
 					case ENightOpsPatrolMarkerType.INTEL_2: { m_vIntelPos2 = patrolMarker.GetOrigin(); m_vIntelRot2 = patrolMarker.GetAngles(); break; }
 					case ENightOpsPatrolMarkerType.SABOTAGE_1: { m_vSabotagePos1 = patrolMarker.GetOrigin(); m_vSabotageRot1 = patrolMarker.GetAngles(); break; }
 					case ENightOpsPatrolMarkerType.SABOTAGE_2: { m_vSabotagePos2 = patrolMarker.GetOrigin(); m_vSabotageRot2 = patrolMarker.GetAngles(); break; }
+					case ENightOpsPatrolMarkerType.HVT_1: { m_vHVTPos1 = patrolMarker.GetOrigin(); m_vHVTRot1 = patrolMarker.GetAngles(); break; }
+					case ENightOpsPatrolMarkerType.HVT_2: { m_vHVTPos2 = patrolMarker.GetOrigin(); break; }
 					default: { Print(string.Format("Unconfigured patrol marker detected: ", patrolMarker.GetName())); break; }
 				}
 			}
@@ -141,7 +148,20 @@ class NO_SCR_PatrolArea : CommentEntity
 		}
 		else if (patrolType == ENightOpsPatrolType.HVT)
 		{
-			// TODO
+			// Spawn HVT 1 prefab (HVT)
+			SpawnPatrolObjectiveAI("hvt_spawner_1", m_vHVTPos1, m_vHVTRot1);
+
+			// Spawn HVT 2 prefab (FLEE)
+			SpawnPatrolObjective("hvt_spawner_2", m_vHVTPos2, vector.Zero);
+
+			// Add static waypoint to AIGroup
+			GetGame().GetCallqueue().CallLater(AddWaypoint, 8000, false, "char_hvt", "typeHVT_FleeWaypoint");
+
+			// Move sabotage task locations
+			IEntity taskOne = GetGame().GetWorld().FindEntityByName(GetPatrolManager().HVT_PATROL_TASKNAME);
+
+			if (taskOne)
+				taskOne.SetOrigin(m_vHVTPos1);
 		}
 
 
@@ -176,13 +196,46 @@ class NO_SCR_PatrolArea : CommentEntity
 	}
 
 
+	protected void SpawnPatrolObjectiveAI(string aiSpawnerName, vector location, vector rotation)
+	{
+		IEntity spawnerEntity = GetGame().GetWorld().FindEntityByName(aiSpawnerName);
+
+		if (spawnerEntity)
+		{
+			spawnerEntity.SetAngles(rotation);
+			spawnerEntity.SetOrigin(location);
+
+			NO_SCR_AISpawnerComponent spawnerComponent = NO_SCR_AISpawnerComponent.Cast(spawnerEntity.FindComponent(NO_SCR_AISpawnerComponent));
+        	if (spawnerComponent)
+			{
+				spawnerEntity.GetTransform(spawnerComponent.parentVector);
+				spawnerComponent.DoSpawn();
+				m_aInUseAiSpawners.Insert(spawnerComponent);
+			}
+		}
+	}
+
+
+	protected void AddWaypoint(string groupName, string waypointName)
+	{
+		SCR_AIGroup aiGroup = SCR_AIGroup.Cast(GetGame().GetWorld().FindEntityByName(groupName));
+
+		if (aiGroup)
+			aiGroup.AddWaypointsStatic({ waypointName });
+	}
+
+
 	void EndPatrol(NO_SCR_PatrolAssetsConfig patrolAssets)
 	{
 		// Despawn any objective assets
 		foreach (NO_SCR_EnvSpawnerComponent envSpawner : m_aInUseEnvSpawners)
 			envSpawner.RemoveSpawned();
 
+		foreach (NO_SCR_AISpawnerComponent aiSpawner : m_aInUseAiSpawners)
+			aiSpawner.RemoveSpawned();
+
 		m_aInUseEnvSpawners.Clear();
+		m_aInUseAiSpawners.Clear();
 
 		// Make infil/exfill triggers inactive again
 		NO_SCR_PlayerTriggerEntity infilTrigger = NO_SCR_PlayerTriggerEntity.Cast(GetGame().GetWorld().FindEntityByName(patrolAssets.InfilTrigger));

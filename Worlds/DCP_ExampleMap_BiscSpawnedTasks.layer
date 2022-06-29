@@ -119,4 +119,18 @@ $grp GenericEntity : "{D55DD45E074F0122}Prefabs/DCP/Tasks/SpawnTask.et" {
    }
   }
  }
+ HVTPatrol_US {
+  components {
+   NO_SCR_EnvSpawnerComponent "{59B696A36A30E147}" {
+    m_rnDefaultPrefabs {
+     CountSpawnsByOnlinePlayer "{59B696A31848411D}" {
+      prefab {
+       "{A27815BDA6DA710B}Prefabs/DCP/Tasks/HVT_Task_US.et"
+      }
+     }
+    }
+   }
+  }
+  coords 248.875 10.001 118.228
+ }
 }

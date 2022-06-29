@@ -1,0 +1,29 @@
+NO_SCR_EditorTask : "{82EC0462F27F5221}Prefabs/NO_DTF/SingleTask.et" {
+ ID "59953E02005EB511"
+ components {
+  NO_SCR_DTFRenamerComponent "{59BA16E471BCD5CD}" {
+   m_sNewName "HVT_Task"
+  }
+ }
+ m_sName "Neutralize HVT"
+ m_sDescription "Chase & neutralize High Valuable Target"
+ m_sMapIconName "Icon_Task_Seize"
+ m_sTaskListIconName "Icon_Task_Seize"
+ m_faction "US"
+ m_sAdditionalMarkerPosition "char_hvt"
+ m_sCreateTaskNamesSuccess {
+  "EndPatrol_Task"
+ }
+ m_bAssignFirstTask 1
+ {
+  GenericEntity : "{DC9B59BFF1B7A41D}Prefabs/NO_DTF/Triggers/DestroyAiOrVehicleTrigger.et" {
+   ID "59BB5BE0A9AACDEE"
+   components {
+    NO_SCR_TaskNamedObjectTriggerComponent "{59A0F6DCA0C8FAE0}" {
+     m_sTriggerNamedObject "char_hvt"
+    }
+   }
+   coords 0 0 0
+  }
+ }
+}

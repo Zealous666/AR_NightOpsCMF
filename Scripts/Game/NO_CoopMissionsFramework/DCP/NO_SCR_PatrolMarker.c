@@ -91,5 +91,6 @@ enum ENightOpsPatrolMarkerType
 	INTEL_2,
 	SABOTAGE_1,
 	SABOTAGE_2,
-	HVT
+	HVT_1,
+	HVT_2
 }

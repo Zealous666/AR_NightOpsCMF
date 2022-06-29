@@ -1,3 +1,38 @@
+$grp GenericEntity {
+ hvt_spawner_1 {
+  components {
+   NO_SCR_AISpawnerComponent "{59BB4D762A42452B}" {
+    m_rnDefaultPrefabs {
+     CountSpawnsByOnlinePlayer "{59BB4D71E107EBD6}" {
+      prefab {
+       "{6FFB8B57C9BD2A40}Prefabs/Groups/Group_USSR_HVT.et"
+      }
+     }
+    }
+    m_bIgnoreSpawnManagerAndUsePrefabs 1
+   }
+   RplComponent "{59BB4D762FD0FD85}" {
+   }
+  }
+  coords 209.429 10 409.173
+ }
+ hvt_spawner_2 {
+  components {
+   NO_SCR_EnvSpawnerComponent "{59BB5BE93081B1C8}" {
+    m_rnDefaultPrefabs {
+     CountSpawnsByOnlinePlayer "{59BB5BE938F033A4}" {
+      prefab {
+       "{760E2A4774658F6E}Prefabs/DCP/HVT_Flee.et"
+      }
+     }
+    }
+   }
+   RplComponent "{59BB4D762FD0FD85}" {
+   }
+  }
+  coords 224.278 10.001 357.836
+ }
+}
 NO_SCR_PatrolManager PatrolManager : "{0BE9B477CC47109E}Prefabs/DCP/PatrolManager.et" {
  coords 293.523 10.001 112.94
  m_pCombatPatrolsConfig NO_SCR_CombatPatrolsConfig "{59B909006927F5A1}" : "{F40BF4F2BEAB2A2F}Configs/DynamicCombatPatrols.conf" {
