@@ -3,7 +3,7 @@ NO_SCR_PatrolManager PatrolManager : "{0BE9B477CC47109E}Prefabs/DCP/PatrolManage
  m_pCombatPatrolsConfig NO_SCR_CombatPatrolsConfig "{59B909006927F5A1}" : "{F40BF4F2BEAB2A2F}Configs/DynamicCombatPatrols.conf" {
  }
 }
-NO_SCR_MissionTrigger exfil_trigger : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/NO_MissionTrigger.et" {
+NO_SCR_MissionTrigger Exfil_Trigger_US : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/NO_MissionTrigger.et" {
  SphereRadius 4.5
  ShapeColor 0.624 0.235 0.235 1
  OnPlayerQuotaReached ""\
@@ -36,7 +36,7 @@ NO_SCR_MissionTrigger exfil_trigger : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/NO_
   Description "Returning To Base"
  }
  {
-  SCR_Position exfil_tp_point : "{68C0C31F6FAD7C2E}Prefabs/MP/NO_MissionTriggerPortPos.et" {
+  SCR_Position Exfil_TP_Point_US : "{68C0C31F6FAD7C2E}Prefabs/MP/NO_MissionTriggerPortPos.et" {
    components {
     NwkMovementComponent "{59B6053BBCB0CB5F}" {
     }
@@ -107,7 +107,7 @@ $grp GenericEntity : "{D8F00B5CFC8514F1}Prefabs/NO_DSF/Vehicles/SpawnVehicle.et"
   coords 254.671 10.001 104.108
  }
 }
-SCR_SpawnPoint infil_spawnpoint : "{E7F4D5562F48DDE4}Prefabs/MP/Spawning/SpawnPoint_Base.et" {
+SCR_SpawnPoint Infil_Spawnpoint_US : "{E7F4D5562F48DDE4}Prefabs/MP/Spawning/SpawnPoint_Base.et" {
  components {
   NwkMovementComponent "{59B6053939942B30}" {
   }

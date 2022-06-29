@@ -3,6 +3,7 @@ class NO_SCR_PatrolAreaClass : CommentEntityClass
 {
 }
 
+
 class NO_SCR_PatrolArea : CommentEntity
 {
 	protected ref array<NO_SCR_EnvSpawnerComponent> m_aInUseEnvSpawners = new array<NO_SCR_EnvSpawnerComponent>();
@@ -21,6 +22,7 @@ class NO_SCR_PatrolArea : CommentEntity
 	protected vector m_vSabotageRot1;
 	protected vector m_vSabotageRot2;
 
+
 	override void EOnInit(IEntity owner)
 	{
 		super.EOnInit(owner);
@@ -33,7 +35,6 @@ class NO_SCR_PatrolArea : CommentEntity
 		ClearFlags(EntityFlags.ACTIVE, false);
 	}
 
-	//------------------------------------------------------------------------------------------------
 
 	protected void ReadMarkers()
 	{
@@ -62,14 +63,11 @@ class NO_SCR_PatrolArea : CommentEntity
 		}
 	}
 
+
 	bool StartPatrolType(ENightOpsPatrolType patrolType, NO_SCR_PatrolAssetsConfig patrolAssets)
 	{
-		NO_SCR_PlayerTriggerEntity trigger = NO_SCR_PlayerTriggerEntity.Cast(GetGame().GetWorld().FindEntityByName("infil_trigger"));
-		if (trigger)
-			trigger.SetActive(true);
-
 		// Move infil spawnpoint
-		IEntity infilSpawnpoint = GetGame().GetWorld().FindEntityByName("infil_spawnpoint");
+		IEntity infilSpawnpoint = GetGame().GetWorld().FindEntityByName(patrolAssets.InfilSpawnpoint);
 		if (infilSpawnpoint)
 		{
 			infilSpawnpoint.SetAngles(m_vInfilRot);
@@ -77,7 +75,7 @@ class NO_SCR_PatrolArea : CommentEntity
 		}
 
 		// Move infil teleport
-		IEntity infilTeleportPoint = GetGame().GetWorld().FindEntityByName("infil_tp_point");
+		IEntity infilTeleportPoint = GetGame().GetWorld().FindEntityByName(patrolAssets.InfilTeleportPoint);
 		if (infilTeleportPoint)
 		{
 			infilTeleportPoint.SetAngles(m_vInfilRot);
@@ -85,23 +83,24 @@ class NO_SCR_PatrolArea : CommentEntity
 		}
 
 		// Move exfil trigger
-		IEntity exfilTrigger = GetGame().GetWorld().FindEntityByName("exfil_trigger");
+		IEntity exfilTrigger = GetGame().GetWorld().FindEntityByName(patrolAssets.ExfilTrigger);
 		if (exfilTrigger)
 		{
         	exfilTrigger.SetOrigin(m_vExfilPos);
 		}
 
 		// Move exfil teleport
-		IEntity exfilTeleportPoint = GetGame().GetWorld().FindEntityByName("exfil_tp_point");
+		IEntity exfilTeleportPoint = GetGame().GetWorld().FindEntityByName(patrolAssets.ExfilTeleportPoint);
 		if (exfilTeleportPoint)
 		{
-			IEntity baseSpawnpoint = GetGame().GetWorld().FindEntityByName("SpawnPoint_Base_US");
+			IEntity baseSpawnpoint = GetGame().GetWorld().FindEntityByName(patrolAssets.BaseSpawnpoint);
 			if (baseSpawnpoint)
         	{
 				exfilTeleportPoint.SetAngles(baseSpawnpoint.GetAngles());
 				exfilTeleportPoint.SetOrigin(baseSpawnpoint.GetOrigin());
 			}
 		}
+
 
 		// Setup patrol type
 		if (patrolType == ENightOpsPatrolType.INTEL)
@@ -113,8 +112,14 @@ class NO_SCR_PatrolArea : CommentEntity
 			SpawnPatrolObjective("intel_spawner_2", m_vIntelPos2, m_vIntelRot2);
 
 			// Move intel task locations
-	        GetGame().GetWorld().FindEntityByName("Intel_1_Task").SetOrigin(m_vIntelPos1);
-	        GetGame().GetWorld().FindEntityByName("Intel_2_Task").SetOrigin(m_vIntelPos2);
+	        IEntity taskOne = GetGame().GetWorld().FindEntityByName(GetPatrolManager().INTEL_PATROL_OBJ1_TASKNAME);
+			IEntity taskTwo = GetGame().GetWorld().FindEntityByName(GetPatrolManager().INTEL_PATROL_OBJ2_TASKNAME);
+
+			if (taskOne)
+				taskOne.SetOrigin(m_vIntelPos1);
+
+			if (taskTwo)
+				taskTwo.SetOrigin(m_vIntelPos2);
 		}
 		else if (patrolType == ENightOpsPatrolType.SABOTAGE)
 		{
@@ -125,16 +130,31 @@ class NO_SCR_PatrolArea : CommentEntity
 			SpawnPatrolObjective("sabotage_spawner_2", m_vSabotagePos2, m_vSabotageRot2);
 
 			// Move sabotage task locations
-	        GetGame().GetWorld().FindEntityByName("Sabotage_1_Task").SetOrigin(m_vSabotagePos1);
-	        GetGame().GetWorld().FindEntityByName("Sabotage_2_Task").SetOrigin(m_vSabotagePos2);
+			IEntity taskOne = GetGame().GetWorld().FindEntityByName(GetPatrolManager().SABOTAGE_PATROL_OBJ1_TASKNAME);
+			IEntity taskTwo = GetGame().GetWorld().FindEntityByName(GetPatrolManager().SABOTAGE_PATROL_OBJ2_TASKNAME);
+
+			if (taskOne)
+				taskOne.SetOrigin(m_vSabotagePos1);
+
+			if (taskTwo)
+				taskTwo.SetOrigin(m_vSabotagePos2);
 		}
 		else if (patrolType == ENightOpsPatrolType.HVT)
 		{
 			// TODO
 		}
 
+
+		// Unlock the infil trigger for players
+		NO_SCR_MissionTrigger infilTrigger = NO_SCR_MissionTrigger.Cast(GetGame().GetWorld().FindEntityByName(patrolAssets.InfilTrigger));
+		if (infilTrigger)
+		{
+			infilTrigger.SetActive(true);
+		}
+
 		return true;
 	}
+
 
 	protected void SpawnPatrolObjective(string envSpawnerName, vector location, vector rotation)
 	{
@@ -155,24 +175,27 @@ class NO_SCR_PatrolArea : CommentEntity
 		}
 	}
 
-	void EndPatrol()
+
+	void EndPatrol(NO_SCR_PatrolAssetsConfig patrolAssets)
 	{
+		// Despawn any objective assets
 		foreach (NO_SCR_EnvSpawnerComponent envSpawner : m_aInUseEnvSpawners)
 			envSpawner.RemoveSpawned();
 
 		m_aInUseEnvSpawners.Clear();
 
-		NO_SCR_PlayerTriggerEntity infilTrigger = NO_SCR_PlayerTriggerEntity.Cast(GetGame().GetWorld().FindEntityByName("infil_trigger"));
+		// Make infil/exfill triggers inactive again
+		NO_SCR_PlayerTriggerEntity infilTrigger = NO_SCR_PlayerTriggerEntity.Cast(GetGame().GetWorld().FindEntityByName(patrolAssets.InfilTrigger));
 		if (infilTrigger)
 			infilTrigger.SetActive(false);
 
-		NO_SCR_PlayerTriggerEntity exfilTrigger = NO_SCR_PlayerTriggerEntity.Cast(GetGame().GetWorld().FindEntityByName("exfil_trigger"));
+		NO_SCR_PlayerTriggerEntity exfilTrigger = NO_SCR_PlayerTriggerEntity.Cast(GetGame().GetWorld().FindEntityByName(patrolAssets.ExfilTrigger));
 		if (exfilTrigger)
 			exfilTrigger.SetActive(false);
 	}
 
-	//------------------------------------------------------------------------------------------------
 
+	// Override CommentEntity attributes (WB only), avoids the need for manual settings or prefabs
 	void NO_SCR_PatrolArea(IEntitySource src, IEntity parent)
 	{
 		SetEventMask(EntityEvent.INIT);

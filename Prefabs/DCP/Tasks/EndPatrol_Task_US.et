@@ -8,5 +8,5 @@ NO_SCR_EditorTask : "{82EC0462F27F5221}Prefabs/NO_DTF/SingleTask.et" {
  m_sName "Rally players to exfil point"
  m_sDescription "Rally all players at the designated position to exit the next combat patrol"
  m_faction "US"
- m_sAdditionalMarkerPosition "exfil_trigger"
+ m_sAdditionalMarkerPosition "Exfil_Trigger_US"
 }

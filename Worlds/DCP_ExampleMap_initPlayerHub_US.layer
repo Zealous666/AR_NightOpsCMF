@@ -1000,12 +1000,12 @@ CommentEntity PlayerHub_US {
     }
    }
   }
-  SCR_SpawnPoint SpawnPoint_US {
+  SCR_SpawnPoint Base_Spawnpoint_US {
    components {
     Hierarchy "{59BAA22140816ACC}" {
     }
     NO_SCR_DTFRenamerComponent "{59BAA221496E242D}" {
-     m_sNewName "SpawnPoint_Base_US"
+     m_sNewName "Base_Spawnpoint_US"
     }
     SCR_EditableEntityVisibilityChildComponent "{59BAA22140816ADA}" {
      m_State ACTIVE
@@ -2529,10 +2529,10 @@ CommentEntity PlayerHub_US {
     }
    }
   }
-  NO_SCR_MissionTrigger infil_trigger : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/NO_MissionTrigger.et" {
+  NO_SCR_MissionTrigger Infil_Trigger_US : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/NO_MissionTrigger.et" {
    components {
     NO_SCR_DTFRenamerComponent "{59BAAB2FB13D47A6}" {
-     m_sNewName "infil_trigger"
+     m_sNewName "Infil_Trigger_US"
     }
    }
    coords 15.126 -7.799 0.05
@@ -2568,10 +2568,10 @@ CommentEntity PlayerHub_US {
     Description " "
    }
    {
-    SCR_Position infil_tp_point : "{68C0C31F6FAD7C2E}Prefabs/MP/NO_MissionTriggerPortPos.et" {
+    SCR_Position Infil_TP_Point_US : "{68C0C31F6FAD7C2E}Prefabs/MP/NO_MissionTriggerPortPos.et" {
      components {
       NO_SCR_DTFRenamerComponent "{59BAAB2F8FC4837C}" {
-       m_sNewName "infil_tp_point"
+       m_sNewName "Infil_TP_Point_US"
       }
       NwkMovementComponent "{59B6053BA17C1819}" {
       }

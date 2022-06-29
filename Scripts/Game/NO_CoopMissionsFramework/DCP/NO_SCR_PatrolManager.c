@@ -4,6 +4,7 @@ class NO_SCR_PatrolManagerClass : GenericEntityClass
 }
 
 
+
 NO_SCR_PatrolManager g_PatrolManagerInstance;
 NO_SCR_PatrolManager GetPatrolManager()
 {
@@ -11,10 +12,12 @@ NO_SCR_PatrolManager GetPatrolManager()
 }
 
 
+
 class NO_SCR_PatrolManager : GenericEntity
 {
 	[Attribute("", UIWidgets.Object, desc: "Change items within config file, not through Object Properties!", category: "COMBAT PATROLS", params: "noDetails")]
 	protected ref NO_SCR_CombatPatrolsConfig m_pCombatPatrolsConfig;
+
 
 	// The task prefabs and their spawners are for each faction, the task names are shared among factions
 	const string SELECT_PATROL_TASKNAME = "SelectPatrol_Task";
@@ -31,6 +34,7 @@ class NO_SCR_PatrolManager : GenericEntity
 
 	const string HVT_PATROL_TASKNAME = "HVT_Task";
 
+
 	// Patrol area related
 	protected NO_SCR_PatrolArea m_pActivePatrol;
 	protected ENightOpsPatrolType m_eActivePatrolType;
@@ -38,6 +42,7 @@ class NO_SCR_PatrolManager : GenericEntity
 	protected ref array<NO_SCR_PatrolArea> m_aIntelPatrols = new array<NO_SCR_PatrolArea>();
 	protected ref array<NO_SCR_PatrolArea> m_aSabotagePatrols = new array<NO_SCR_PatrolArea>();
 	protected ref array<NO_SCR_PatrolArea> m_aHVTPatrols = new array<NO_SCR_PatrolArea>();
+
 
 	// Faction entities/spawners related
 	protected NO_SCR_PatrolFactionConfig m_pFactionConfig;
@@ -50,6 +55,7 @@ class NO_SCR_PatrolManager : GenericEntity
 
 	protected RplComponent m_pRplComponent;
 
+
 	// Synchronised variables
 	[RplProp()]
 	protected ref array<ENightOpsPatrolType> m_aAvailablePatrolTypes = new array<ENightOpsPatrolType>();
@@ -57,7 +63,6 @@ class NO_SCR_PatrolManager : GenericEntity
 	[RplProp()]
 	protected bool m_bIsOnPatrol = true;
 
-	//------------------------------------------------------------------------------------------------
 
 	override void EOnInit(IEntity owner)
 	{
@@ -87,7 +92,6 @@ class NO_SCR_PatrolManager : GenericEntity
 		GetGame().GetCallqueue().Call(SpawnCoreTasks);
 	}
 
-	//------------------------------------------------------------------------------------------------
 
 	protected void SetIsOnPatrol(bool state)
 	{
@@ -97,6 +101,7 @@ class NO_SCR_PatrolManager : GenericEntity
 			Replication.BumpMe();
 		}
 	}
+
 
 	protected void ReadConfig()
 	{
@@ -172,6 +177,7 @@ class NO_SCR_PatrolManager : GenericEntity
 			m_aAvailablePatrolTypes.Insert(ENightOpsPatrolType.HVT);
 	}
 
+
 	protected void SpawnTasks(array<NO_SCR_EnvSpawnerComponent> taskSpawners)
 	{
 		foreach (NO_SCR_EnvSpawnerComponent spawner : taskSpawners)
@@ -183,10 +189,12 @@ class NO_SCR_PatrolManager : GenericEntity
 		}
 	}
 
+
 	protected void SpawnCoreTasks()
 	{
 		SpawnTasks(m_aCoreTaskSpawners);
 	}
+
 
 	protected NO_SCR_EnvSpawnerComponent FindSpawnerComponent(string entityName)
 	{
@@ -207,6 +215,7 @@ class NO_SCR_PatrolManager : GenericEntity
 		return spawnerComponent;
 	}
 
+
 	protected NO_SCR_EditorTask FindTaskByName(string taskName)
 	{
 		IEntity taskEntity = GetGame().GetWorld().FindEntityByName(taskName);
@@ -225,6 +234,7 @@ class NO_SCR_PatrolManager : GenericEntity
 
 		return task;
 	}
+
 
 	protected NO_SCR_PatrolArea ChoosePatrol(ENightOpsPatrolType patrolType)
 	{
@@ -246,6 +256,7 @@ class NO_SCR_PatrolManager : GenericEntity
 		return chosenPatrol;
 	}
 
+
 	protected int GetRandomPatrolType()
 	{
 		int minimum;
@@ -255,15 +266,18 @@ class NO_SCR_PatrolManager : GenericEntity
 		return Math.RandomIntInclusive(minimum, maximum);
 	}
 
+
 	protected int GetRandomAvailablePatrolType()
 	{
 		return m_aAvailablePatrolTypes.Get(Math.RandomInt(0, m_aAvailablePatrolTypes.Count()));
 	}
 
+
 	bool ArePatrolsAvailable()
 	{
 		return !m_aAvailablePatrolTypes.IsEmpty();
 	}
+
 
 	bool IsPatrolTypeAvailable(ENightOpsPatrolType patrolType)
 	{
@@ -277,10 +291,12 @@ class NO_SCR_PatrolManager : GenericEntity
 		return false;
 	}
 
+
 	bool IsOnPatrol()
 	{
 		return m_bIsOnPatrol;
 	}
+
 
 	void StartPatrol()
 	{
@@ -290,6 +306,7 @@ class NO_SCR_PatrolManager : GenericEntity
 			StartPatrol(randomPatrolType);
 		}
 	}
+
 
 	void StartPatrol(ENightOpsPatrolType pickedPatrolType)
 	{
@@ -328,6 +345,7 @@ class NO_SCR_PatrolManager : GenericEntity
 		m_eActivePatrolType = pickedPatrolType;
 	}
 
+
 	void AssignPatrolTasks()
 	{
 		if (m_pRplComponent.IsProxy())
@@ -363,6 +381,7 @@ class NO_SCR_PatrolManager : GenericEntity
 		}
 	}
 
+
 	void FinishCurrentPatrol()
 	{
 		if (m_pRplComponent.IsProxy())
@@ -370,7 +389,7 @@ class NO_SCR_PatrolManager : GenericEntity
 
 		if (m_pActivePatrol)
 		{
-			m_pActivePatrol.EndPatrol();
+			m_pActivePatrol.EndPatrol(m_pFactionAssets);
 			m_pActivePatrol = null;
 			m_eActivePatrolType = null;
 		}
@@ -387,7 +406,6 @@ class NO_SCR_PatrolManager : GenericEntity
 		SetIsOnPatrol(false);
 	}
 
-	//------------------------------------------------------------------------------------------------
 
 	void NO_SCR_PatrolManager(IEntitySource src, IEntity parent)
 	{
@@ -397,11 +415,8 @@ class NO_SCR_PatrolManager : GenericEntity
 		SetEventMask(EntityEvent.INIT);
 		SetFlags(EntityFlags.STATIC, false);
 	}
-
-	void ~NO_SCR_PatrolManager()
-	{
-	}
 }
+
 
 
 enum ENightOpsPatrolType
@@ -410,6 +425,7 @@ enum ENightOpsPatrolType
 	SABOTAGE,
 	HVT
 }
+
 
 
 [BaseContainerProps(configRoot: true)]
@@ -440,6 +456,7 @@ class NO_SCR_CombatPatrolsConfig
 }
 
 
+
 [BaseContainerProps(), BaseContainerCustomTitleField("m_sAreaName")]
 class NO_SCR_PatrolAreaConfig
 {
@@ -460,6 +477,7 @@ class NO_SCR_PatrolAreaConfig
 	bool SupportsSabotage() { return m_bHasSabotage; }
 	bool SupportsHVT() { return m_bHasHVT; }
 }
+
 
 
 [BaseContainerProps(), BaseContainerCustomTitleField("m_sFactionKey")]
@@ -515,9 +533,13 @@ class NO_SCR_PatrolFactionConfig
 }
 
 
+
 [BaseContainerProps()]
 class NO_SCR_PatrolAssetsConfig
 {
+	[Attribute(defvalue: "Base_Spawnpoint_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of main base spawnpoint.")]
+	string BaseSpawnpoint;
+
 	[Attribute(defvalue: "Infil_Spawnpoint_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of infil spawnpoint.")]
 	string InfilSpawnpoint;
 
@@ -548,6 +570,7 @@ class NO_SCR_PatrolAssetsConfig
 	[Attribute(defvalue: "HVT_Spawner", uiwidget: UIWidgets.EditBox, desc: "Entity name of HVT spawner.")]
 	string HVTObjective;
 }
+
 
 
 [BaseContainerProps()]
