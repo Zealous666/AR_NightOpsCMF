@@ -6,6 +6,9 @@ class NO_SCR_DCP_SabotageDestr_Action : NO_SCR_OneTimeAction
 	[Attribute("1", UIWidgets.CheckBox, desc: "Show the countdown timer as a hint!")]
 	protected bool m_bShowCountdown;
 
+	[Attribute("55", UIWidgets.Slider, desc: "Distance in meters that the coundown will be displayed when under!", params: "0 500 0.1", precision: 1)]
+	protected float m_fCoundownDistance;
+
 	override void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity)
 	{
 		// Required for one time action
@@ -22,8 +25,17 @@ class NO_SCR_DCP_SabotageDestr_Action : NO_SCR_OneTimeAction
 	// Show GUI hint with time remaining
 	protected void ShowCountdown()
 	{
-		if (m_bShowCountdown)
-			SCR_HintManagerComponent.GetInstance().ShowCustomHint(string.Format("%1 seconds until satchel explodes!", m_iTimer), "Satchel Placed", 3);
+		if (m_bShowCountdown && RplSession.Mode() != RplMode.Dedicated)
+		{
+			IEntity playerEntity = SCR_PlayerController.GetLocalControlledEntity();
+			if (!playerEntity)
+				return;
+
+			float distanceToDestructable = vector.Distance(GetOwner().GetOrigin(), playerEntity.GetOrigin());
+
+			if (distanceToDestructable <= m_fCoundownDistance)
+				SCR_HintManagerComponent.GetInstance().ShowCustomHint(string.Format("%1 seconds until satchel explodes!", m_iTimer), "Satchel Placed", 3);
+		}
 	}
 
 	// Countdown function
