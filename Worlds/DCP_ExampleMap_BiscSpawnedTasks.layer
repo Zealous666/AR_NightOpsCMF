@@ -11,7 +11,7 @@ $grp GenericEntity : "{D55DD45E074F0122}Prefabs/DCP/Tasks/SpawnTask.et" {
     }
    }
   }
-  coords 290.338 10.003 121.624
+  coords 283.785 11.267 117.719
  }
  SelectPatrol_US {
   components {
@@ -25,7 +25,7 @@ $grp GenericEntity : "{D55DD45E074F0122}Prefabs/DCP/Tasks/SpawnTask.et" {
     }
    }
   }
-  coords 285.125 10.002 127.232
+  coords 284.261 11.411 119.126
  }
  EndPatrol_US {
   components {
@@ -39,7 +39,7 @@ $grp GenericEntity : "{D55DD45E074F0122}Prefabs/DCP/Tasks/SpawnTask.et" {
     }
    }
   }
-  coords 291.932 10.002 128.568
+  coords 291.201 10.002 128.568
  }
  SabotagePatrol_US {
   components {

@@ -1,5 +1,5 @@
 NO_SCR_PatrolManager PatrolManager : "{0BE9B477CC47109E}Prefabs/DCP/PatrolManager.et" {
- coords 294.254 10.001 112.94
+ coords 293.523 10.001 112.94
  m_pCombatPatrolsConfig NO_SCR_CombatPatrolsConfig "{59B909006927F5A1}" : "{F40BF4F2BEAB2A2F}Configs/DynamicCombatPatrols.conf" {
  }
 }
@@ -11,7 +11,7 @@ StaticModelEntity RadioTable : "{1A1020205E2B1710}Prefabs/Props/Military/Furnitu
   RplComponent "{5624A88DC2D9928D}" {
   }
  }
- coords 285.154 10 126.594
+ coords 284.423 10 126.594
  angleY 0
  {
   GenericEntity Radio : "{34736979381CA219}Prefabs/Props/Military/Radios/RadioStation_ANGRC160_01.et" {
@@ -81,98 +81,50 @@ StaticModelEntity RadioTable : "{1A1020205E2B1710}Prefabs/Props/Military/Furnitu
   }
  }
 }
-$grp NO_SCR_MissionTrigger : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/NO_MissionTrigger.et" {
- infil_trigger {
-  coords 267.964 10.003 117.867
-  SphereRadius 4.5
-  ShapeColor 0.188 0.745 0.745 0.498
-  OnPlayerQuotaReached ""\
-  "		super.OnPlayerQuotaReached();"\
-  ""\
-  "		if (GetPatrolManager())"\
-  "			GetPatrolManager().AssignPatrolTasks();"\
-  "	"
-  m_bIsActive 0
-  m_bIsRepeatable 1
-  m_fDelay 1
-  m_aTaskStateChanges {
-   NO_SCR_TaskStateChangeEntry "{59B4941EFEB4E0E6}" {
-    m_sTaskEntityName "StartPatrol_Task_US"
-   }
-  }
-  m_aSpawnpointChanges {
-   NO_SCR_SpawnpointChangeEntry "{59B49400D5781250}" {
-    m_sSpawnpointName "SpawnPoint_Base_US"
-   }
-   NO_SCR_SpawnpointChangeEntry "{59B49400D59025A5}" {
-    m_sSpawnpointName "infil_spawnpoint"
-    m_sFactionKey "US"
-   }
-  }
-  m_bEnableTeleport 1
-  m_pCustomHint SCR_HintUIInfo "{59B4940328F39EC8}" {
-   Name "Start Combat Patrol"
-   Description " "
-  }
-  {
-   SCR_Position infil_tp_point : "{68C0C31F6FAD7C2E}Prefabs/MP/NO_MissionTriggerPortPos.et" {
-    components {
-     NwkMovementComponent "{59B6053BA17C1819}" {
-     }
-     RplComponent "{59B6053BA41F0A9D}" {
-      Streamable Disabled
-     }
-    }
-    coords 0 0 0
-    angleY 0
-   }
+NO_SCR_MissionTrigger exfil_trigger : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/NO_MissionTrigger.et" {
+ coords 299.818 10.003 101.121
+ SphereRadius 4.5
+ ShapeColor 0.624 0.235 0.235 1
+ OnPlayerQuotaReached ""\
+ "		super.OnPlayerQuotaReached();"\
+ ""\
+ "		if (GetPatrolManager())"\
+ "			GetPatrolManager().FinishCurrentPatrol();"\
+ "	"
+ m_bIsActive 0
+ m_aActivateOnTaskState {
+  NO_SCR_TaskStateActivatorEntry "{59BA16E5CEF842CF}" {
+   m_sTaskEntityName "EndPatrol_Task_US"
+   m_eTaskState Assign
   }
  }
- exfil_trigger {
-  coords 299.818 10.003 101.121
-  SphereRadius 4.5
-  ShapeColor 0.624 0.235 0.235 1
-  OnPlayerQuotaReached ""\
-  "		super.OnPlayerQuotaReached();"\
-  ""\
-  "		if (GetPatrolManager())"\
-  "			GetPatrolManager().FinishCurrentPatrol();"\
-  "	"
-  m_bIsActive 0
-  m_aActivateOnTaskState {
-   NO_SCR_TaskStateActivatorEntry "{59BA16E5CEF842CF}" {
-    m_sTaskEntityName "EndPatrol_Task_US"
-    m_eTaskState Assign
-   }
+ m_bIsRepeatable 1
+ m_fDelay 1
+ m_aSpawnpointChanges {
+  NO_SCR_SpawnpointChangeEntry "{59B49400D5781250}" {
+   m_sSpawnpointName "SpawnPoint_Base_US"
+   m_sFactionKey "US"
   }
-  m_bIsRepeatable 1
-  m_fDelay 1
-  m_aSpawnpointChanges {
-   NO_SCR_SpawnpointChangeEntry "{59B49400D5781250}" {
-    m_sSpawnpointName "SpawnPoint_Base_US"
-    m_sFactionKey "US"
-   }
-   NO_SCR_SpawnpointChangeEntry "{59B49400D59025A5}" {
-    m_sSpawnpointName "infil_spawnpoint"
-   }
+  NO_SCR_SpawnpointChangeEntry "{59B49400D59025A5}" {
+   m_sSpawnpointName "infil_spawnpoint"
   }
-  m_bEnableTeleport 1
-  m_pCustomHint SCR_HintUIInfo "{59B4940328F39EC8}" {
-   Name "Exit Combat Patrol"
-   Description "Returning To Base"
-  }
-  {
-   SCR_Position exfil_tp_point : "{68C0C31F6FAD7C2E}Prefabs/MP/NO_MissionTriggerPortPos.et" {
-    components {
-     NwkMovementComponent "{59B6053BBCB0CB5F}" {
-     }
-     RplComponent "{59B6053BB0EA6908}" {
-      Streamable Disabled
-     }
+ }
+ m_bEnableTeleport 1
+ m_pCustomHint SCR_HintUIInfo "{59B4940328F39EC8}" {
+  Name "Exit Combat Patrol"
+  Description "Returning To Base"
+ }
+ {
+  SCR_Position exfil_tp_point : "{68C0C31F6FAD7C2E}Prefabs/MP/NO_MissionTriggerPortPos.et" {
+   components {
+    NwkMovementComponent "{59B6053BBCB0CB5F}" {
     }
-    coords 0 0 0
-    angleY 0
+    RplComponent "{59B6053BB0EA6908}" {
+     Streamable Disabled
+    }
    }
+   coords 0 0 0
+   angleY 0
   }
  }
 }
