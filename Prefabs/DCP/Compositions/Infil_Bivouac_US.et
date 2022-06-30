@@ -1,0 +1,637 @@
+GenericEntity : "{3BA9D94C4EE9B33B}Prefabs/Compositions/Slotted/CompositionBase.et" {
+ ID "5282DCB5DFC8538F"
+ components {
+  FactionAffiliationComponent "{56E0D915F82EB4E8}" {
+   "faction affiliation" "US"
+  }
+  RplComponent "{54AC8D6E673199EE}" : "{B193E926C1935A4C}Prefabs/Editor/Components/Default_RplComponent.ct" {
+   Streamable Disabled
+  }
+ }
+ coords 336.163 10.001 115.386
+ {
+  $grp GenericEntity : "{0011A3CBD1B1212A}Prefabs/Props/Garbage/Military/Ammo/GarbageAmmunition_US_01.et" {
+   {
+    ID "59BC9CA10B95B3D8"
+    components {
+     Hierarchy "{56A6E94CA11F5367}" {
+      Enabled 1
+     }
+     RplComponent "{5624A88DC2D9928D}" {
+      Enabled 1
+     }
+    }
+    coords 2.694 0 3.77
+    angleY -52.532
+   }
+   {
+    ID "59BC9CA10B95B3DB"
+    components {
+     Hierarchy "{56A6E94CC9CB8212}" {
+      Enabled 1
+     }
+     RplComponent "{5624A88DC2D9928D}" {
+      Enabled 1
+     }
+    }
+    coords 3.475 0 3.529
+    angleY -8.508
+   }
+  }
+  $grp StaticModelEntity : "{01AE5FD77A9A4C21}Prefabs/Structures/Military/Camps/TentSmallUS_01/TentSmallUS_01.et" {
+   {
+    ID "59BC9CA10B942990"
+    components {
+     Hierarchy "{56A6E94CC9C84EC1}" {
+      Enabled 1
+     }
+     RplComponent "{59BC9CAEF539A248}" {
+     }
+    }
+    coords -4.881 0 -0.49
+    angleY 83.003
+   }
+   {
+    ID "59BC9CA10B942997"
+    components {
+     Hierarchy "{56A6E94CC9C84EC1}" {
+      Enabled 1
+     }
+     RplComponent "{59BC9CAEFA9F1771}" {
+     }
+    }
+    coords -3.251 0 3.585
+    angleY 128.003
+   }
+   {
+    ID "59BC9CA10B95B3DA"
+    components {
+     Hierarchy "{56A6E94CC9CA9F2C}" {
+      Enabled 1
+     }
+     RplComponent "{59BC9CAEF1C306AE}" {
+     }
+    }
+    coords 3.371 0 -4.016
+    angleY -41.515
+   }
+   {
+    ID "59BC9CA10B95E769"
+    components {
+     Hierarchy "{56A6E94CC9C9D2FE}" {
+      Enabled 1
+     }
+     RplComponent "{59BC9CAEF71B81EC}" {
+     }
+    }
+    coords 5.1 0 -0.526
+    angleY -79.947
+   }
+  }
+  GenericEntity : "{190101E6E60E7C47}Prefabs/Props/Civilian/BeerBottle_01_empty_green.et" {
+   ID "59BC9CA10B94AC6F"
+   components {
+    Hierarchy "{56A6E94CC9CF17FE}" {
+     Enabled 1
+    }
+    RplComponent "{5624A88DC2D9928D}" {
+     Enabled 1
+    }
+   }
+   coords -4.717 0 0.562
+   angleY -92.489
+  }
+  $grp GenericEntity : "{19DA1F395962511D}Prefabs/Vegetation/Cuttings/Pinus_sylvestris_medium_01.et" {
+   {
+    ID "59BC9CA10B949165"
+    components {
+     RplComponent "{59BC9CAEFEBDACFC}" {
+     }
+    }
+    coords 5.285 0 -2.332
+    angleY 88.847
+   }
+   {
+    ID "59BC9CA10B94D7EA"
+    components {
+     RplComponent "{59BC9CAEFCCF9559}" {
+     }
+    }
+    coords 6.329 0 1.096
+    scale 0.8
+   }
+  }
+  GenericEntity : "{1EC801E208CB16C6}Prefabs/Vegetation/Cuttings/Rubus_idaeus_small_01.et" {
+   ID "59BC9CA10B94D7EB"
+   components {
+    RplComponent "{59BC9CAEE223E82E}" {
+    }
+   }
+   coords 5.815 0 0.324
+   angleX 38.192
+   angleY 17.419
+  }
+  $grp GenericEntity : "{20759E1CA7F808BE}Prefabs/Props/Garbage/Military/Food/GarbageFoodMilitaryUS_01.et" {
+   {
+    ID "59BC9CA10B93352A"
+    components {
+     Hierarchy "{56A6E94CC9CF9B11}" {
+      Enabled 1
+     }
+     RplComponent "{5624A88DC2D9928D}" {
+      Enabled 1
+     }
+    }
+    coords 0.137 0 1.615
+    angleY 60.562
+   }
+   {
+    ID "59BC9CA10B937F79"
+    components {
+     Hierarchy "{56A6E94CC9CE09EF}" {
+      Enabled 1
+     }
+     RplComponent "{5624A88DC2D9928D}" {
+      Enabled 1
+     }
+    }
+    coords -1.257 0 0.694
+    angleY -30.911
+   }
+   {
+    ID "59BC9CA10B937F7A"
+    components {
+     Hierarchy "{56A6E94CC9CEBF2E}" {
+      Enabled 1
+     }
+     RplComponent "{5624A88DC2D9928D}" {
+      Enabled 1
+     }
+    }
+    coords -0.737 0 -1.292
+    angleY -44.813
+   }
+  }
+  GenericEntity : "{4A09EF1D855AF2C4}Prefabs/Vegetation/Cuttings/Rosa_canina_small_01.et" {
+   ID "59BC9CA10B93BF7C"
+   components {
+    RplComponent "{59BC9CAEE431EE6E}" {
+    }
+   }
+   coords -5.567 0 -1.571
+   angleX 43.898
+   angleY 179.804
+   angleZ -0.136
+  }
+  $grp StaticModelEntity : "{55973C5B0950D4AB}Prefabs/Props/Military/Furniture/ChairMilitary_US_01.et" {
+   {
+    ID "59BC9CA10B923130"
+    components {
+     Hierarchy "{5712E2AA839A9CA2}" {
+      Enabled 1
+     }
+     RplComponent "{5624A88DC2D9928D}" {
+      Enabled 1
+     }
+    }
+    coords -1.23 0 0.704
+    angleY 115.514
+   }
+   {
+    ID "59BC9CA10B923131"
+    components {
+     Hierarchy "{5712E2AA839DF80E}" {
+      Enabled 1
+     }
+     RplComponent "{5624A88DC2D9928D}" {
+      Enabled 1
+     }
+    }
+    coords 0.229 0 -1.257
+    angleY -12.235
+   }
+   {
+    ID "59BC9CA10B924D57"
+    components {
+     Hierarchy "{5712E2AA839A2A6B}" {
+      Enabled 1
+     }
+     RplComponent "{5624A88DC2D9928D}" {
+      Enabled 1
+     }
+    }
+    coords 0.69 0 1.588
+    angleY -155.523
+   }
+   {
+    ID "59BC9CA10B92BFFA"
+    components {
+     Hierarchy "{5712E2AA839BC7BC}" {
+      Enabled 1
+     }
+     RplComponent "{5624A88DC2D9928D}" {
+      Enabled 1
+     }
+    }
+    coords 1.483 0 0.762
+    angleY -113.264
+   }
+  }
+  $grp GenericEntity : "{6CD65604C7945A66}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Patch_03.et" {
+   {
+    ID "59BC9CA10B929E80"
+    components {
+     RplComponent "{59BC9CAEED5C361F}" {
+     }
+    }
+    coords 0.398 0.1 2.841
+    angleY 148.297
+    {
+     DecalEntity {
+      ID "56E0B29E01E2AC90"
+      components {
+       RplComponent "{59BC9CAE936B21FB}" {
+       }
+      }
+     }
+    }
+   }
+   {
+    ID "59BC9CA10B929E82"
+    components {
+     RplComponent "{59BC9CAE90A1CC26}" {
+     }
+    }
+    coords -0.345 0.1 -3.176
+    angleY 41.646
+    {
+     DecalEntity {
+      ID "56E0B29E01E2AC90"
+      components {
+       RplComponent "{59BC9CAE96C1FE46}" {
+       }
+      }
+     }
+    }
+   }
+  }
+  $grp GenericEntity : "{74843BB0BF08A845}Prefabs/Vegetation/Cuttings/Corylus_avellana_small_01.et" {
+   {
+    ID "59BC9CA10B929E83"
+    components {
+     RplComponent "{59BC9CAE94E64DDE}" {
+     }
+    }
+    coords -6.271 0.1 -1.195
+    angleX 29.836
+    angleY -146.62
+   }
+   {
+    ID "59BC9CA10B92C81C"
+    components {
+     RplComponent "{59BC9CAE9A80F5AA}" {
+     }
+    }
+    coords -4.266 0.072 3.004
+    angleX -20.529
+    angleY 33.768
+   }
+  }
+  $grp GenericEntity : "{8E431002132E51BD}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Footprints_01.et" {
+   {
+    ID "59BC9CA10B91313B"
+    components {
+     RplComponent "{59BC9CAE98AE0B70}" {
+     }
+    }
+    coords 2.489 0.1 5.414
+    {
+     DecalEntity {
+      ID "56DF0892948B1029"
+      components {
+       RplComponent "{59BC9CAE9E9F541F}" {
+       }
+      }
+     }
+    }
+   }
+   {
+    ID "59BC9CA10B91313D"
+    components {
+     RplComponent "{59BC9CAE9CFF2FB1}" {
+     }
+    }
+    coords 3.111 0.1 3.105
+    {
+     DecalEntity {
+      ID "56DF0892948B1029"
+      components {
+       RplComponent "{59BC9CAE82EF409B}" {
+       }
+      }
+     }
+    }
+   }
+  }
+  $grp GenericEntity : "{A04DC55EB7C367F8}Prefabs/Props/Garbage/Military/Ammo/GarbageAmmunition_US_02.et" {
+   {
+    ID "59BC9CA10B9160D0"
+    components {
+     Hierarchy "{56A6E94CC9D109B8}" {
+      Enabled 1
+     }
+     RplComponent "{5624A88DC2D9928D}" {
+      Enabled 1
+     }
+    }
+    coords 2.269 0 4.692
+   }
+   {
+    ID "59BC9CA10B9160D3"
+    components {
+     Hierarchy "{56A6E94CC9D1BF74}" {
+      Enabled 1
+     }
+    }
+    coords 2.026 0 3.858
+   }
+  }
+  GenericEntity : "{A85E67003277D049}Prefabs/Vegetation/Cuttings/Malus_domestica_large_01.et" {
+   ID "59BC9CA10B918BA5"
+   components {
+    RplComponent "{59BC9CAE818286EA}" {
+    }
+   }
+   coords -3.991 0 5.102
+   angleY 62.267
+   scale 0.6
+  }
+  GenericEntity : "{BE99D77D1155B127}Prefabs/Systems/Arsenal/ArsenalBoxes/US/ArsenalBox_US.et" {
+   ID "59BC9CA10B918BA4"
+   coords 3.562 0 4.424
+   angleY 27.487
+   {
+    GenericEntity {
+     ID "58C4A255C2BC3015"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4A255C2BC30AA"
+     components {
+      RplComponent "{59BC9CAEB6657FB7}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4A255C2BC30BA"
+     components {
+      RplComponent "{59BC9CAEB0C3792E}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4A255C2BC30C8"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4A255C2BC30DB"
+     components {
+      RplComponent "{59BC9CAEB834D96C}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4A255C2BC30E4"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4A255C2BC31D4"
+     components {
+      RplComponent "{5476B36C54387F41}" {
+       Enabled 1
+      }
+     }
+     {
+      GenericEntity {
+       ID "56B6871A278AB642"
+       components {
+        RplComponent "{5624A88DC2D9928D}" {
+         Enabled 1
+        }
+       }
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4A255C2BC31E7"
+     components {
+      RplComponent "{5476B36C54387F41}" {
+       Enabled 1
+      }
+     }
+     {
+      GenericEntity {
+       ID "56B6871A1414CB69"
+       components {
+        RplComponent "{5624A88DC2D9928D}" {
+         Enabled 1
+        }
+       }
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4A6B41F6088BA"
+     components {
+      RplComponent "{59BC9CAEA17CB1A9}" {
+      }
+     }
+     {
+      DecalEntity {
+       ID "56DEFDB4A2C87F38"
+       components {
+        RplComponent "{59BC9CAEA77629DE}" {
+        }
+       }
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4AB8B9ED09BB7"
+     components {
+      RplComponent "{59BC9CAE8A28429B}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4AB8B9ED1030B"
+     components {
+      RplComponent "{59BC9CAE8BD12188}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4AB8B9ED1228E"
+     components {
+      RplComponent "{59BC9CAE88911B49}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4AB8B9ED122EB"
+     components {
+      RplComponent "{59BC9CAE8E5C063D}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4AB8B9ED19139"
+     components {
+      RplComponent "{59BC9CAE8F0603E5}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4AB8B9ED1EF55"
+     components {
+      RplComponent "{59BC9CAE8D7F95F3}" {
+      }
+     }
+    }
+   }
+  }
+  GenericEntity : "{C11CE4B95EA336C3}Prefabs/Vegetation/Cuttings/Sambucus_Nigra_medium_01.et" {
+   ID "59BC9CA10B918BF8"
+   components {
+    RplComponent "{59BC9CAEA4084A7F}" {
+    }
+   }
+   coords 2.845 0 -5.023
+   angleX 41.032
+   angleY -144.084
+  }
+  GenericEntity : "{C258AD45887AA8CA}Prefabs/Vegetation/Cuttings/Picea_abies_medium_01.et" {
+   ID "59BC9CA10B918BFF"
+   components {
+    RplComponent "{59BC9CAEAA4C6BD8}" {
+    }
+   }
+   coords -5.242 0 0.703
+   angleY 9.878
+  }
+  GenericEntity : "{C599195C442D7125}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_CigarButts_01.et" {
+   ID "59BC9CA10B91CE98"
+   components {
+    RplComponent "{59BC9CAEAB87B208}" {
+    }
+   }
+   coords -0.218 0.1 1.269
+   {
+    DecalEntity {
+     ID "56E0B29F4975B6A9"
+     components {
+      RplComponent "{59BC9CAEAE359A1D}" {
+      }
+     }
+    }
+   }
+  }
+  GameEntity : "{D9842C11742C00CF}Prefabs/Props/Civilian/Fireplace_01.et" {
+   ID "59BC9CA10B929E8F"
+   components {
+    Hierarchy "{58C896CB4E606F64}" {
+    }
+   }
+   coords 0 0.001 0
+  }
+  GenericEntity : "{E51E2E1D77B54223}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Patch_01.et" {
+   ID "59BC9CA10B91CE99"
+   components {
+    RplComponent "{59BC9CAEAC20F557}" {
+    }
+   }
+   coords -3.173 0.125 0.337
+   {
+    DecalEntity {
+     ID "56DEFDB4A2C87F38"
+     components {
+      RplComponent "{59BC9CA1522A31C7}" {
+      }
+     }
+    }
+   }
+  }
+  GenericEntity : "{F0DCB55B7FDB746B}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Footprints_02.et" {
+   ID "59BC9CA10B91CE9A"
+   components {
+    RplComponent "{59BC9CA150791C21}" {
+    }
+   }
+   coords -0.778 0.1 -1.965
+   angleY 106.801
+   {
+    DecalEntity {
+     ID "56DF08929A14FB98"
+     components {
+      RplComponent "{59BC9CA1563AF537}" {
+      }
+     }
+    }
+   }
+  }
+  GenericEntity : "{F3E6A9A0076FB16A}Prefabs/Compositions/Misc/SubCompositions/EquipmentBoxStacked_Cluttered_US_03.et" {
+   ID "59BC9CA10B91CE94"
+   components {
+    RplComponent "{5476B36C54387F41}" {
+     Enabled 1
+    }
+   }
+   coords 5.079 0 1.021
+   angleY -173.508
+   {
+    GenericEntity {
+     ID "56B68717D8E5E783"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+   }
+  }
+  GenericEntity : "{F401D58CD490C872}Prefabs/Props/Civilian/BeerBottle_01_slava.et" {
+   ID "59BC9CA10B91CE95"
+   components {
+    Hierarchy "{56A6E94CC9D7C25D}" {
+     Enabled 1
+    }
+    RplComponent "{5624A88DC2D9928D}" {
+     Enabled 1
+    }
+   }
+   coords -4.745 0 0.501
+   angleY 53.855
+  }
+  GenericEntity : "{FE0B2F136F4E44F5}Prefabs/Vegetation/Cuttings/Betula_pendula_medium_01.et" {
+   ID "59BC9CA10B9060FB"
+   components {
+    RplComponent "{59BC9CA15EEA0200}" {
+    }
+   }
+   coords 4.609 0 4.335
+   angleY -27.621
+  }
+ }
+}

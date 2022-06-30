@@ -134,6 +134,87 @@ CommentEntity PlayerHub_US {
      angleY 90
      angleZ -88.902
      {
+      GenericEntity {
+       components {
+        MeshObject "{59BC9CA893DB2DD9}" {
+         Object "{62A30D148D0D93B0}Assets/Props/Military/AmmoBox/EquipmentBoxWooden_01/EquipmentBoxWooden_Equipment_01.xob"
+        }
+        Hierarchy "{59BC9CA893DB2DD0}" {
+        }
+        RigidBody "{59BC9CA893DB2D4F}" {
+         Mass 10
+         ResponseIndex "SmallDestructible"
+         ModelGeometry 1
+         Static 1
+        }
+        SCR_ArsenalComponent "{59BC9CA893DB2D7F}" {
+         m_eSupportedArsenalItemTypes 31872
+         m_eSupportedArsenalItemModes 98
+         m_eEditableAttributeGroups 30
+        }
+        SCR_DestructionMultiPhaseComponent "{59BC9CA893DB2EF6}" {
+         Enabled 0
+         "Additional hit zones" {
+          ScriptedHitZone Default {
+           HZDefault 1
+           "Melee multiplier" 1
+           "Kinetic multiplier" 1
+           "Explosive multiplier" 90
+           "Incendiary multiplier" 1
+          }
+         }
+         m_fBaseHealth 500
+         m_fForceToDamageScale 350
+         m_fDamageThresholdMinimum 60
+         m_fDamageThresholdMaximum 40000
+         m_DestroySpawnObjects {
+          SCR_DebrisSpawnable "{59BC9CA893DB2ECF}" {
+           m_vOffsetPosition 0 0.3 0
+           m_ModelPrefabs {
+            "{AE6DE9DEA19D68B7}Assets/Props/Debris/Metal/FragmentMetal_dbr_03.xob" "{D9678156553F87C7}Assets/Props/Debris/Metal/FragmentMetal_dbr_02.xob" "{D9678156553F87C7}Assets/Props/Debris/Metal/FragmentMetal_dbr_02.xob" "{AE6DE9DEA19D68B7}Assets/Props/Debris/Metal/FragmentMetal_dbr_03.xob" "{0A04F02D30BA8459}Assets/Props/Debris/Metal/FragmentMechanical_dbr_03.xob" "{0A04F02D30BA8459}Assets/Props/Debris/Metal/FragmentMechanical_dbr_03.xob"
+           }
+           m_fMass 1
+           m_eMaterialSoundType METAL_LIGHT
+          }
+          SCR_ParticleSpawnable "{59BC9CA893DB2EC4}" {
+           m_Particle "{C436A8D33CE1AA4E}Particles/Props/Dest_Prop_Wood_Small.ptc"
+          }
+         }
+        }
+        SCR_FactionControlComponent "{59BC9CA893DB2E86}" {
+         m_DefaultFaction "US"
+        }
+        SCR_UniversalInventoryStorageComponent "{59BC9CA893DB2E51}" {
+         Enabled 0
+         Attributes SCR_ItemAttributeCollection "{59BC9CA893DB2E4D}" {
+          ItemDisplayName UIInfo "{59BC9CA893DB2E49}" {
+           Name "#AR-Ammobox_Name"
+           Description "#AR-Ammobox_Name"
+          }
+         }
+         Priority 1000
+         UseCapacityCoefficient 0
+         MaxCumulativeVolume 10000
+         m_fMaxWeight 10000
+        }
+        UniversalInventoryStorageComponent "{59BC9CA893DB2E7A}" {
+         Attributes SCR_ItemAttributeCollection "{59BC9CA893DB2E79}" {
+          ItemDisplayName UIInfo "{59BC9CA893DB2E67}" {
+           Name "#AR-Ammobox_Name"
+           Description "#AR-Ammobox_Name"
+          }
+         }
+         Priority 1000
+        }
+        SCR_ArsenalInventoryStorageManagerComponent "{59BC9CA893DB2E7E}" {
+        }
+        RplComponent "{59BC9CA893DB2F9A}" {
+        }
+       }
+       coords -0.158 0.028 2.803
+       angleY 177.89
+       Flags 1027
+      }
       GenericEntity : "{03DE957D8161212B}Prefabs/Props/Civilian/Notebook_01_Open.et" {
        components {
         Hierarchy "{5706F8D0B400C36A}" {
@@ -176,6 +257,8 @@ CommentEntity PlayerHub_US {
           }
          }
         }
+        RplComponent "{59BC9CA86BBD9AA9}" {
+        }
        }
        coords 0 0 2.418
        {
@@ -202,6 +285,8 @@ CommentEntity PlayerHub_US {
              m_fPhaseHealth 500
             }
            }
+          }
+          RplComponent "{59BC9CA86E989C71}" {
           }
          }
         }
@@ -231,6 +316,8 @@ CommentEntity PlayerHub_US {
            }
           }
          }
+         RplComponent "{59BC9CA86DB8BE05}" {
+         }
         }
         coords 0 0 -0.04
         angleY 180
@@ -258,6 +345,8 @@ CommentEntity PlayerHub_US {
            }
           }
          }
+         RplComponent "{59BC9CA810CD7894}" {
+         }
         }
         coords 0 0 -2.471
        }
@@ -283,6 +372,8 @@ CommentEntity PlayerHub_US {
             m_fPhaseHealth 500
            }
           }
+         }
+         RplComponent "{59BC9CA815E3275F}" {
          }
         }
         coords 0 0 4.821
@@ -311,6 +402,8 @@ CommentEntity PlayerHub_US {
            }
           }
          }
+         RplComponent "{59BC9CA8181AC0C6}" {
+         }
         }
         coords 0 0 2.39
        }
@@ -319,6 +412,8 @@ CommentEntity PlayerHub_US {
        components {
         Hierarchy "{5706F8D0B4381026}" {
          Enabled 1
+        }
+        RplComponent "{59BC9CA81F5C5411}" {
         }
        }
        coords 1.099 0.958 5.819
@@ -330,6 +425,9 @@ CommentEntity PlayerHub_US {
          Hierarchy "{569C80D1749555C7}" {
           Enabled 1
          }
+         RplComponent "{5624A88DC2D9928D}" {
+          Enabled 1
+         }
         }
         coords 0.04 0.908 3.259
         angleY 92.235
@@ -339,23 +437,21 @@ CommentEntity PlayerHub_US {
          Hierarchy "{5706F8D0B439FD90}" {
           Enabled 1
          }
+         RplComponent "{5624A88DC2D9928D}" {
+          Enabled 1
+         }
         }
         coords -1.846 0.612 -3.383
         angleY 8.137
        }
       }
-      GenericEntity : "{3568138FF7A659A1}Prefabs/Compositions/Misc/CustomEntities/Systems/AmmoBoxArsenal_Equipment_US_Apparel.et" {
-       components {
-        Hierarchy "{58C28EA6D892BCBC}" {
-        }
-       }
-       coords -0.158 0.028 2.803
-       angleY 177.89
-      }
       $grp StaticModelEntity : "{39C308BBB5945B85}Prefabs/Props/Military/Furniture/ChairMilitary_US_02.et" {
        {
         components {
          Hierarchy "{569C80D17546A1BF}" {
+          Enabled 1
+         }
+         RplComponent "{5624A88DC2D9928D}" {
           Enabled 1
          }
         }
@@ -365,6 +461,9 @@ CommentEntity PlayerHub_US {
        {
         components {
          Hierarchy "{569C80D1754A87EA}" {
+          Enabled 1
+         }
+         RplComponent "{5624A88DC2D9928D}" {
           Enabled 1
          }
         }
@@ -396,6 +495,8 @@ CommentEntity PlayerHub_US {
            }
           }
          }
+         RplComponent "{59BC9CA80EEB1336}" {
+         }
         }
         coords 0 0 1.171
        }
@@ -421,6 +522,8 @@ CommentEntity PlayerHub_US {
             m_fPhaseHealth 500
            }
           }
+         }
+         RplComponent "{59BC9CA80CF96119}" {
          }
         }
         coords 0 0 6.032
@@ -448,6 +551,8 @@ CommentEntity PlayerHub_US {
            }
           }
          }
+         RplComponent "{59BC9CA8326E1512}" {
+         }
         }
         coords 0 0 3.602
        }
@@ -474,6 +579,8 @@ CommentEntity PlayerHub_US {
            }
           }
          }
+         RplComponent "{59BC9CA833E020D0}" {
+         }
         }
         coords 0 0 -3.69
        }
@@ -499,6 +606,8 @@ CommentEntity PlayerHub_US {
             m_fPhaseHealth 500
            }
           }
+         }
+         RplComponent "{59BC9CA8308841B2}" {
          }
         }
         coords 0 0 -1.259
@@ -528,6 +637,8 @@ CommentEntity PlayerHub_US {
           }
          }
         }
+        RplComponent "{59BC9CA83765C2FB}" {
+        }
        }
        coords 0 0 -0.001
        {
@@ -555,17 +666,37 @@ CommentEntity PlayerHub_US {
             }
            }
           }
+          RplComponent "{59BC9CA8355F5A58}" {
+          }
          }
         }
        }
       }
       GenericEntity : "{4BAC1B025834E407}Prefabs/Props/Military/AmmoBoxes/EquipmentBoxStack/EquipmentBoxStack_US_01_V1_covered.et" {
+       components {
+        RplComponent "{5476B36C54387F41}" {
+         Enabled 1
+        }
+       }
        coords -2.276 0.059 1
        angleY 90
+       {
+        GenericEntity {
+         ID "56B68717AB53C86B"
+         components {
+          RplComponent "{5624A88DC2D9928D}" {
+           Enabled 1
+          }
+         }
+        }
+       }
       }
       StaticModelEntity : "{5019513019F0885A}Prefabs/Props/Military/Furniture/TableMilitary_US_02.et" {
        components {
         Hierarchy "{569C80D175A78FF0}" {
+         Enabled 1
+        }
+        RplComponent "{5624A88DC2D9928D}" {
          Enabled 1
         }
        }
@@ -597,18 +728,77 @@ CommentEntity PlayerHub_US {
         Hierarchy "{5706F8D0B4348A12}" {
          Enabled 1
         }
+        RplComponent "{5624A88DC2D9928D}" {
+         Enabled 1
+        }
        }
        coords -2.542 0.995 -0.464
        angleY 67.162
       }
+      $grp StaticModelEntity : "{55973C5B0950D4AB}Prefabs/Props/Military/Furniture/ChairMilitary_US_01.et" {
+       {
+        components {
+         Hierarchy "{5712EAE38B3031F6}" {
+          Enabled 1
+         }
+         RplComponent "{5624A88DC2D9928D}" {
+          Enabled 1
+         }
+        }
+        coords -4.806 -0 -4.166
+        angleY 157.33
+       }
+       {
+        components {
+         Hierarchy "{5712EAE38B37597B}" {
+          Enabled 1
+         }
+         RplComponent "{5624A88DC2D9928D}" {
+          Enabled 1
+         }
+        }
+        coords -5.484 -0 -1.131
+        angleY -179.581
+       }
+       {
+        components {
+         Hierarchy "{5712EAE38B3031F6}" {
+          Enabled 1
+         }
+         RplComponent "{5624A88DC2D9928D}" {
+          Enabled 1
+         }
+        }
+        coords -6.943 0.001 -2.184
+        angleY 114.209
+       }
+      }
       GenericEntity : "{620E2BD5E8C26FAB}Prefabs/Props/Military/AmmoBoxes/EquipmentBoxStack/EquipmentBoxStack_US_01_V6_covered.et" {
+       components {
+        RplComponent "{5476B36C54387F41}" {
+         Enabled 1
+        }
+       }
        coords -1.896 0.037 -2.925
        angleY 93.493
+       {
+        GenericEntity {
+         ID "56B6871A1414CB69"
+         components {
+          RplComponent "{5624A88DC2D9928D}" {
+           Enabled 1
+          }
+         }
+        }
+       }
       }
       $grp GenericEntity : "{68885712AD843B29}Prefabs/Props/Civilian/FileOffice_01_Double.et" {
        {
         components {
          Hierarchy "{5706F8D0B4345A13}" {
+          Enabled 1
+         }
+         RplComponent "{5624A88DC2D9928D}" {
           Enabled 1
          }
         }
@@ -620,12 +810,19 @@ CommentEntity PlayerHub_US {
          Hierarchy "{5706F8D0B4355359}" {
           Enabled 1
          }
+         RplComponent "{5624A88DC2D9928D}" {
+          Enabled 1
+         }
         }
         coords -0.907 0.958 5.881
         angleY -90
        }
       }
       GenericEntity : "{6A30882656A63268}Prefabs/Structures/Military/CamoNets/US/CamoNet_Tent_US.et" {
+       components {
+        RplComponent "{59BC9CA82806735F}" {
+        }
+       }
        coords 0 0 1.171
       }
       StaticModelEntity : "{6FDFC92CC73E4A69}Prefabs/Structures/Military/Camps/TentUS_01/TentUS_01_DoorOpened.et" {
@@ -651,6 +848,8 @@ CommentEntity PlayerHub_US {
           }
          }
         }
+        RplComponent "{59BC9CA82DCEB5B1}" {
+        }
        }
        coords 0 0 -2.456
        angleY 180
@@ -659,6 +858,9 @@ CommentEntity PlayerHub_US {
        {
         components {
          Hierarchy "{569C80D17A2EA41E}" {
+          Enabled 1
+         }
+         RplComponent "{5624A88DC2D9928D}" {
           Enabled 1
          }
         }
@@ -670,6 +872,9 @@ CommentEntity PlayerHub_US {
          Hierarchy "{569C80D17A24F2C9}" {
           Enabled 1
          }
+         RplComponent "{5624A88DC2D9928D}" {
+          Enabled 1
+         }
         }
         coords -0.462 0.05 5.702
         angleY 177.642
@@ -677,6 +882,9 @@ CommentEntity PlayerHub_US {
        {
         components {
          Hierarchy "{569C80D17A226B10}" {
+          Enabled 1
+         }
+         RplComponent "{5624A88DC2D9928D}" {
           Enabled 1
          }
         }
@@ -690,21 +898,37 @@ CommentEntity PlayerHub_US {
          Hierarchy "{569C80D17AEBA6B0}" {
           Enabled 1
          }
+         RplComponent "{5624A88DC2D9928D}" {
+          Enabled 1
+         }
         }
         coords 0.882 0 3.425
         angleY 2.881
        }
        {
+        components {
+         RplComponent "{5624A88DC2D9928D}" {
+          Enabled 1
+         }
+        }
         coords 1.192 0.024 -0.653
         angleY 0
         {
          GenericEntity : "{172585DCA4F947FE}Prefabs/Props/Furniture/PhoneTable_01_khaki.et" {
+          components {
+           RplComponent "{5624A88DC2D9928D}" {
+            Enabled 1
+           }
+          }
           coords -0.329 0.9 -0.173
           angleY -42.778
          }
          GenericEntity : "{68885712AD843B29}Prefabs/Props/Civilian/FileOffice_01_Double.et" {
           components {
            Hierarchy "{5706F8D0B4345A13}" {
+            Enabled 1
+           }
+           RplComponent "{5624A88DC2D9928D}" {
             Enabled 1
            }
           }
@@ -736,6 +960,9 @@ CommentEntity PlayerHub_US {
            Hierarchy "{569C80D1749555C7}" {
             Enabled 1
            }
+           RplComponent "{5624A88DC2D9928D}" {
+            Enabled 1
+           }
           }
           coords 0.367 0.9 0.153
           angleY 92.235
@@ -758,6 +985,9 @@ CommentEntity PlayerHub_US {
          Hierarchy "{5706F8D0B43230CF}" {
           Enabled 1
          }
+         RplComponent "{5624A88DC2D9928D}" {
+          Enabled 1
+         }
         }
         coords 0.36 0.043 3.479
        }
@@ -766,14 +996,32 @@ CommentEntity PlayerHub_US {
          Hierarchy "{5706F8D0B433FB9C}" {
           Enabled 1
          }
+         RplComponent "{5624A88DC2D9928D}" {
+          Enabled 1
+         }
         }
         coords -0.638 0.958 5.882
         angleY 180
        }
       }
       GenericEntity : "{9DD476816836FFED}Prefabs/Props/Military/AmmoBoxes/EquipmentBoxStack/EquipmentBoxStack_US_01_V5_covered.et" {
+       components {
+        RplComponent "{5476B36C54387F41}" {
+         Enabled 1
+        }
+       }
        coords -2.325 0.044 -0.242
        angleY 88.733
+       {
+        GenericEntity {
+         ID "56B6871A278AB642"
+         components {
+          RplComponent "{5624A88DC2D9928D}" {
+           Enabled 1
+          }
+         }
+        }
+       }
       }
       StaticModelEntity : "{9F5C43D4CD7A1963}Prefabs/Structures/Military/Camps/TentUS_01/TentUS_01_DoorClosed.et" {
        components {
@@ -798,12 +1046,47 @@ CommentEntity PlayerHub_US {
           }
          }
         }
+        RplComponent "{59BC9CA8C789FBB4}" {
+        }
        }
        coords 0 0 4.82
+      }
+      $grp DecalEntity : "{AF4AA779A4546D51}Prefabs/Decals/Dirt/Decal_Dirt_Patch_02.et" {
+       {
+        components {
+         Hierarchy "{56E0B29E66335D7C}" {
+         }
+         RplComponent "{59BC9CAF886577B0}" {
+         }
+        }
+        coords -6.07 -0 -2.089
+        angleX -89.966
+        angleY 45.005
+        angleZ 44.995
+        scale 5
+        FarPlane 1.5
+       }
+       {
+        components {
+         Hierarchy "{56E0B29E66335D7C}" {
+         }
+         RplComponent "{59BC9CAF886577B0}" {
+         }
+        }
+        coords 8.294 0.002 -3.024
+        angleX -89.951
+        angleY 135
+        angleZ 81.387
+        scale 5
+        FarPlane 1.5
+       }
       }
       GenericEntity : "{B3C782D689A52412}Prefabs/Props/Civilian/FileOffice_01_Open.et" {
        components {
         Hierarchy "{5706F8D0B42FB777}" {
+         Enabled 1
+        }
+        RplComponent "{5624A88DC2D9928D}" {
          Enabled 1
         }
        }
@@ -812,6 +1095,8 @@ CommentEntity PlayerHub_US {
       GenericEntity : "{B4F2701CBBE49C48}Prefabs/Props/Military/Antennas/Antenna_RC292_01.et" {
        components {
         SCR_HorizontalAlignComponent "{55B890D2B67E0C35}" {
+        }
+        RplComponent "{59BC9CA8CBF33ABC}" {
         }
        }
        coords -10.938 -0.002 -0.105
@@ -846,6 +1131,8 @@ CommentEntity PlayerHub_US {
            }
           }
          }
+         RplComponent "{59BC9CA8CF78F426}" {
+         }
         }
         coords 0 0 4.82
         {
@@ -872,6 +1159,8 @@ CommentEntity PlayerHub_US {
               m_fPhaseHealth 500
              }
             }
+           }
+           RplComponent "{59BC9CA8CD18D4C4}" {
            }
           }
           coords 0 0 -0.023
@@ -902,6 +1191,8 @@ CommentEntity PlayerHub_US {
            }
           }
          }
+         RplComponent "{59BC9CA8F36FC37A}" {
+         }
         }
         coords 0 0 -2.456
         angleY 180
@@ -930,6 +1221,8 @@ CommentEntity PlayerHub_US {
              }
             }
            }
+           RplComponent "{59BC9CA8F1515616}" {
+           }
           }
           coords 0 0 -0.023
           angleY 180
@@ -942,6 +1235,8 @@ CommentEntity PlayerHub_US {
         Hierarchy "{5706F8D0B42C7A3F}" {
          Enabled 1
         }
+        RplComponent "{59BC9CA8F7442860}" {
+        }
        }
        coords -1.285 0.906 3.313
        angleY 18.265
@@ -951,13 +1246,42 @@ CommentEntity PlayerHub_US {
         Hierarchy "{569C80D179301A8A}" {
          Enabled 1
         }
+        RplComponent "{5624A88DC2D9928D}" {
+         Enabled 1
+        }
        }
        coords -2.453 0.05 -2.451
        angleY 90.489
       }
+      DecalEntity : "{CA8AB522F7C90A28}Prefabs/Decals/Miscellaneous/CigarButts_01.et" {
+       components {
+        RplComponent "{59BC9CAF8D516BB9}" {
+        }
+       }
+       coords -6.404 -0.001 -1.829
+       angleX -89.972
+       angleY -29.656
+       angleZ 150.35
+       FarPlane 1.5
+      }
       GenericEntity : "{CCB14E0E5C278B73}Prefabs/MP/Campaign/Assets/CampaignHQRadioWest.et" {
+       components {
+        RplComponent "{59BC9CA8FB2F479F}" {
+        }
+       }
        coords -2.436 0.96 1.02
        angleY 89.676
+      }
+      GameEntity : "{D9842C11742C00CF}Prefabs/Props/Civilian/Fireplace_01.et" {
+       components {
+        Hierarchy "{58C28EA65F33813F}" {
+        }
+        SCR_FireplaceComponent "{5876E7F288BF5C8E}" {
+         m_eInitialLightState LIT
+        }
+       }
+       coords -5.551 -0.001 -2.729
+       angleY 120.693
       }
       Vehicle M151A2_M2HB1 : "{F6B23D17D5067C11}Prefabs/Vehicles/Wheeled/M151A2/M151A2_M2HB.et" {
        components {
@@ -973,14 +1297,29 @@ CommentEntity PlayerHub_US {
        {
         $grp GenericEntity : "{78AB783E28EDEBD4}Prefabs/Props/Military/Sandbags/Sandbag_01_long_plastic.et" {
          {
+          components {
+           RplComponent "{5624A88DC2D9928D}" {
+            Enabled 1
+           }
+          }
           coords 0.073 0.002 2.666
           angleY 178.098
          }
          {
+          components {
+           RplComponent "{5624A88DC2D9928D}" {
+            Enabled 1
+           }
+          }
           coords 2.308 0.002 1.602
           angleY -91.235
          }
          {
+          components {
+           RplComponent "{5624A88DC2D9928D}" {
+            Enabled 1
+           }
+          }
           coords -2.046 0.002 1.531
           angleY -91.235
          }
@@ -1164,6 +1503,464 @@ CommentEntity PlayerHub_US {
    coords 5.069 -7.801 -10.819
    angleY 180
    {
+    GenericEntity {
+     ID "54FAC13AA1B6887E"
+     components {
+      RplComponent "{59BC9CACD3C27B63}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "5702A726D5377892"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    GenericEntity {
+     ID "5702A72C15D28122"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    GenericEntity {
+     ID "5702A720C379E0A4"
+     components {
+      RplComponent "{59BC9CACF9F993D0}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "5702A726D5377845"
+     components {
+      RplComponent "{59BC9CACFF1FC772}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "5702A720F84098E1"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    GenericEntity {
+     ID "5702A726D537787E"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    GenericEntity {
+     ID "5702A726D53778AF"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    GenericEntity {
+     ID "5702A726D53778B6"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    GenericEntity {
+     ID "5702A726D5377815"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    GenericEntity {
+     ID "5702A726D537780D"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    GenericEntity {
+     ID "5702A7267A0B4632"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    GenericEntity {
+     ID "5702A726D5377E1E"
+     components {
+      RplComponent "{5476B36C54387F41}" {
+       Enabled 1
+      }
+     }
+     {
+      GenericEntity {
+       ID "56B6871A278AB642"
+       components {
+        RplComponent "{5624A88DC2D9928D}" {
+         Enabled 1
+        }
+       }
+      }
+     }
+    }
+    GenericEntity {
+     ID "5702A726D5377F08"
+     components {
+      RplComponent "{59BC9CAC82C93CD7}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "5702A726D53779F6"
+     components {
+      RplComponent "{5476B36C54387F41}" {
+       Enabled 1
+      }
+     }
+     {
+      GenericEntity {
+       ID "56B68717D8E5E783"
+       components {
+        RplComponent "{5624A88DC2D9928D}" {
+         Enabled 1
+        }
+       }
+      }
+     }
+    }
+    GenericEntity {
+     ID "5702A721736197AB"
+     components {
+      RplComponent "{59BC9CAC879E9808}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "5702A726D5377F44"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    GenericEntity {
+     ID "5702A721090E0DF4"
+     components {
+      RplComponent "{59BC9CAC8D5CBBCC}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "5702A72C15D2810D"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    GenericEntity {
+     ID "5702A72C15D28136"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    GenericEntity {
+     ID "5702A726D537799B"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    GenericEntity {
+     ID "5702A726D53779B5"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5282C8B10A7C4CAB"
+     components {
+      RplComponent "{59BC9CACD11AC18A}" {
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5570DCD884983797"
+     components {
+      RplComponent "{59BC9CACD68EE90A}" {
+      }
+     }
+     {
+      StaticModelEntity {
+       ID "5570E28F016C1569"
+       components {
+        RplComponent "{59BC9CACD5318BA0}" {
+        }
+       }
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5570DCD884983799"
+     components {
+      RplComponent "{59BC9CACDAAA9C42}" {
+      }
+     }
+     {
+      StaticModelEntity {
+       ID "5570E28F0CFE9F0D"
+       components {
+        RplComponent "{59BC9CACD8A30C70}" {
+        }
+       }
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5570DCD88498379A"
+     components {
+      RplComponent "{59BC9CACDE5AF464}" {
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5570DCD88498379B"
+     components {
+      RplComponent "{59BC9CACDFDCCFCD}" {
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5570DCD884987B62"
+     components {
+      RplComponent "{59BC9CACDD23B7D8}" {
+      }
+     }
+     {
+      StaticModelEntity {
+       ID "5570E28F18379778"
+       components {
+        RplComponent "{59BC9CACC3552690}" {
+        }
+       }
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5570DCD8849BAD09"
+     components {
+      RplComponent "{59BC9CACC02E11F7}" {
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5570DCD8849BAD14"
+     components {
+      RplComponent "{59BC9CACC1A842B9}" {
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5570DCD8849BAD17"
+     components {
+      RplComponent "{59BC9CACC736FEA7}" {
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5570DCD8849BB795"
+     components {
+      RplComponent "{59BC9CACC4C5CD3F}" {
+      }
+     }
+     {
+      StaticModelEntity {
+       ID "5570E28A9A110608"
+       components {
+        RplComponent "{59BC9CACCACC56FF}" {
+        }
+       }
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5570DCD8849BB798"
+     components {
+      RplComponent "{59BC9CACC97BCB4E}" {
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5570DCD8849BB799"
+     components {
+      RplComponent "{59BC9CACCEBB1DEC}" {
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5570DCD8849BB79C"
+     components {
+      RplComponent "{59BC9CACCC561C10}" {
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5570DCD8849BB79D"
+     components {
+      RplComponent "{59BC9CACCD1C45EA}" {
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5570DCD8849BB79E"
+     components {
+      RplComponent "{59BC9CACF37846AD}" {
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5570DCD8849BB79F"
+     components {
+      RplComponent "{59BC9CACF01E2839}" {
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5702A72C15D28126"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5702A726F8BF069D"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5702A72C15D28108"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5702A72C15D2810C"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5702A72C15D28137"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5702A726D5377F78"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5702A72C15D2813B"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5702A72C15D2813C"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5702A72C15D2813D"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5702A726D5377FD7"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5702A72C15D2813E"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5702A72C15D28109"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5702A72C15D2810A"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5702A72C15D28132"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    StaticModelEntity {
+     ID "5702A72C15D28134"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
     GenericEntity : "{651C94FCE07504DD}Prefabs/Structures/Signs/Military/SignRectangle_01_140x100/Sign_FieldHospital_US_01.et" {
      coords -1.913 -0.002 -4.314
      angleY 180
@@ -1384,6 +2181,8 @@ CommentEntity PlayerHub_US {
          SCR_FactionControlComponent "{58D50AC386F314B5}" {
           m_DefaultFaction "US"
          }
+         RplComponent "{59BC9CA8BA17A681}" {
+         }
         }
         coords 5.348 0.152 2.294
         angleY -179.508
@@ -1417,6 +2216,8 @@ CommentEntity PlayerHub_US {
               }
              }
             }
+            RplComponent "{59BC9CA8B9025189}" {
+            }
            }
            coords 0.993 -0.143 -0.96
            Flags 1027
@@ -1448,6 +2249,8 @@ CommentEntity PlayerHub_US {
               }
              }
             }
+            RplComponent "{59BC9CA8BF7141D0}" {
+            }
            }
            coords -1.184 -0.128 -0.934
            Flags 1027
@@ -1457,6 +2260,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370F84EC5}" {
+            }
+            RplComponent "{59BC9CA8BC3120C8}" {
             }
            }
            coords 0.571 0.522 -0.725
@@ -1470,6 +2275,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370F84623}" {
             }
+            RplComponent "{59BC9CA8BDBD4B78}" {
+            }
            }
            coords -1.435 0.537 -0.696
            angleX 80
@@ -1481,6 +2288,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370F84BF0}" {
+            }
+            RplComponent "{59BC9CA8A368841B}" {
             }
            }
            coords -1.774 0.537 -0.696
@@ -1494,6 +2303,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370F87C7B}" {
             }
+            RplComponent "{59BC9CA8A02F85AE}" {
+            }
            }
            coords -1.099 0.537 -0.698
            angleX 80
@@ -1505,6 +2316,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370F87A4F}" {
+            }
+            RplComponent "{59BC9CA8A1F2270B}" {
             }
            }
            coords -0.598 0.537 -0.698
@@ -1518,6 +2331,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370F9EEBF}" {
             }
+            RplComponent "{59BC9CA8A7781111}" {
+            }
            }
            coords 1.077 0.522 -0.725
            angleX 80
@@ -1529,6 +2344,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370F9C3AB}" {
+            }
+            RplComponent "{59BC9CA8A44D132A}" {
             }
            }
            coords 1.41 0.522 -0.725
@@ -1542,6 +2359,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370F9098E}" {
             }
+            RplComponent "{59BC9CA8A5B1912F}" {
+            }
            }
            coords 1.58 0.522 -0.725
            angleX 80
@@ -1553,6 +2372,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370F93839}" {
+            }
+            RplComponent "{59BC9CA8AB467751}" {
             }
            }
            coords 1.742 0.522 -0.725
@@ -1566,6 +2387,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370F92896}" {
             }
+            RplComponent "{59BC9CA8A8FC02F4}" {
+            }
            }
            coords 0.915 0.513 -0.725
            angleX 80
@@ -1577,6 +2400,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370F95AC4}" {
+            }
+            RplComponent "{59BC9CA8AE5BF101}" {
             }
            }
            coords 1.235 0.522 -0.725
@@ -1590,6 +2415,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370F87332}" {
             }
+            RplComponent "{59BC9CA8AF289AA5}" {
+            }
            }
            coords 0.402 0.522 -0.725
            angleX 80
@@ -1601,6 +2428,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370F865A7}" {
+            }
+            RplComponent "{59BC9CA8ACD0B01C}" {
             }
            }
            coords 0.741 0.522 -0.725
@@ -1614,6 +2443,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370F99CDA}" {
             }
+            RplComponent "{59BC9CAB5224D330}" {
+            }
            }
            coords 0.23 0.522 -0.725
            angleX 80
@@ -1625,6 +2456,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370F997C6}" {
+            }
+            RplComponent "{59BC9CAB505BF24B}" {
             }
            }
            coords -1.947 0.537 -0.697
@@ -1638,6 +2471,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370F989C5}" {
             }
+            RplComponent "{59BC9CAB512B3DB9}" {
+            }
            }
            coords -1.605 0.537 -0.697
            angleX 80
@@ -1649,6 +2484,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370F9AB79}" {
+            }
+            RplComponent "{59BC9CAB56D3B6AA}" {
             }
            }
            coords -0.767 0.537 -0.696
@@ -1662,6 +2499,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370F9BA13}" {
             }
+            RplComponent "{59BC9CAB57ACCAF2}" {
+            }
            }
            coords -1.261 0.528 -0.697
            angleX 80
@@ -1674,6 +2513,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370F9DEC9}" {
             }
+            RplComponent "{59BC9CAB557543B9}" {
+            }
            }
            coords -0.434 0.537 -0.698
            angleX 80
@@ -1685,6 +2526,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370F9CC5D}" {
+            }
+            RplComponent "{59BC9CAB5A4D70F0}" {
             }
            }
            coords -0.941 0.537 -0.698
@@ -1709,6 +2552,8 @@ CommentEntity PlayerHub_US {
          }
          SCR_FactionControlComponent "{58D50AC3B8B8038F}" {
           m_DefaultFaction "US"
+         }
+         RplComponent "{59BC9CAB59257BE3}" {
          }
         }
         coords 5.121 -0.001 -2.342
@@ -1743,6 +2588,8 @@ CommentEntity PlayerHub_US {
               }
              }
             }
+            RplComponent "{59BC9CAB5F2E99D3}" {
+            }
            }
            coords 1.151 0.001 0
            Flags 1027
@@ -1774,6 +2621,8 @@ CommentEntity PlayerHub_US {
               }
              }
             }
+            RplComponent "{59BC9CAB5C9D9452}" {
+            }
            }
            coords -1.151 0.001 0.001
            Flags 1027
@@ -1783,6 +2632,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370FC1024}" {
+            }
+            RplComponent "{59BC9CAB427AABDA}" {
             }
            }
            coords -2.174 1.17 0.217
@@ -1794,6 +2645,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370FCF3D8}" {
+            }
+            RplComponent "{59BC9CAB43FE48D2}" {
             }
            }
            coords 0.729 0.666 0.237
@@ -1807,6 +2660,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370FC1D58}" {
             }
+            RplComponent "{59BC9CAB40BDBBE8}" {
+            }
            }
            coords -2.174 0.83 0.217
            angleY 30
@@ -1817,6 +2672,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370FC04D3}" {
+            }
+            RplComponent "{59BC9CAB467261A5}" {
             }
            }
            coords -1.829 1.17 0.254
@@ -1829,6 +2686,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370FC286B}" {
             }
+            RplComponent "{59BC9CAB4763547B}" {
+            }
            }
            coords -2.174 0.14 0.217
            angleY 30
@@ -1839,6 +2698,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370FC5865}" {
+            }
+            RplComponent "{59BC9CAB4420596C}" {
             }
            }
            coords -2.174 0.468 0.217
@@ -1851,6 +2712,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370FC786C}" {
             }
+            RplComponent "{59BC9CAB45CE71C0}" {
+            }
            }
            coords -1.829 0.468 0.254
            angleY 30
@@ -1861,6 +2724,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370FD9849}" {
+            }
+            RplComponent "{59BC9CAB4B7929BF}" {
             }
            }
            coords -0.204 0.666 0.267
@@ -1874,6 +2739,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370FDB4F8}" {
             }
+            RplComponent "{59BC9CAB48F8164B}" {
+            }
            }
            coords 1.235 0.666 0.237
            angleX 80
@@ -1885,6 +2752,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370FCA00B}" {
+            }
+            RplComponent "{59BC9CAB4C6A536D}" {
             }
            }
            coords -1.594 0.666 0.267
@@ -1898,6 +2767,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370FCD584}" {
             }
+            RplComponent "{59BC9CAB4D9B25AF}" {
+            }
            }
            coords -1.829 0.14 0.254
            angleY 30
@@ -1909,6 +2780,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370FCDFC3}" {
             }
+            RplComponent "{59BC9CAB73E731C1}" {
+            }
            }
            coords -1.829 0.83 0.254
            angleY 30
@@ -1919,6 +2792,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370FCC922}" {
+            }
+            RplComponent "{59BC9CAB7170E58A}" {
             }
            }
            coords 0.899 0.666 0.237
@@ -1932,6 +2807,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370FCC118}" {
             }
+            RplComponent "{59BC9CAB7622D51E}" {
+            }
            }
            coords 0.56 0.666 0.237
            angleX 80
@@ -1943,6 +2820,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370FCF857}" {
+            }
+            RplComponent "{59BC9CAB77D3BB85}" {
             }
            }
            coords -1.288 0.666 0.267
@@ -1956,6 +2835,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370FDA3B1}" {
             }
+            RplComponent "{59BC9CAB749CB537}" {
+            }
            }
            coords 1.073 0.657 0.237
            angleX 80
@@ -1967,6 +2848,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370FDCC7C}" {
+            }
+            RplComponent "{59BC9CAB7A3C618F}" {
             }
            }
            coords -0.361 0.666 0.267
@@ -1980,6 +2863,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370FDF02B}" {
             }
+            RplComponent "{59BC9CAB7BEA88F2}" {
+            }
            }
            coords -0.976 0.666 0.267
            angleX 80
@@ -1991,6 +2876,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370FD1C2B}" {
+            }
+            RplComponent "{59BC9CAB78AE8B88}" {
             }
            }
            coords -0.822 0.666 0.267
@@ -2004,6 +2891,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370FD332E}" {
             }
+            RplComponent "{59BC9CAB7E704C11}" {
+            }
            }
            coords -0.518 0.666 0.267
            angleX 80
@@ -2015,6 +2904,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370FD4268}" {
+            }
+            RplComponent "{59BC9CAB7F5E4F18}" {
             }
            }
            coords 1.567 0.666 0.237
@@ -2028,6 +2919,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370FD6B6C}" {
             }
+            RplComponent "{59BC9CAB7C2FB1F3}" {
+            }
            }
            coords 0.388 0.666 0.237
            angleX 80
@@ -2039,6 +2932,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370E2B5A4}" {
+            }
+            RplComponent "{59BC9CAB7DD4CFE9}" {
             }
            }
            coords 1.393 0.666 0.237
@@ -2052,6 +2947,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370E2EB7F}" {
             }
+            RplComponent "{59BC9CAB628A4CC8}" {
+            }
            }
            coords 1.9 0.666 0.237
            angleX 80
@@ -2063,6 +2960,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370E2DCD4}" {
+            }
+            RplComponent "{59BC9CAB6010AE05}" {
             }
            }
            coords -1.127 0.666 0.267
@@ -2076,6 +2975,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370E25703}" {
             }
+            RplComponent "{59BC9CAB61DCCF64}" {
+            }
            }
            coords -0.668 0.666 0.267
            angleX 80
@@ -2088,6 +2989,8 @@ CommentEntity PlayerHub_US {
            components {
             Hierarchy "{5584D66370E20DD2}" {
             }
+            RplComponent "{59BC9CAB676E8B61}" {
+            }
            }
            coords 1.737 0.666 0.237
            angleX 80
@@ -2099,6 +3002,8 @@ CommentEntity PlayerHub_US {
           {
            components {
             Hierarchy "{5584D66370FCA7FE}" {
+            }
+            RplComponent "{59BC9CAB6412EED8}" {
             }
            }
            coords -1.431 0.666 0.267
@@ -2113,6 +3018,11 @@ CommentEntity PlayerHub_US {
        }
       }
       StaticModelEntity : "{7762F50A860DD074}Prefabs/Props/Military/Furniture/TableMilitary_US_01.et" {
+       components {
+        RplComponent "{5624A88DC2D9928D}" {
+         Enabled 1
+        }
+       }
        coords 9.502 -0.014 2.278
        angleY -90
       }
@@ -2195,49 +3105,101 @@ CommentEntity PlayerHub_US {
      }
     }
     StaticModelEntity : "{2632E70989CA0CFC}Prefabs/Structures/Military/Camps/TentUS_01/TentUS_01_FabricCentral02.et" {
+     components {
+      RplComponent "{59BC9CAB6FFCEE45}" {
+      }
+     }
      coords 0 0 2.418
      {
       StaticModelEntity : "{7155445537D403E7}Prefabs/Structures/Military/Camps/TentUS_01/TentUS_01_Floor02.et" {
+       components {
+        RplComponent "{59BC9CAB6D3F0221}" {
+        }
+       }
       }
      }
     }
     $grp StaticModelEntity : "{2AE402F037F38A7D}Prefabs/Structures/Military/Camps/TentUS_01/TentUS_01_Construction02.et" {
      {
+      components {
+       RplComponent "{59BC9CAB1341639E}" {
+       }
+      }
       coords 0 0 -0.04
       angleY 180
      }
      {
+      components {
+       RplComponent "{59BC9CAB10A9426E}" {
+       }
+      }
       coords 0 0 -2.471
      }
      {
+      components {
+       RplComponent "{59BC9CAB165A179B}" {
+       }
+      }
       coords 0 0 4.821
       angleY -180
      }
      {
+      components {
+       RplComponent "{59BC9CAB172ED760}" {
+       }
+      }
       coords 0 0 2.39
      }
     }
     $grp StaticModelEntity : "{46B036108B370553}Prefabs/Structures/Military/Camps/TentUS_01/TentUS_01_Construction01.et" {
      {
+      components {
+       RplComponent "{59BC9CAB1408CE73}" {
+       }
+      }
       coords 0 0 1.171
      }
      {
+      components {
+       RplComponent "{59BC9CAB15DA3D80}" {
+       }
+      }
       coords 0 0 6.032
      }
      {
+      components {
+       RplComponent "{59BC9CAB1ACC0100}" {
+       }
+      }
       coords 0 0 3.602
      }
      {
+      components {
+       RplComponent "{59BC9CAB1BBDDDD1}" {
+       }
+      }
       coords 0 0 -3.69
      }
      {
+      components {
+       RplComponent "{59BC9CAB18BDDB9A}" {
+       }
+      }
       coords 0 0 -1.259
      }
     }
     StaticModelEntity : "{4A66D3E9350E83D2}Prefabs/Structures/Military/Camps/TentUS_01/TentUS_01_FabricCentral01.et" {
+     components {
+      RplComponent "{59BC9CAB1E5D38A1}" {
+      }
+     }
      coords 0 0 -0.001
      {
       StaticModelEntity : "{1D0170B58B108CC9}Prefabs/Structures/Military/Camps/TentUS_01/TentUS_01_Floor01.et" {
+       components {
+        RplComponent "{59BC9CAB1FAE5FC0}" {
+        }
+       }
       }
      }
     }
@@ -2264,6 +3226,8 @@ CommentEntity PlayerHub_US {
           }
           Hierarchy "{58C4AB8BEBD79159}" {
           }
+          RplComponent "{59BC9CAB02B57AE1}" {
+          }
          }
          coords -0.136 0.884 0.005
          angleY -34.829
@@ -2274,6 +3238,8 @@ CommentEntity PlayerHub_US {
            Object "{002690FC9F6178C4}Assets/Props/Military/AmmoBox/AmmoBox_556x45_840rnd/AmmoBox_556x45_840rnd.xob"
           }
           Hierarchy "{58C4AB8BEBD73F79}" {
+          }
+          RplComponent "{59BC9CAB0062034C}" {
           }
          }
          coords -0.945 0.586 0.108
@@ -2286,6 +3252,8 @@ CommentEntity PlayerHub_US {
           }
           Hierarchy "{58C4AB8BEBD7F684}" {
           }
+          RplComponent "{59BC9CAB01B0CA0A}" {
+          }
          }
          coords 1.481 0.869 0.194
          angleY -106.351
@@ -2296,6 +3264,8 @@ CommentEntity PlayerHub_US {
            Object "{002690FC9F6178C4}Assets/Props/Military/AmmoBox/AmmoBox_556x45_840rnd/AmmoBox_556x45_840rnd.xob"
           }
           Hierarchy "{58C4AB8BEBD7D38A}" {
+          }
+          RplComponent "{59BC9CAB0775C1CF}" {
           }
          }
          coords -1.45 0.373 -0.051
@@ -2308,6 +3278,8 @@ CommentEntity PlayerHub_US {
           }
           Hierarchy "{58C4AB8BEBD719C3}" {
           }
+          RplComponent "{59BC9CAB04DD433A}" {
+          }
          }
          coords -0.936 0.586 -0.201
          angleY -35.207
@@ -2319,6 +3291,8 @@ CommentEntity PlayerHub_US {
           }
           Hierarchy "{58C4AB8BEBD77D00}" {
           }
+          RplComponent "{59BC9CAB0AE5A26E}" {
+          }
          }
          coords -0.282 0.884 -0.165
          angleY -9.699
@@ -2329,20 +3303,48 @@ CommentEntity PlayerHub_US {
          Hierarchy "{58C4A255CE373BA8}" {
           Enabled 1
          }
+         RplComponent "{5624A88DC2D9928D}" {
+          Enabled 1
+         }
         }
         coords -0.349 0 0.866
         angleY -45.82
        }
        GenericEntity : "{620E2BD5E8C26FAB}Prefabs/Props/Military/AmmoBoxes/EquipmentBoxStack/EquipmentBoxStack_US_01_V6_covered.et" {
+        components {
+         RplComponent "{5476B36C54387F41}" {
+          Enabled 1
+         }
+        }
         coords -1.132 0 -0.057
         angleY 89.179
+        {
+         GenericEntity {
+          ID "56B6871A1414CB69"
+          components {
+           RplComponent "{5624A88DC2D9928D}" {
+            Enabled 1
+           }
+          }
+         }
+        }
        }
        GenericEntity : "{9DD476816836FFED}Prefabs/Props/Military/AmmoBoxes/EquipmentBoxStack/EquipmentBoxStack_US_01_V5_covered.et" {
+        components {
+         RplComponent "{5476B36C54387F41}" {
+          Enabled 1
+         }
+        }
         coords 1.36 0 -0.094
         angleY 177.707
         {
          GenericEntity {
           ID "56B6871A278AB642"
+          components {
+           RplComponent "{5624A88DC2D9928D}" {
+            Enabled 1
+           }
+          }
           coords 0 0 0
          }
         }
@@ -2353,6 +3355,9 @@ CommentEntity PlayerHub_US {
           Hierarchy "{58C4A255CE377E99}" {
            Enabled 1
           }
+          RplComponent "{5624A88DC2D9928D}" {
+           Enabled 1
+          }
          }
          coords 0.533 0 0.922
          angleY -19.083
@@ -2360,6 +3365,9 @@ CommentEntity PlayerHub_US {
         {
          components {
           Hierarchy "{58C4A255CE371C7B}" {
+           Enabled 1
+          }
+          RplComponent "{5624A88DC2D9928D}" {
            Enabled 1
           }
          }
@@ -2391,6 +3399,8 @@ CommentEntity PlayerHub_US {
           }
           Hierarchy "{58C4AB8BEBD79159}" {
           }
+          RplComponent "{59BC9CAB3560FC6A}" {
+          }
          }
          coords -0.136 0.884 0.005
          angleY -34.829
@@ -2401,6 +3411,8 @@ CommentEntity PlayerHub_US {
            Object "{002690FC9F6178C4}Assets/Props/Military/AmmoBox/AmmoBox_556x45_840rnd/AmmoBox_556x45_840rnd.xob"
           }
           Hierarchy "{58C4AB8BEBD73F79}" {
+          }
+          RplComponent "{59BC9CAB3AF11966}" {
           }
          }
          coords -0.945 0.586 0.108
@@ -2413,6 +3425,8 @@ CommentEntity PlayerHub_US {
           }
           Hierarchy "{58C4AB8BEBD7F684}" {
           }
+          RplComponent "{59BC9CAB3BC2A385}" {
+          }
          }
          coords 1.481 0.869 0.194
          angleY -106.351
@@ -2423,6 +3437,8 @@ CommentEntity PlayerHub_US {
            Object "{002690FC9F6178C4}Assets/Props/Military/AmmoBox/AmmoBox_556x45_840rnd/AmmoBox_556x45_840rnd.xob"
           }
           Hierarchy "{58C4AB8BEBD7D38A}" {
+          }
+          RplComponent "{59BC9CAB389D177D}" {
           }
          }
          coords -1.45 0.373 -0.051
@@ -2435,6 +3451,8 @@ CommentEntity PlayerHub_US {
           }
           Hierarchy "{58C4AB8BEBD719C3}" {
           }
+          RplComponent "{59BC9CAB3E6DF41F}" {
+          }
          }
          coords -0.936 0.586 -0.201
          angleY -35.207
@@ -2446,6 +3464,8 @@ CommentEntity PlayerHub_US {
           }
           Hierarchy "{58C4AB8BEBD77D00}" {
           }
+          RplComponent "{59BC9CAB3FD05FD9}" {
+          }
          }
          coords -0.282 0.884 -0.165
          angleY -9.699
@@ -2456,20 +3476,48 @@ CommentEntity PlayerHub_US {
          Hierarchy "{58C4A255CE373BA8}" {
           Enabled 1
          }
+         RplComponent "{5624A88DC2D9928D}" {
+          Enabled 1
+         }
         }
         coords -0.349 0 0.866
         angleY -45.82
        }
        GenericEntity : "{620E2BD5E8C26FAB}Prefabs/Props/Military/AmmoBoxes/EquipmentBoxStack/EquipmentBoxStack_US_01_V6_covered.et" {
+        components {
+         RplComponent "{5476B36C54387F41}" {
+          Enabled 1
+         }
+        }
         coords -1.132 0 -0.057
         angleY 89.179
+        {
+         GenericEntity {
+          ID "56B6871A1414CB69"
+          components {
+           RplComponent "{5624A88DC2D9928D}" {
+            Enabled 1
+           }
+          }
+         }
+        }
        }
        GenericEntity : "{9DD476816836FFED}Prefabs/Props/Military/AmmoBoxes/EquipmentBoxStack/EquipmentBoxStack_US_01_V5_covered.et" {
+        components {
+         RplComponent "{5476B36C54387F41}" {
+          Enabled 1
+         }
+        }
         coords 1.36 0 -0.094
         angleY 177.707
         {
          GenericEntity {
           ID "56B6871A278AB642"
+          components {
+           RplComponent "{5624A88DC2D9928D}" {
+            Enabled 1
+           }
+          }
           coords 0 0 0
          }
         }
@@ -2478,6 +3526,9 @@ CommentEntity PlayerHub_US {
         {
          components {
           Hierarchy "{58C4A255CE377E99}" {
+           Enabled 1
+          }
+          RplComponent "{5624A88DC2D9928D}" {
            Enabled 1
           }
          }
@@ -2489,6 +3540,9 @@ CommentEntity PlayerHub_US {
           Hierarchy "{58C4A255CE371C7B}" {
            Enabled 1
           }
+          RplComponent "{5624A88DC2D9928D}" {
+           Enabled 1
+          }
          }
          coords 1.104 0 0.282
          angleY 39.419
@@ -2498,29 +3552,57 @@ CommentEntity PlayerHub_US {
      }
     }
     GenericEntity : "{6A30882656A63268}Prefabs/Structures/Military/CamoNets/US/CamoNet_Tent_US.et" {
+     components {
+      RplComponent "{59BC9CAB2FFA4C75}" {
+      }
+     }
      coords 0 0 1.171
     }
     StaticModelEntity : "{6FDFC92CC73E4A69}Prefabs/Structures/Military/Camps/TentUS_01/TentUS_01_DoorOpened.et" {
+     components {
+      RplComponent "{59BC9CAB2D77D854}" {
+      }
+     }
      coords 0 0 -2.456
      angleY 180
     }
     StaticModelEntity : "{9F5C43D4CD7A1963}Prefabs/Structures/Military/Camps/TentUS_01/TentUS_01_DoorClosed.et" {
+     components {
+      RplComponent "{59BC9CABD2E6B552}" {
+      }
+     }
      coords 0 0 4.82
     }
     $grp StaticModelEntity : "{C3AEABF0852F9B97}Prefabs/Structures/Military/Camps/TentUS_01/TentUS_01_FabricCentral03.et" {
      {
+      components {
+       RplComponent "{59BC9CABD04A31E2}" {
+       }
+      }
       coords 0 0 4.82
       {
        StaticModelEntity : "{1D0170B58B108CC9}Prefabs/Structures/Military/Camps/TentUS_01/TentUS_01_Floor01.et" {
+        components {
+         RplComponent "{59BC9CABD6788440}" {
+         }
+        }
         coords 0 0 -0.023
        }
       }
      }
      {
+      components {
+       RplComponent "{59BC9CABD7C05470}" {
+       }
+      }
       coords 0 0 -2.456
       angleY 180
       {
        StaticModelEntity : "{1D0170B58B108CC9}Prefabs/Structures/Military/Camps/TentUS_01/TentUS_01_Floor01.et" {
+        components {
+         RplComponent "{59BC9CABD5CD4CC6}" {
+         }
+        }
         coords 0 0 -0.023
         angleY 180
        }
@@ -2593,11 +3675,434 @@ CommentEntity PlayerHub_US {
     coords -4.185 -7.801 11.636
     angleY 0
     {
+     GenericEntity {
+      ID "57068185A7616D57"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "570681828CD03B38"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616EDB"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068187D6F0F6F1"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616C2F"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616E20"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616DC6"
+      components {
+       RplComponent "{5476B36C54387F41}" {
+        Enabled 1
+       }
+      }
+      {
+       GenericEntity {
+        ID "56B68717AB53C86B"
+        components {
+         RplComponent "{5624A88DC2D9928D}" {
+          Enabled 1
+         }
+        }
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A761630A"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A76163DD"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068182DFA28114"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616C6A"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616CC3"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616375"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616D49"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616C92"
+      components {
+       RplComponent "{59BC9CADB02F9E29}" {
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616E0F"
+      components {
+       RplComponent "{59BC9CADB6448991}" {
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A761636C"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616D64"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616D81"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616DE9"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616CFA"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD884983797"
+      components {
+       RplComponent "{59BC9CADCC6D3834}" {
+       }
+      }
+      {
+       StaticModelEntity {
+        ID "5570E28F016C1569"
+        components {
+         RplComponent "{59BC9CADF2D14D0B}" {
+         }
+        }
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD884983799"
+      components {
+       RplComponent "{59BC9CADF029C6FA}" {
+       }
+      }
+      {
+       StaticModelEntity {
+        ID "5570E28F0CFE9F0D"
+        components {
+         RplComponent "{59BC9CADF6304F8A}" {
+         }
+        }
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD88498379A"
+      components {
+       RplComponent "{59BC9CADF471F777}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD88498379B"
+      components {
+       RplComponent "{59BC9CADF544C2DF}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD884987B62"
+      components {
+       RplComponent "{59BC9CADFADE115E}" {
+       }
+      }
+      {
+       StaticModelEntity {
+        ID "5570E28F18379778"
+        components {
+         RplComponent "{59BC9CADF81821EA}" {
+         }
+        }
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD8849BAD09"
+      components {
+       RplComponent "{59BC9CADF9CBE682}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD8849BAD14"
+      components {
+       RplComponent "{59BC9CADFF470BB8}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD8849BAD17"
+      components {
+       RplComponent "{59BC9CADFCC73F75}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD8849BB795"
+      components {
+       RplComponent "{59BC9CADE23E39D7}" {
+       }
+      }
+      {
+       StaticModelEntity {
+        ID "5570E28A9A110608"
+        components {
+         RplComponent "{59BC9CADE0D1491D}" {
+         }
+        }
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD8849BB798"
+      components {
+       RplComponent "{59BC9CADE67B1657}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD8849BB799"
+      components {
+       RplComponent "{59BC9CADE71D5756}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD8849BB79C"
+      components {
+       RplComponent "{59BC9CADE4A6B92F}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD8849BB79D"
+      components {
+       RplComponent "{59BC9CADEA4CC73E}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD8849BB79E"
+      components {
+       RplComponent "{59BC9CADEBD3D1D8}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD8849BB79F"
+      components {
+       RplComponent "{59BC9CADE974C3A6}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068185A7616E55"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068187D6F0F6F0"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068185A7616D05"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068185A7616E98"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068187D6F0F6EB"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068187D6F0F6F2"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068187D6F0F6E0"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068187D6F0F6ED"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068187D6F0F6EE"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068187D6F0F6EF"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068187D6F0F6FC"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068187D6F0F6FD"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
      $grp GenericEntity : "{6762F7C5C3A2419B}Prefabs/Props/Military/Sandbags/Sandbag_01_short_plastic.et" {
       {
+       components {
+        RplComponent "{5624A88DC2D9928D}" {
+         Enabled 1
+        }
+       }
        coords -1.857 0 -4.53
       }
       {
+       components {
+        RplComponent "{5624A88DC2D9928D}" {
+         Enabled 1
+        }
+       }
        coords 2.174 -0.002 -4.445
       }
      }
@@ -2607,18 +4112,1043 @@ CommentEntity PlayerHub_US {
     coords -3.999 -7.802 -10.819
     angleY 180
     {
+     GenericEntity {
+      ID "57068185A7616D57"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "570681828CD03B38"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616EDB"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068187D6F0F6F1"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616C2F"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616EBD"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616E20"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616DC6"
+      components {
+       RplComponent "{5476B36C54387F41}" {
+        Enabled 1
+       }
+      }
+      {
+       GenericEntity {
+        ID "56B68717AB53C86B"
+        components {
+         RplComponent "{5624A88DC2D9928D}" {
+          Enabled 1
+         }
+        }
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A761630A"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A76163DD"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068182DFA28114"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616C6A"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616CC3"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616375"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616D49"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616C92"
+      components {
+       RplComponent "{59BC9CAC11CBC3FF}" {
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616E0F"
+      components {
+       RplComponent "{59BC9CAC173E34BB}" {
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A761636C"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616D64"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616D81"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616DE9"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     GenericEntity {
+      ID "57068185A7616CFA"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD884983797"
+      components {
+       RplComponent "{59BC9CADA9EBA89B}" {
+       }
+      }
+      {
+       StaticModelEntity {
+        ID "5570E28F016C1569"
+        components {
+         RplComponent "{59BC9CADAF2E8196}" {
+         }
+        }
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD884983799"
+      components {
+       RplComponent "{59BC9CADAC99263A}" {
+       }
+      }
+      {
+       StaticModelEntity {
+        ID "5570E28F0CFE9F0D"
+        components {
+         RplComponent "{59BC9CAC5289EC91}" {
+         }
+        }
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD88498379A"
+      components {
+       RplComponent "{59BC9CAC501C7AA8}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD88498379B"
+      components {
+       RplComponent "{59BC9CAC5614117E}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD884987B62"
+      components {
+       RplComponent "{59BC9CAC545A2F6B}" {
+       }
+      }
+      {
+       StaticModelEntity {
+        ID "5570E28F18379778"
+        components {
+         RplComponent "{59BC9CAC5AF2BD59}" {
+         }
+        }
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD8849BAD09"
+      components {
+       RplComponent "{59BC9CAC584AFDCB}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD8849BAD14"
+      components {
+       RplComponent "{59BC9CAC59B919DF}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD8849BAD17"
+      components {
+       RplComponent "{59BC9CAC5F563619}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD8849BB795"
+      components {
+       RplComponent "{59BC9CAC5CE52F22}" {
+       }
+      }
+      {
+       StaticModelEntity {
+        ID "5570E28A9A110608"
+        components {
+         RplComponent "{59BC9CAC42CB5DAD}" {
+         }
+        }
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD8849BB798"
+      components {
+       RplComponent "{59BC9CAC40244F17}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD8849BB799"
+      components {
+       RplComponent "{59BC9CAC41EE87F0}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD8849BB79C"
+      components {
+       RplComponent "{59BC9CAC474885D2}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD8849BB79D"
+      components {
+       RplComponent "{59BC9CAC442A0454}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD8849BB79E"
+      components {
+       RplComponent "{59BC9CAC45D531FB}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "5570DCD8849BB79F"
+      components {
+       RplComponent "{59BC9CAC4B76B246}" {
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068185A7616E55"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068187D6F0F6F0"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068185A7616D05"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068185A7616E98"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068187D6F0F6EB"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068187D6F0F6F2"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068187D6F0F6E0"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068187D6F0F6ED"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068187D6F0F6EE"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068187D6F0F6EF"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068187D6F0F6FC"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
+     StaticModelEntity {
+      ID "57068187D6F0F6FD"
+      components {
+       RplComponent "{5624A88DC2D9928D}" {
+        Enabled 1
+       }
+      }
+     }
      $grp GenericEntity : "{6762F7C5C3A2419B}Prefabs/Props/Military/Sandbags/Sandbag_01_short_plastic.et" {
       {
        coords -2.022 -0.001 -4.364
        angleY 180
       }
       {
+       components {
+        RplComponent "{5624A88DC2D9928D}" {
+         Enabled 1
+        }
+       }
        coords 1.904 0.029 -4.388
        angleY 180
       }
      }
     }
    }
+  }
+ }
+}
+GenericEntity Infil_Bivouac_US : "{3BA9D94C4EE9B33B}Prefabs/Compositions/Slotted/CompositionBase.et" {
+ components {
+  FactionAffiliationComponent "{56E0D915F82EB4E8}" {
+   "faction affiliation" "US"
+  }
+  RplComponent "{54AC8D6E673199EE}" : "{B193E926C1935A4C}Prefabs/Editor/Components/Default_RplComponent.ct" {
+   Streamable Disabled
+  }
+ }
+ coords 336.163 10.001 115.386
+ {
+  $grp GenericEntity : "{0011A3CBD1B1212A}Prefabs/Props/Garbage/Military/Ammo/GarbageAmmunition_US_01.et" {
+   {
+    components {
+     Hierarchy "{56A6E94CA11F5367}" {
+      Enabled 1
+     }
+     RplComponent "{5624A88DC2D9928D}" {
+      Enabled 1
+     }
+    }
+    coords 2.694 0 3.77
+    angleY -52.532
+   }
+   {
+    components {
+     Hierarchy "{56A6E94CC9CB8212}" {
+      Enabled 1
+     }
+     RplComponent "{5624A88DC2D9928D}" {
+      Enabled 1
+     }
+    }
+    coords 3.475 0 3.529
+    angleY -8.508
+   }
+  }
+  $grp StaticModelEntity : "{01AE5FD77A9A4C21}Prefabs/Structures/Military/Camps/TentSmallUS_01/TentSmallUS_01.et" {
+   {
+    components {
+     Hierarchy "{56A6E94CC9CA9F2C}" {
+      Enabled 1
+     }
+     RplComponent "{59BC9CAEF1C306AE}" {
+     }
+    }
+    coords 3.371 0 -4.016
+    angleY -41.515
+   }
+   {
+    components {
+     Hierarchy "{56A6E94CC9C9D2FE}" {
+      Enabled 1
+     }
+     RplComponent "{59BC9CAEF71B81EC}" {
+     }
+    }
+    coords 5.1 0 -0.526
+    angleY -79.947
+   }
+   {
+    components {
+     Hierarchy "{56A6E94CC9C84EC1}" {
+      Enabled 1
+     }
+     RplComponent "{59BC9CAEF539A248}" {
+     }
+    }
+    coords -4.881 0 -0.49
+    angleY 83.003
+   }
+   {
+    components {
+     Hierarchy "{56A6E94CC9C84EC1}" {
+      Enabled 1
+     }
+     RplComponent "{59BC9CAEFA9F1771}" {
+     }
+    }
+    coords -3.251 0 3.585
+    angleY 128.003
+   }
+  }
+  GenericEntity : "{190101E6E60E7C47}Prefabs/Props/Civilian/BeerBottle_01_empty_green.et" {
+   components {
+    Hierarchy "{56A6E94CC9CF17FE}" {
+     Enabled 1
+    }
+    RplComponent "{5624A88DC2D9928D}" {
+     Enabled 1
+    }
+   }
+   coords -4.717 0 0.562
+   angleY -92.489
+  }
+  $grp GenericEntity : "{19DA1F395962511D}Prefabs/Vegetation/Cuttings/Pinus_sylvestris_medium_01.et" {
+   {
+    components {
+     RplComponent "{59BC9CAEFEBDACFC}" {
+     }
+    }
+    coords 5.285 0 -2.332
+    angleY 88.847
+   }
+   {
+    components {
+     RplComponent "{59BC9CAEFCCF9559}" {
+     }
+    }
+    coords 6.329 0 1.096
+    scale 0.8
+   }
+  }
+  GenericEntity : "{1EC801E208CB16C6}Prefabs/Vegetation/Cuttings/Rubus_idaeus_small_01.et" {
+   components {
+    RplComponent "{59BC9CAEE223E82E}" {
+    }
+   }
+   coords 5.815 0 0.324
+   angleX 38.192
+   angleY 17.419
+  }
+  $grp GenericEntity : "{20759E1CA7F808BE}Prefabs/Props/Garbage/Military/Food/GarbageFoodMilitaryUS_01.et" {
+   {
+    components {
+     Hierarchy "{56A6E94CC9CF9B11}" {
+      Enabled 1
+     }
+     RplComponent "{5624A88DC2D9928D}" {
+      Enabled 1
+     }
+    }
+    coords 0.137 0 1.615
+    angleY 60.562
+   }
+   {
+    components {
+     Hierarchy "{56A6E94CC9CE09EF}" {
+      Enabled 1
+     }
+     RplComponent "{5624A88DC2D9928D}" {
+      Enabled 1
+     }
+    }
+    coords -1.257 0 0.694
+    angleY -30.911
+   }
+   {
+    components {
+     Hierarchy "{56A6E94CC9CEBF2E}" {
+      Enabled 1
+     }
+     RplComponent "{5624A88DC2D9928D}" {
+      Enabled 1
+     }
+    }
+    coords -0.737 0 -1.292
+    angleY -44.813
+   }
+  }
+  GenericEntity : "{4A09EF1D855AF2C4}Prefabs/Vegetation/Cuttings/Rosa_canina_small_01.et" {
+   components {
+    RplComponent "{59BC9CAEE431EE6E}" {
+    }
+   }
+   coords -5.567 0 -1.571
+   angleX 43.898
+   angleY 179.804
+   angleZ -0.136
+  }
+  $grp StaticModelEntity : "{55973C5B0950D4AB}Prefabs/Props/Military/Furniture/ChairMilitary_US_01.et" {
+   {
+    components {
+     Hierarchy "{5712E2AA839DF80E}" {
+      Enabled 1
+     }
+     RplComponent "{5624A88DC2D9928D}" {
+      Enabled 1
+     }
+    }
+    coords 0.229 0 -1.257
+    angleY -12.235
+   }
+   {
+    components {
+     Hierarchy "{5712E2AA839A9CA2}" {
+      Enabled 1
+     }
+     RplComponent "{5624A88DC2D9928D}" {
+      Enabled 1
+     }
+    }
+    coords -1.23 0 0.704
+    angleY 115.514
+   }
+   {
+    components {
+     Hierarchy "{5712E2AA839A2A6B}" {
+      Enabled 1
+     }
+     RplComponent "{5624A88DC2D9928D}" {
+      Enabled 1
+     }
+    }
+    coords 0.69 0 1.588
+    angleY -155.523
+   }
+   {
+    components {
+     Hierarchy "{5712E2AA839BC7BC}" {
+      Enabled 1
+     }
+     RplComponent "{5624A88DC2D9928D}" {
+      Enabled 1
+     }
+    }
+    coords 1.483 0 0.762
+    angleY -113.264
+   }
+  }
+  $grp GenericEntity : "{6CD65604C7945A66}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Patch_03.et" {
+   {
+    components {
+     RplComponent "{59BC9CAEED5C361F}" {
+     }
+    }
+    coords 0.398 0.1 2.841
+    angleY 148.297
+    {
+     DecalEntity {
+      ID "56E0B29E01E2AC90"
+      components {
+       RplComponent "{59BC9CAE936B21FB}" {
+       }
+      }
+     }
+    }
+   }
+   {
+    components {
+     RplComponent "{59BC9CAE90A1CC26}" {
+     }
+    }
+    coords -0.345 0.1 -3.176
+    angleY 41.646
+    {
+     DecalEntity {
+      ID "56E0B29E01E2AC90"
+      components {
+       RplComponent "{59BC9CAE96C1FE46}" {
+       }
+      }
+     }
+    }
+   }
+  }
+  $grp GenericEntity : "{74843BB0BF08A845}Prefabs/Vegetation/Cuttings/Corylus_avellana_small_01.et" {
+   {
+    components {
+     RplComponent "{59BC9CAE94E64DDE}" {
+     }
+    }
+    coords -6.271 0.1 -1.195
+    angleX 29.836
+    angleY -146.62
+   }
+   {
+    components {
+     RplComponent "{59BC9CAE9A80F5AA}" {
+     }
+    }
+    coords -4.266 0.072 3.004
+    angleX -20.529
+    angleY 33.768
+   }
+  }
+  $grp GenericEntity : "{8E431002132E51BD}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Footprints_01.et" {
+   {
+    components {
+     RplComponent "{59BC9CAE98AE0B70}" {
+     }
+    }
+    coords 2.489 0.1 5.414
+    {
+     DecalEntity {
+      ID "56DF0892948B1029"
+      components {
+       RplComponent "{59BC9CAE9E9F541F}" {
+       }
+      }
+     }
+    }
+   }
+   {
+    components {
+     RplComponent "{59BC9CAE9CFF2FB1}" {
+     }
+    }
+    coords 3.111 0.1 3.105
+    {
+     DecalEntity {
+      ID "56DF0892948B1029"
+      components {
+       RplComponent "{59BC9CAE82EF409B}" {
+       }
+      }
+     }
+    }
+   }
+  }
+  $grp GenericEntity : "{A04DC55EB7C367F8}Prefabs/Props/Garbage/Military/Ammo/GarbageAmmunition_US_02.et" {
+   {
+    components {
+     Hierarchy "{56A6E94CC9D109B8}" {
+      Enabled 1
+     }
+     RplComponent "{5624A88DC2D9928D}" {
+      Enabled 1
+     }
+    }
+    coords 2.269 0 4.692
+   }
+   {
+    components {
+     Hierarchy "{56A6E94CC9D1BF74}" {
+      Enabled 1
+     }
+    }
+    coords 2.026 0 3.858
+   }
+  }
+  GenericEntity : "{A85E67003277D049}Prefabs/Vegetation/Cuttings/Malus_domestica_large_01.et" {
+   components {
+    RplComponent "{59BC9CAE818286EA}" {
+    }
+   }
+   coords -3.991 0 5.102
+   angleY 62.267
+   scale 0.6
+  }
+  GenericEntity : "{BE99D77D1155B127}Prefabs/Systems/Arsenal/ArsenalBoxes/US/ArsenalBox_US.et" {
+   coords 3.562 0 4.424
+   angleY 27.487
+   {
+    GenericEntity {
+     ID "58C4AB8B9ED09BB7"
+     components {
+      RplComponent "{59BC9CAE8A28429B}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4AB8B9ED1030B"
+     components {
+      RplComponent "{59BC9CAE8BD12188}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4AB8B9ED1228E"
+     components {
+      RplComponent "{59BC9CAE88911B49}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4AB8B9ED122EB"
+     components {
+      RplComponent "{59BC9CAE8E5C063D}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4AB8B9ED19139"
+     components {
+      RplComponent "{59BC9CAE8F0603E5}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4AB8B9ED1EF55"
+     components {
+      RplComponent "{59BC9CAE8D7F95F3}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4A255C2BC3015"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4A255C2BC30BA"
+     components {
+      RplComponent "{59BC9CAEB0C3792E}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4A255C2BC30AA"
+     components {
+      RplComponent "{59BC9CAEB6657FB7}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4A255C2BC31E7"
+     components {
+      RplComponent "{5476B36C54387F41}" {
+       Enabled 1
+      }
+     }
+     {
+      GenericEntity {
+       ID "56B6871A1414CB69"
+       components {
+        RplComponent "{5624A88DC2D9928D}" {
+         Enabled 1
+        }
+       }
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4A255C2BC30DB"
+     components {
+      RplComponent "{59BC9CAEB834D96C}" {
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4A255C2BC31D4"
+     components {
+      RplComponent "{5476B36C54387F41}" {
+       Enabled 1
+      }
+     }
+     {
+      GenericEntity {
+       ID "56B6871A278AB642"
+       components {
+        RplComponent "{5624A88DC2D9928D}" {
+         Enabled 1
+        }
+       }
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4A255C2BC30C8"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4A255C2BC30E4"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+    GenericEntity {
+     ID "58C4A6B41F6088BA"
+     components {
+      RplComponent "{59BC9CAEA17CB1A9}" {
+      }
+     }
+     {
+      DecalEntity {
+       ID "56DEFDB4A2C87F38"
+       components {
+        RplComponent "{59BC9CAEA77629DE}" {
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+  GenericEntity : "{C11CE4B95EA336C3}Prefabs/Vegetation/Cuttings/Sambucus_Nigra_medium_01.et" {
+   components {
+    RplComponent "{59BC9CAEA4084A7F}" {
+    }
+   }
+   coords 2.845 0 -5.023
+   angleX 41.032
+   angleY -144.084
+  }
+  GenericEntity : "{C258AD45887AA8CA}Prefabs/Vegetation/Cuttings/Picea_abies_medium_01.et" {
+   components {
+    RplComponent "{59BC9CAEAA4C6BD8}" {
+    }
+   }
+   coords -5.242 0 0.703
+   angleY 9.878
+  }
+  GenericEntity : "{C599195C442D7125}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_CigarButts_01.et" {
+   components {
+    RplComponent "{59BC9CAEAB87B208}" {
+    }
+   }
+   coords -0.218 0.1 1.269
+   {
+    DecalEntity {
+     ID "56E0B29F4975B6A9"
+     components {
+      RplComponent "{59BC9CAEAE359A1D}" {
+      }
+     }
+    }
+   }
+  }
+  GameEntity : "{D9842C11742C00CF}Prefabs/Props/Civilian/Fireplace_01.et" {
+   components {
+    Hierarchy "{58C896CB4E606F64}" {
+    }
+   }
+   coords 0 0.001 0
+  }
+  GenericEntity : "{E51E2E1D77B54223}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Patch_01.et" {
+   components {
+    RplComponent "{59BC9CAEAC20F557}" {
+    }
+   }
+   coords -3.173 0.125 0.337
+   {
+    DecalEntity {
+     ID "56DEFDB4A2C87F38"
+     components {
+      RplComponent "{59BC9CA1522A31C7}" {
+      }
+     }
+    }
+   }
+  }
+  GenericEntity : "{F0DCB55B7FDB746B}Prefabs/Compositions/Misc/CustomEntities/CompositionDecals/CompositionDecal_Dirt_Footprints_02.et" {
+   components {
+    RplComponent "{59BC9CA150791C21}" {
+    }
+   }
+   coords -0.778 0.1 -1.965
+   angleY 106.801
+   {
+    DecalEntity {
+     ID "56DF08929A14FB98"
+     components {
+      RplComponent "{59BC9CA1563AF537}" {
+      }
+     }
+    }
+   }
+  }
+  GenericEntity : "{F3E6A9A0076FB16A}Prefabs/Compositions/Misc/SubCompositions/EquipmentBoxStacked_Cluttered_US_03.et" {
+   components {
+    RplComponent "{5476B36C54387F41}" {
+     Enabled 1
+    }
+   }
+   coords 5.079 0 1.021
+   angleY -173.508
+   {
+    GenericEntity {
+     ID "56B68717D8E5E783"
+     components {
+      RplComponent "{5624A88DC2D9928D}" {
+       Enabled 1
+      }
+     }
+    }
+   }
+  }
+  GenericEntity : "{F401D58CD490C872}Prefabs/Props/Civilian/BeerBottle_01_slava.et" {
+   components {
+    Hierarchy "{56A6E94CC9D7C25D}" {
+     Enabled 1
+    }
+    RplComponent "{5624A88DC2D9928D}" {
+     Enabled 1
+    }
+   }
+   coords -4.745 0 0.501
+   angleY 53.855
+  }
+  GenericEntity : "{FE0B2F136F4E44F5}Prefabs/Vegetation/Cuttings/Betula_pendula_medium_01.et" {
+   components {
+    RplComponent "{59BC9CA15EEA0200}" {
+    }
+   }
+   coords 4.609 0 4.335
+   angleY -27.621
   }
  }
 }
