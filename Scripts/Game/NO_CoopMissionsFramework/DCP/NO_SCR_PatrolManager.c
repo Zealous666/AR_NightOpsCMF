@@ -572,26 +572,8 @@ class NO_SCR_PatrolAssetsConfig
 	[Attribute(defvalue: "Exfil_TP_Point_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of exfil teleport point.")]
 	string ExfilTeleportPoint;
 
-	[Attribute(defvalue: "Intel_Spawner_1", uiwidget: UIWidgets.EditBox, desc: "Entity name of intel (obj 1) spawner.")]
-	string IntelObjective1;
-
-	[Attribute(defvalue: "Intel_Spawner_2", uiwidget: UIWidgets.EditBox, desc: "Entity name of intel (obj 2) spawner.")]
-	string IntelObjective2;
-
-	[Attribute(defvalue: "Sabotage_Spawner_1", uiwidget: UIWidgets.EditBox, desc: "Entity name of sabotage (obj 1) spawner.")]
-	string SabotageObjective1;
-
-	[Attribute(defvalue: "Sabotage_Spawner_2", uiwidget: UIWidgets.EditBox, desc: "Entity name of sabotage (obj 2) spawner.")]
-	string SabotageObjective2;
-
-	[Attribute(defvalue: "HVT_Spawner", uiwidget: UIWidgets.EditBox, desc: "Entity name of HVT spawner.")]
-	string HVTObjective;
-
-	[Attribute(defvalue: "FOB_Spawner_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of FOB spawner.")]
+	[Attribute(defvalue: "FOB_Spawner_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of faction FOB spawner.")]
 	string FOBSpawner;
-
-	[Attribute(defvalue: "Guards_Spawner_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of objective guards spawner.")]
-	string ObjectiveGuards;
 }
 
 
