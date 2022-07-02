@@ -131,6 +131,9 @@ class NO_SCR_DCP_ReassignWaypointsTrigger : SCR_BaseTriggerEntity
 
 			foreach (AIAgent aiAgent : aiSpawnerComponent.GetSpawnedAgent())
 			{
+				if (!aiAgent)
+					continue;
+
 				if (aiAgent.Type() == SCR_AIGroup)
 					m_aAIGroups.Insert(SCR_AIGroup.Cast(aiAgent));
 				else
