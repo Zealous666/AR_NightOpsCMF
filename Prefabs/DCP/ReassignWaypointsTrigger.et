@@ -1,0 +1,13 @@
+NO_SCR_DCP_ReassignWaypointsTrigger {
+ ID "59C4A3725AD3A08F"
+ components {
+  Hierarchy "{59C4A372BDA9E597}" {
+  }
+ }
+ TriggerShapeType Sphere
+ SphereRadius 20
+ DrawShape 1
+ ShapeColor 0.188 0.745 0.328 0.247
+ TriggerActivationType "First and last change"
+ PeriodicQueries 1
+}

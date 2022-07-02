@@ -4,6 +4,14 @@ SCR_AIGroup : "{1A5F0D93609DA5DA}Prefabs/Groups/OPFOR/Group_USSR_ManeuverGroup.e
   NO_SCR_DTFRenamerComponent "{59BB5BEC3C16AC34}" {
    m_sNewName "char_hvt"
   }
+  SCR_AIConfigComponent "{512CC1759AE69D6D}" {
+   m_aDangerReactions {
+    SCR_AIDangerReaction "{59C4A376D20CAB9D}" {
+     m_OverrideBehaviorTree "AI/BehaviorTrees/Waypoints/WP_Move.bt"
+     m_eType Danger_NewEnemy
+    }
+   }
+  }
  }
  coords 7463.532 137.847 4725.584
  m_aUnitPrefabSlots {

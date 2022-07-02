@@ -9,6 +9,18 @@ class NO_SCR_PatrolArea : CommentEntity
 	protected ref array<NO_SCR_EnvSpawnerComponent> m_aInUseEnvSpawners = new array<NO_SCR_EnvSpawnerComponent>();
 	protected ref array<NO_SCR_AISpawnerComponent> m_aInUseAiSpawners = new array<NO_SCR_AISpawnerComponent>();
 
+	protected ref array<NO_SCR_DCP_EnvSpawnerComponent> m_aIntelEnvSpawners1;
+	protected ref array<NO_SCR_DCP_EnvSpawnerComponent> m_aIntelEnvSpawners2;
+	protected ref array<NO_SCR_DCP_AISpawnerComponent> m_aIntelAISpawners1;
+	protected ref array<NO_SCR_DCP_AISpawnerComponent> m_aIntelAISpawners2;
+
+	protected ref array<NO_SCR_DCP_EnvSpawnerComponent> m_aSabotageEnvSpawners1;
+	protected ref array<NO_SCR_DCP_EnvSpawnerComponent> m_aSabotageEnvSpawners2;
+	protected ref array<NO_SCR_DCP_AISpawnerComponent> m_aSabotageAISpawners1;
+	protected ref array<NO_SCR_DCP_AISpawnerComponent> m_aSabotageAISpawners2;
+
+	protected ref array<NO_SCR_DCP_AISpawnerComponent> m_aHVTSpawners1;
+
 	protected vector m_vInfilPos;
 	protected vector m_vInfilRot;
 	protected vector m_vExfilPos;
@@ -24,8 +36,6 @@ class NO_SCR_PatrolArea : CommentEntity
 	protected vector m_vSabotageRot2;
 
 	protected vector m_vHVTPos1;
-	protected vector m_vHVTPos2;
-	protected vector m_vHVTRot1;
 
 
 	override void EOnInit(IEntity owner)
@@ -56,16 +66,14 @@ class NO_SCR_PatrolArea : CommentEntity
 				{
 					case ENightOpsPatrolMarkerType.INFIL: { m_vInfilPos = patrolMarker.GetOrigin(); m_vInfilRot = patrolMarker.GetAngles(); break; }
 					case ENightOpsPatrolMarkerType.EXFIL: { m_vExfilPos = patrolMarker.GetOrigin(); break; }
-					case ENightOpsPatrolMarkerType.INTEL_1: { m_vIntelPos1 = patrolMarker.GetOrigin(); m_vIntelRot1 = patrolMarker.GetAngles(); break; }
-					case ENightOpsPatrolMarkerType.INTEL_2: { m_vIntelPos2 = patrolMarker.GetOrigin(); m_vIntelRot2 = patrolMarker.GetAngles(); break; }
-					case ENightOpsPatrolMarkerType.SABOTAGE_1: { m_vSabotagePos1 = patrolMarker.GetOrigin(); m_vSabotageRot1 = patrolMarker.GetAngles(); break; }
-					case ENightOpsPatrolMarkerType.SABOTAGE_2: { m_vSabotagePos2 = patrolMarker.GetOrigin(); m_vSabotageRot2 = patrolMarker.GetAngles(); break; }
-					case ENightOpsPatrolMarkerType.HVT_1: { m_vHVTPos1 = patrolMarker.GetOrigin(); m_vHVTRot1 = patrolMarker.GetAngles(); break; }
-					case ENightOpsPatrolMarkerType.HVT_2: { m_vHVTPos2 = patrolMarker.GetOrigin(); break; }
+					case ENightOpsPatrolMarkerType.INTEL_1: { m_aIntelEnvSpawners1 = patrolMarker.GetEnvSpawners(); m_aIntelAISpawners1 = patrolMarker.GetAISpawners(); m_vIntelPos1 = patrolMarker.GetOrigin(); m_vIntelRot1 = patrolMarker.GetAngles(); break; }
+					case ENightOpsPatrolMarkerType.INTEL_2: { m_aIntelEnvSpawners2 = patrolMarker.GetEnvSpawners(); m_aIntelAISpawners2 = patrolMarker.GetAISpawners(); m_vIntelPos2 = patrolMarker.GetOrigin(); m_vIntelRot2 = patrolMarker.GetAngles(); break; }
+					case ENightOpsPatrolMarkerType.SABOTAGE_1: { m_aSabotageEnvSpawners1 = patrolMarker.GetEnvSpawners(); m_aSabotageAISpawners1 = patrolMarker.GetAISpawners(); m_vSabotagePos1 = patrolMarker.GetOrigin(); m_vSabotageRot1 = patrolMarker.GetAngles(); break; }
+					case ENightOpsPatrolMarkerType.SABOTAGE_2: { m_aSabotageEnvSpawners2 = patrolMarker.GetEnvSpawners(); m_aSabotageAISpawners2 = patrolMarker.GetAISpawners(); m_vSabotagePos2 = patrolMarker.GetOrigin(); m_vSabotageRot2 = patrolMarker.GetAngles(); break; }
+					case ENightOpsPatrolMarkerType.HVT: { m_aHVTSpawners1 = patrolMarker.GetAISpawners(); m_vHVTPos1 = patrolMarker.GetOrigin(); break; }
 					default: { Print(string.Format("Unconfigured patrol marker detected: ", patrolMarker.GetName())); break; }
 				}
 			}
-
 			childEntity = childEntity.GetSibling();
 		}
 	}
@@ -73,155 +81,69 @@ class NO_SCR_PatrolArea : CommentEntity
 
 	bool StartPatrolType(ENightOpsPatrolType patrolType, NO_SCR_PatrolAssetsConfig patrolAssets)
 	{
+		// Spawn FOB at infil location
+		SpawnEnv(patrolAssets.FOBSpawner, m_vInfilPos, m_vInfilRot);
+
 		// Move infil spawnpoint
-		IEntity infilSpawnpoint = GetGame().GetWorld().FindEntityByName(patrolAssets.InfilSpawnpoint);
-		if (infilSpawnpoint)
-		{
-			infilSpawnpoint.SetAngles(m_vInfilRot);
-        	infilSpawnpoint.SetOrigin(m_vInfilPos);
-		}
+		TryMoveEntity(patrolAssets.InfilSpawnpoint, m_vInfilPos, m_vInfilRot);
 
 		// Move infil teleport
-		IEntity infilTeleportPoint = GetGame().GetWorld().FindEntityByName(patrolAssets.InfilTeleportPoint);
-		if (infilTeleportPoint)
-		{
-			infilTeleportPoint.SetAngles(m_vInfilRot);
-        	infilTeleportPoint.SetOrigin(m_vInfilPos);
-		}
+		TryMoveEntity(patrolAssets.InfilTeleportPoint, m_vInfilPos, m_vInfilRot);
 
 		// Move exfil trigger
-		IEntity exfilTrigger = GetGame().GetWorld().FindEntityByName(patrolAssets.ExfilTrigger);
-		if (exfilTrigger)
-		{
-        	exfilTrigger.SetOrigin(m_vExfilPos);
-		}
+		TryMoveEntity(patrolAssets.ExfilTrigger, m_vExfilPos, vector.Zero);
 
 		// Move exfil teleport
-		IEntity exfilTeleportPoint = GetGame().GetWorld().FindEntityByName(patrolAssets.ExfilTeleportPoint);
-		if (exfilTeleportPoint)
-		{
-			IEntity baseSpawnpoint = GetGame().GetWorld().FindEntityByName(patrolAssets.BaseSpawnpoint);
-			if (baseSpawnpoint)
-        	{
-				exfilTeleportPoint.SetAngles(baseSpawnpoint.GetAngles());
-				exfilTeleportPoint.SetOrigin(baseSpawnpoint.GetOrigin());
-			}
-		}
+		IEntity baseSpawnpoint = GetGame().GetWorld().FindEntityByName(patrolAssets.BaseSpawnpoint);
+		if (baseSpawnpoint)
+       		TryMoveEntity(patrolAssets.ExfilTeleportPoint, baseSpawnpoint.GetOrigin(), baseSpawnpoint.GetAngles());
 
+		string factionKey = GetPatrolManager().GetPlayableFactionKey();
 
-		// Setup patrol type
+		// Setup for selected patrol type
 		if (patrolType == ENightOpsPatrolType.INTEL)
 		{
-			// Spawn intel 1 prefab
-			SpawnPatrolObjective("intel_spawner_1", m_vIntelPos1, m_vIntelRot1);
+			// Spawn intel 1 prefab + guards
+			SpawnEnv(m_aIntelEnvSpawners1);
+			SpawnAI(m_aIntelAISpawners1);
 
-			// Spawn intel 2 prefab
-			SpawnPatrolObjective("intel_spawner_2", m_vIntelPos2, m_vIntelRot2);
+			// Spawn intel 2 prefab + guards
+			SpawnEnv(m_aIntelEnvSpawners2);
+			SpawnAI(m_aIntelAISpawners2);
 
 			// Move intel task locations
-	        IEntity taskOne = GetGame().GetWorld().FindEntityByName(GetPatrolManager().INTEL_PATROL_OBJ1_TASKNAME);
-			IEntity taskTwo = GetGame().GetWorld().FindEntityByName(GetPatrolManager().INTEL_PATROL_OBJ2_TASKNAME);
-
-			if (taskOne)
-				taskOne.SetOrigin(m_vIntelPos1);
-
-			if (taskTwo)
-				taskTwo.SetOrigin(m_vIntelPos2);
+	        TryMoveEntity(GetPatrolManager().INTEL_PATROL_OBJ1_TASKNAME, m_vIntelPos1, vector.Zero);
+			TryMoveEntity(GetPatrolManager().INTEL_PATROL_OBJ2_TASKNAME, m_vIntelPos2, vector.Zero);
 		}
 		else if (patrolType == ENightOpsPatrolType.SABOTAGE)
 		{
-			// Spawn sabotage 1 prefab
-			SpawnPatrolObjective("sabotage_spawner_1", m_vSabotagePos1, m_vSabotageRot1);
+			// Spawn sabotage 1 prefab + guards
+			SpawnEnv(m_aSabotageEnvSpawners1);
+			SpawnAI(m_aSabotageAISpawners1);
 
-			// Spawn sabotage 2 prefab
-			SpawnPatrolObjective("sabotage_spawner_2", m_vSabotagePos2, m_vSabotageRot2);
+			// Spawn sabotage 2 prefab + guards
+			SpawnEnv(m_aSabotageEnvSpawners2);
+			SpawnAI(m_aSabotageAISpawners2);
 
 			// Move sabotage task locations
-			IEntity taskOne = GetGame().GetWorld().FindEntityByName(GetPatrolManager().SABOTAGE_PATROL_OBJ1_TASKNAME);
-			IEntity taskTwo = GetGame().GetWorld().FindEntityByName(GetPatrolManager().SABOTAGE_PATROL_OBJ2_TASKNAME);
-
-			if (taskOne)
-				taskOne.SetOrigin(m_vSabotagePos1);
-
-			if (taskTwo)
-				taskTwo.SetOrigin(m_vSabotagePos2);
+			TryMoveEntity(GetPatrolManager().SABOTAGE_PATROL_OBJ1_TASKNAME, m_vSabotagePos1, vector.Zero);
+			TryMoveEntity(GetPatrolManager().SABOTAGE_PATROL_OBJ2_TASKNAME, m_vSabotagePos2, vector.Zero);
 		}
 		else if (patrolType == ENightOpsPatrolType.HVT)
 		{
-			// Spawn HVT 1 prefab (HVT)
-			SpawnPatrolObjectiveAI("hvt_spawner_1", m_vHVTPos1, m_vHVTRot1);
+			// Spawn HVT prefab (HVT + Bodyguards + Waypoints)
+			SpawnAI(m_aHVTSpawners1);
 
-			// Spawn HVT 2 prefab (FLEE)
-			SpawnPatrolObjective("hvt_spawner_2", m_vHVTPos2, vector.Zero);
-
-			// Add static waypoint to AIGroup
-			GetGame().GetCallqueue().CallLater(AddWaypoint, 8000, false, "char_hvt", "typeHVT_FleeWaypoint");
-
-			// Move sabotage task locations
-			IEntity taskOne = GetGame().GetWorld().FindEntityByName(GetPatrolManager().HVT_PATROL_TASKNAME);
-
-			if (taskOne)
-				taskOne.SetOrigin(m_vHVTPos1);
+			// Move HVT task location
+			TryMoveEntity(GetPatrolManager().HVT_PATROL_TASKNAME, m_vHVTPos1, vector.Zero);
 		}
-
 
 		// Unlock the infil trigger for players
 		NO_SCR_MissionTrigger infilTrigger = NO_SCR_MissionTrigger.Cast(GetGame().GetWorld().FindEntityByName(patrolAssets.InfilTrigger));
 		if (infilTrigger)
-		{
 			infilTrigger.SetActive(true);
-		}
 
 		return true;
-	}
-
-
-	protected void SpawnPatrolObjective(string envSpawnerName, vector location, vector rotation)
-	{
-		IEntity spawnerEntity = GetGame().GetWorld().FindEntityByName(envSpawnerName);
-
-		if (spawnerEntity)
-		{
-			spawnerEntity.SetAngles(rotation);
-			spawnerEntity.SetOrigin(location);
-
-			NO_SCR_EnvSpawnerComponent spawnerComponent = NO_SCR_EnvSpawnerComponent.Cast(spawnerEntity.FindComponent(NO_SCR_EnvSpawnerComponent));
-        	if (spawnerComponent)
-			{
-				spawnerEntity.GetTransform(spawnerComponent.parentVector);
-				spawnerComponent.DoSpawn();
-				m_aInUseEnvSpawners.Insert(spawnerComponent);
-			}
-		}
-	}
-
-
-	protected void SpawnPatrolObjectiveAI(string aiSpawnerName, vector location, vector rotation)
-	{
-		IEntity spawnerEntity = GetGame().GetWorld().FindEntityByName(aiSpawnerName);
-
-		if (spawnerEntity)
-		{
-			spawnerEntity.SetAngles(rotation);
-			spawnerEntity.SetOrigin(location);
-
-			NO_SCR_AISpawnerComponent spawnerComponent = NO_SCR_AISpawnerComponent.Cast(spawnerEntity.FindComponent(NO_SCR_AISpawnerComponent));
-        	if (spawnerComponent)
-			{
-				spawnerEntity.GetTransform(spawnerComponent.parentVector);
-				spawnerComponent.DoSpawn();
-				m_aInUseAiSpawners.Insert(spawnerComponent);
-			}
-		}
-	}
-
-
-	protected void AddWaypoint(string groupName, string waypointName)
-	{
-		SCR_AIGroup aiGroup = SCR_AIGroup.Cast(GetGame().GetWorld().FindEntityByName(groupName));
-
-		if (aiGroup)
-			aiGroup.AddWaypointsStatic({ waypointName });
 	}
 
 
@@ -245,6 +167,96 @@ class NO_SCR_PatrolArea : CommentEntity
 		NO_SCR_PlayerTriggerEntity exfilTrigger = NO_SCR_PlayerTriggerEntity.Cast(GetGame().GetWorld().FindEntityByName(patrolAssets.ExfilTrigger));
 		if (exfilTrigger)
 			exfilTrigger.SetActive(false);
+	}
+
+
+	protected void SpawnEnv(array<NO_SCR_DCP_EnvSpawnerComponent> spawnerComponents)
+	{
+		foreach (NO_SCR_DCP_EnvSpawnerComponent spawnerComponent : spawnerComponents)
+		{
+			if (spawnerComponent.GetDCPFactionKey() == GetPatrolManager().GetPlayableFactionKey() ||
+				spawnerComponent.GetDCPFactionKey() == "ANY")
+			{
+				spawnerComponent.DoSpawn();
+				m_aInUseEnvSpawners.Insert(spawnerComponent);
+			}
+		}
+	}
+
+
+	protected void SpawnEnv(string envSpawnerName, vector location, vector rotation)
+	{
+		IEntity spawnerEntity = GetGame().GetWorld().FindEntityByName(envSpawnerName);
+
+		if (spawnerEntity)
+		{
+			spawnerEntity.SetAngles(rotation);
+			spawnerEntity.SetOrigin(location);
+
+			NO_SCR_EnvSpawnerComponent spawnerComponent = NO_SCR_EnvSpawnerComponent.Cast(spawnerEntity.FindComponent(NO_SCR_EnvSpawnerComponent));
+        	if (spawnerComponent)
+			{
+				spawnerEntity.GetTransform(spawnerComponent.parentVector);
+				spawnerComponent.DoSpawn();
+				m_aInUseEnvSpawners.Insert(spawnerComponent);
+			}
+		}
+	}
+
+
+	protected void SpawnAI(array<NO_SCR_DCP_AISpawnerComponent> spawnerComponents)
+	{
+		foreach (NO_SCR_DCP_AISpawnerComponent spawnerComponent : spawnerComponents)
+		{
+			if (spawnerComponent.GetDCPFactionKey() == GetPatrolManager().GetPlayableFactionKey() ||
+				spawnerComponent.GetDCPFactionKey() == "ANY")
+			{
+				spawnerComponent.DoSpawn();
+				m_aInUseAiSpawners.Insert(spawnerComponent);
+			}
+		}
+	}
+
+
+	protected void SpawnAI(string aiSpawnerName, vector location, vector rotation)
+	{
+		IEntity spawnerEntity = GetGame().GetWorld().FindEntityByName(aiSpawnerName);
+
+		if (spawnerEntity)
+		{
+			spawnerEntity.SetAngles(rotation);
+			spawnerEntity.SetOrigin(location);
+
+			NO_SCR_AISpawnerComponent spawnerComponent = NO_SCR_AISpawnerComponent.Cast(spawnerEntity.FindComponent(NO_SCR_AISpawnerComponent));
+        	if (spawnerComponent)
+			{
+				spawnerEntity.GetTransform(spawnerComponent.parentVector);
+				spawnerComponent.DoSpawn();
+				m_aInUseAiSpawners.Insert(spawnerComponent);
+			}
+		}
+	}
+
+
+	protected bool TryMoveEntity(string enitityName, vector position, vector rotation)
+	{
+		IEntity entity = GetGame().GetWorld().FindEntityByName(enitityName);
+		if (entity)
+			return TryMoveEntity(entity, position, rotation);
+		else
+			return false;
+	}
+
+
+	protected bool TryMoveEntity(IEntity entity, vector position, vector rotation)
+	{
+		if (entity)
+		{
+			entity.SetAngles(rotation);
+        	entity.SetOrigin(position);
+			return true;
+		}
+		return false;
 	}
 
 

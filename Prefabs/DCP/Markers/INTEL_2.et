@@ -1,5 +1,83 @@
 NO_SCR_PatrolMarker : "{7C623647E3CAC985}Prefabs/DCP/Markers/BaseMarker.et" {
  ID "59B555F7707586A7"
+ components {
+  NO_SCR_DCP_AISpawnerComponent "{59C2B9E06A4A0BD2}" {
+   m_rnDefaultPrefabs {
+    CountSpawnsByOnlinePlayer "{59C2B9E001B71F49}" {
+     prefab {
+      "{CB58D90EA14430AD}Prefabs/Groups/OPFOR/Group_USSR_SentryTeam.et"
+     }
+    }
+   }
+   m_bIgnoreSpawnManagerAndUsePrefabs 1
+   m_sDCPFactionKey "US"
+  }
+  NO_SCR_DCP_AISpawnerComponent "{59C2B9E06BDB9C50}" {
+   m_rnDefaultPrefabs {
+    CountSpawnsByOnlinePlayer "{59C2B9E0070F7028}" {
+     prefab {
+      "{3BF36BDEEB33AEC9}Prefabs/Groups/BLUFOR/Group_US_SentryTeam.et"
+     }
+    }
+   }
+   m_bIgnoreSpawnManagerAndUsePrefabs 1
+   m_sDCPFactionKey "USSR"
+  }
+  NO_SCR_DCP_AISpawnerComponent "{59C2B9E074EA5C72}" {
+   m_rnDefaultPrefabs {
+    CountSpawnsByOnlinePlayer "{59C2B9E005521973}" {
+     prefab {
+      "{CB58D90EA14430AD}Prefabs/Groups/OPFOR/Group_USSR_SentryTeam.et"
+     }
+    }
+   }
+   m_bIgnoreSpawnManagerAndUsePrefabs 1
+   m_sDCPFactionKey "FIA"
+  }
+  NO_SCR_DCP_EnvSpawnerComponent "{59BD425C808ABBE0}" {
+   m_rnDefaultPrefabs {
+    CountSpawnsByOnlinePlayer "{59BD425C9412B3A1}" {
+     prefab {
+      "{A59F7B3A2590FDB8}Prefabs/Items/USSR_Radio_Intel_2.et"
+     }
+    }
+   }
+   m_sDCPFactionKey "US"
+  }
+  NO_SCR_DCP_EnvSpawnerComponent "{59BD425C81822396}" {
+   m_rnDefaultPrefabs {
+    CountSpawnsByOnlinePlayer "{59BD425C96987AE1}" {
+     prefab {
+      "{EB2F21090B108264}Prefabs/Items/US_Radio_Intel_2.et"
+     }
+    }
+   }
+   m_sDCPFactionKey "USSR"
+  }
+  NO_SCR_DCP_EnvSpawnerComponent "{59BD425C87BB9C9A}" {
+   m_rnDefaultPrefabs {
+    CountSpawnsByOnlinePlayer "{59BD425C9072C53A}" {
+     prefab {
+      "{A59F7B3A2590FDB8}Prefabs/Items/USSR_Radio_Intel_2.et"
+     }
+    }
+   }
+   m_sDCPFactionKey "FIA"
+  }
+  RplComponent "{59BD425C838751BB}" {
+  }
+ }
  coords 0 0 0
  m_eMarkerType INTEL_2
+ {
+  SCR_DefendWaypoint : "{93291E72AC23930F}Prefabs/AI/Waypoints/AIWaypoint_Defend.et" {
+   ID "59C2B9EF16512E53"
+   components {
+    Hierarchy "{59C2CBC615A6A860}" {
+    }
+   }
+   coords 0 0 0
+   CompletionRadius 7.5
+  }
+ }
 }

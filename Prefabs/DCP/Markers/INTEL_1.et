@@ -1,5 +1,63 @@
 NO_SCR_PatrolMarker : "{7C623647E3CAC985}Prefabs/DCP/Markers/BaseMarker.et" {
  ID "59B555F7707586A7"
+ components {
+  NO_SCR_DCP_AISpawnerComponent "{59C2B9E0D9E06B88}" {
+   m_rnDefaultPrefabs {
+    CountSpawnsByOnlinePlayer "{59C2B9E0FD1C984F}" {
+     prefab {
+      "{CB58D90EA14430AD}Prefabs/Groups/OPFOR/Group_USSR_SentryTeam.et"
+     }
+    }
+   }
+   m_bIgnoreSpawnManagerAndUsePrefabs 1
+   m_sDCPFactionKey "US"
+  }
+  NO_SCR_DCP_AISpawnerComponent "{59C2B9E0DB4E52AC}" {
+   m_rnDefaultPrefabs {
+    CountSpawnsByOnlinePlayer "{59C2B9E0F2E6541A}" {
+     prefab {
+      "{3BF36BDEEB33AEC9}Prefabs/Groups/BLUFOR/Group_US_SentryTeam.et"
+     }
+    }
+   }
+   m_bIgnoreSpawnManagerAndUsePrefabs 1
+   m_sDCPFactionKey "USSR"
+  }
+  NO_SCR_DCP_AISpawnerComponent "{59C2B9E0E68044B9}" {
+   m_rnDefaultPrefabs {
+    CountSpawnsByOnlinePlayer "{59C2B9E0F0B0E7FE}" {
+     prefab {
+      "{CB58D90EA14430AD}Prefabs/Groups/OPFOR/Group_USSR_SentryTeam.et"
+     }
+    }
+   }
+   m_bIgnoreSpawnManagerAndUsePrefabs 1
+   m_sDCPFactionKey "FIA"
+  }
+  NO_SCR_DCP_EnvSpawnerComponent "{59BD425CC40D7DEA}" {
+   m_rnDefaultPrefabs {
+    CountSpawnsByOnlinePlayer "{59BD425CD501E0FA}" {
+     prefab {
+      "{A69F2C244B480734}Prefabs/Items/ClassifiedDocuments_Intel_1.et"
+     }
+    }
+   }
+   m_sDCPFactionKey "ANY"
+  }
+  RplComponent "{59BD425CC19EA151}" {
+  }
+ }
  coords 0 0 0
  m_eMarkerType INTEL_1
+ {
+  SCR_DefendWaypoint : "{93291E72AC23930F}Prefabs/AI/Waypoints/AIWaypoint_Defend.et" {
+   ID "59C2B9EF16512E53"
+   components {
+    Hierarchy "{59C2CBC60C0FDA72}" {
+    }
+   }
+   coords 0 0 0
+   CompletionRadius 7.5
+  }
+ }
 }

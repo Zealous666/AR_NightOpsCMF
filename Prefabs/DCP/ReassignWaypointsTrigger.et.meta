@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{B8F038D6AC0F7A15}Prefabs/DCP/Markers/HVT_2.et"
+ Name "{1E53F98F9F0CBD38}Prefabs/DCP/ReassignWaypointsTrigger.et"
  Configurations {
   EntityTemplateResourceClass PC {
   }

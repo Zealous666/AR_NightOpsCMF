@@ -1,0 +1,71 @@
+NO_SCR_PatrolMarker : "{7C623647E3CAC985}Prefabs/DCP/Markers/BaseMarker.et" {
+ ID "59B555F7707586A7"
+ components {
+  NO_SCR_DCP_AISpawnerComponent "{59BD4253AB0FF828}" {
+   m_bShouldStack 1
+   m_rnDefaultPrefabs {
+    CountSpawnsByOnlinePlayer "{59BD4253BBE420D5}" {
+     prefab {
+      "{6FFB8B57C9BD2A40}Prefabs/Groups/Group_USSR_HVT.et" "{CB58D90EA14430AD}Prefabs/Groups/OPFOR/Group_USSR_SentryTeam.et"
+     }
+    }
+   }
+   m_bIgnoreSpawnManagerAndUsePrefabs 1
+   m_sDCPFactionKey "US"
+  }
+  NO_SCR_DCP_AISpawnerComponent "{59BD4253ACEA97A2}" {
+   m_bShouldStack 1
+   m_rnDefaultPrefabs {
+    CountSpawnsByOnlinePlayer "{59BD4253B9933A5D}" {
+     prefab {
+      "{6FFB8B57C9BD2A40}Prefabs/Groups/Group_USSR_HVT.et" "{CB58D90EA14430AD}Prefabs/Groups/OPFOR/Group_USSR_SentryTeam.et"
+     }
+    }
+   }
+   m_bIgnoreSpawnManagerAndUsePrefabs 1
+   m_sDCPFactionKey "USSR"
+  }
+  NO_SCR_DCP_AISpawnerComponent "{59BD4253AE03F4E0}" {
+   m_bShouldStack 1
+   m_rnDefaultPrefabs {
+    CountSpawnsByOnlinePlayer "{59BD4253BDA39743}" {
+     prefab {
+      "{6FFB8B57C9BD2A40}Prefabs/Groups/Group_USSR_HVT.et" "{CB58D90EA14430AD}Prefabs/Groups/OPFOR/Group_USSR_SentryTeam.et"
+     }
+    }
+   }
+   m_bIgnoreSpawnManagerAndUsePrefabs 1
+   m_sDCPFactionKey "FIA"
+  }
+  RplComponent "{59BD425C355D8340}" {
+  }
+ }
+ coords 0 0 0
+ m_eMarkerType HVT
+ {
+  NO_SCR_DCP_ReassignWaypointsTrigger : "{1E53F98F9F0CBD38}Prefabs/DCP/ReassignWaypointsTrigger.et" {
+   ID "59C4A377D6C51B16"
+   coords 0 0 0
+   {
+    SCR_DefendWaypoint : "{93291E72AC23930F}Prefabs/AI/Waypoints/AIWaypoint_Defend.et" {
+     ID "59C4A377D6C51B17"
+     components {
+      Hierarchy "{59C4B1CDCBBC8DC8}" {
+      }
+     }
+     coords 0 0 0
+     CompletionRadius 7.5
+    }
+   }
+  }
+  SCR_DefendWaypoint : "{93291E72AC23930F}Prefabs/AI/Waypoints/AIWaypoint_Defend.et" {
+   ID "59C2B9EF16512E53"
+   components {
+    Hierarchy "{59C3179FEDFC4626}" {
+    }
+   }
+   coords 0 0 0
+   CompletionRadius 7.5
+  }
+ }
+}

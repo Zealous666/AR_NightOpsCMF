@@ -1,5 +1,83 @@
 NO_SCR_PatrolMarker : "{7C623647E3CAC985}Prefabs/DCP/Markers/BaseMarker.et" {
  ID "59B555F7707586A7"
+ components {
+  NO_SCR_DCP_AISpawnerComponent "{59C2B9EFD2B65EC1}" {
+   m_rnDefaultPrefabs {
+    CountSpawnsByOnlinePlayer "{59C2B9EFE5F9267E}" {
+     prefab {
+      "{CB58D90EA14430AD}Prefabs/Groups/OPFOR/Group_USSR_SentryTeam.et"
+     }
+    }
+   }
+   m_bIgnoreSpawnManagerAndUsePrefabs 1
+   m_sDCPFactionKey "US"
+  }
+  NO_SCR_DCP_AISpawnerComponent "{59C2B9EFD3AD137B}" {
+   m_rnDefaultPrefabs {
+    CountSpawnsByOnlinePlayer "{59C2B9EFE027675A}" {
+     prefab {
+      "{3BF36BDEEB33AEC9}Prefabs/Groups/BLUFOR/Group_US_SentryTeam.et"
+     }
+    }
+   }
+   m_bIgnoreSpawnManagerAndUsePrefabs 1
+   m_sDCPFactionKey "USSR"
+  }
+  NO_SCR_DCP_AISpawnerComponent "{59C2B9EFDCB872CC}" {
+   m_rnDefaultPrefabs {
+    CountSpawnsByOnlinePlayer "{59C2B9EFE2CA417C}" {
+     prefab {
+      "{CB58D90EA14430AD}Prefabs/Groups/OPFOR/Group_USSR_SentryTeam.et"
+     }
+    }
+   }
+   m_bIgnoreSpawnManagerAndUsePrefabs 1
+   m_sDCPFactionKey "FIA"
+  }
+  NO_SCR_DCP_EnvSpawnerComponent "{59BD425D78B8671F}" {
+   m_rnDefaultPrefabs {
+    CountSpawnsByOnlinePlayer "{59BD425D07D3A15A}" {
+     prefab {
+      "{C8B3D8D360962E66}Prefabs/Vehicles/Wheeled/Ural4320/Ural4320_sabotage_2.et"
+     }
+    }
+   }
+   m_sDCPFactionKey "US"
+  }
+  NO_SCR_DCP_EnvSpawnerComponent "{59BD425D79F9B624}" {
+   m_rnDefaultPrefabs {
+    CountSpawnsByOnlinePlayer "{59BD425D0309EB5D}" {
+     prefab {
+      "{C8B3D8D360962E66}Prefabs/Vehicles/Wheeled/Ural4320/Ural4320_sabotage_2.et"
+     }
+    }
+   }
+   m_sDCPFactionKey "USSR"
+  }
+  NO_SCR_DCP_EnvSpawnerComponent "{59BD425D7B378A99}" {
+   m_rnDefaultPrefabs {
+    CountSpawnsByOnlinePlayer "{59BD425D0D3DF559}" {
+     prefab {
+      "{C8B3D8D360962E66}Prefabs/Vehicles/Wheeled/Ural4320/Ural4320_sabotage_2.et"
+     }
+    }
+   }
+   m_sDCPFactionKey "FIA"
+  }
+  RplComponent "{59BD425D05A9E494}" {
+  }
+ }
  coords 0 0 0
  m_eMarkerType SABOTAGE_2
+ {
+  SCR_DefendWaypoint : "{93291E72AC23930F}Prefabs/AI/Waypoints/AIWaypoint_Defend.et" {
+   ID "59C2B9EF16512E53"
+   components {
+    Hierarchy "{59C2CBC61B7CF17A}" {
+    }
+   }
+   coords 0 0 0
+   CompletionRadius 7.5
+  }
+ }
 }

@@ -4,7 +4,6 @@ class NO_SCR_PatrolManagerClass : GenericEntityClass
 }
 
 
-
 NO_SCR_PatrolManager g_PatrolManagerInstance;
 NO_SCR_PatrolManager GetPatrolManager()
 {
@@ -15,24 +14,27 @@ NO_SCR_PatrolManager GetPatrolManager()
 
 class NO_SCR_PatrolManager : GenericEntity
 {
+	[Attribute("US")] // Will be server variable or MissionHeader based at some point
+	private string m_sPlayableFactionKey;
+
 	[Attribute("", UIWidgets.Object, desc: "Change items within config file, not through Object Properties!", category: "COMBAT PATROLS", params: "noDetails")]
 	protected ref NO_SCR_CombatPatrolsConfig m_pCombatPatrolsConfig;
 
 
 	// The task prefabs and their spawners are for each faction, the task names are shared among factions
-	const string SELECT_PATROL_TASKNAME = "SelectPatrol_Task";
-	const string START_PATROL_TASKNAME = "StartPatrol_Task";
-	const string END_PATROL_TASKNAME = "EndPatrol_Task";
+	static const string SELECT_PATROL_TASKNAME = "SelectPatrol_Task";
+	static const string START_PATROL_TASKNAME = "StartPatrol_Task";
+	static const string END_PATROL_TASKNAME = "EndPatrol_Task";
 
-	const string INTEL_PATROL_TASKNAME = "Intel_Task";
-	const string INTEL_PATROL_OBJ1_TASKNAME = "Intel_1_Task";
-	const string INTEL_PATROL_OBJ2_TASKNAME = "Intel_2_Task";
-	const string SABOTAGE_PATROL_TASKNAME = "Sabotage_Task";
+	static const string INTEL_PATROL_TASKNAME = "Intel_Task";
+	static const string INTEL_PATROL_OBJ1_TASKNAME = "Intel_1_Task";
+	static const string INTEL_PATROL_OBJ2_TASKNAME = "Intel_2_Task";
+	static const string SABOTAGE_PATROL_TASKNAME = "Sabotage_Task";
 
-	const string SABOTAGE_PATROL_OBJ1_TASKNAME = "Sabotage_1_Task";
-	const string SABOTAGE_PATROL_OBJ2_TASKNAME = "Sabotage_2_Task";
+	static const string SABOTAGE_PATROL_OBJ1_TASKNAME = "Sabotage_1_Task";
+	static const string SABOTAGE_PATROL_OBJ2_TASKNAME = "Sabotage_2_Task";
 
-	const string HVT_PATROL_TASKNAME = "HVT_Task";
+	static const string HVT_PATROL_TASKNAME = "HVT_Task";
 
 
 	// Patrol area related
@@ -103,10 +105,16 @@ class NO_SCR_PatrolManager : GenericEntity
 	}
 
 
+	string GetPlayableFactionKey()
+	{
+		return m_sPlayableFactionKey;
+	}
+
+
 	protected void ReadConfig()
 	{
 		// Has a valid faction cfg
-		m_pFactionConfig = m_pCombatPatrolsConfig.GetFactionConfigByKey();
+		m_pFactionConfig = m_pCombatPatrolsConfig.GetFactionConfigByKey(GetPlayableFactionKey());
 		if (!m_pFactionConfig || !m_pFactionConfig.IsValid())
 			return;
 
@@ -448,13 +456,16 @@ class NO_SCR_CombatPatrolsConfig
 
 	array<ref NO_SCR_PatrolAreaConfig> GetPatrolAreas() { return m_aPatrolAreas; }
 
-	NO_SCR_PatrolFactionConfig GetFactionConfigByKey(string factionKey = string.Empty)
+	NO_SCR_PatrolFactionConfig GetFactionConfigByKey(string factionKey)
 	{
-		if (factionKey.IsEmpty())
-			factionKey = m_sDefaultFactionKey;
-
+		// See if any factions match the provided key
 		foreach (NO_SCR_PatrolFactionConfig factionCfg : m_aPlayableFactions)
 			if (factionCfg.GetFactionKey() == factionKey)
+				return factionCfg;
+
+		// See if any factions match the default set key
+		foreach (NO_SCR_PatrolFactionConfig factionCfg : m_aPlayableFactions)
+			if (factionCfg.GetFactionKey() == m_sDefaultFactionKey)
 				return factionCfg;
 
 		return null;
@@ -575,6 +586,12 @@ class NO_SCR_PatrolAssetsConfig
 
 	[Attribute(defvalue: "HVT_Spawner", uiwidget: UIWidgets.EditBox, desc: "Entity name of HVT spawner.")]
 	string HVTObjective;
+
+	[Attribute(defvalue: "FOB_Spawner_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of FOB spawner.")]
+	string FOBSpawner;
+
+	[Attribute(defvalue: "Guards_Spawner_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of objective guards spawner.")]
+	string ObjectiveGuards;
 }
 
 
