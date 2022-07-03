@@ -14,8 +14,8 @@ NO_SCR_PatrolManager GetPatrolManager()
 
 class NO_SCR_PatrolManager : GenericEntity
 {
-	[Attribute("US")] // Will be server variable or MissionHeader based at some point
-	private string m_sPlayableFactionKey;
+	[Attribute("US", UIWidgets.EditBox, desc: "Player faction key, this is overriden by MissionHeader values (use for editor testing)!", category: "COMBAT PATROLS")]
+	protected string m_sPlayerFactionKey;
 
 	[Attribute("", UIWidgets.Object, desc: "Change items within config file, not through Object Properties!", category: "COMBAT PATROLS", params: "noDetails")]
 	protected ref NO_SCR_CombatPatrolsConfig m_pCombatPatrolsConfig;
@@ -85,6 +85,8 @@ class NO_SCR_PatrolManager : GenericEntity
 
 		m_bIsOnPatrol = false;
 
+		ReadMissionHeader();
+
 		if (!m_pCombatPatrolsConfig)
 			return;
 
@@ -107,16 +109,35 @@ class NO_SCR_PatrolManager : GenericEntity
 	}
 
 
-	string GetPlayableFactionKey()
+	protected void ReadMissionHeader()
 	{
-		return m_sPlayableFactionKey;
+		SCR_MissionHeader header = SCR_MissionHeader.Cast(GetGame().GetMissionHeader());
+		if (!header)
+			return;
+
+		NO_SCR_DCP_MissionHeader dcpHeader = NO_SCR_DCP_MissionHeader.Cast(header);
+		if (dcpHeader)
+		{
+			FactionKey desiredFactionKey = dcpHeader.m_sPlayerFactionKey;
+			if (GetGame().GetFactionManager().GetFactionByKey(desiredFactionKey))
+			{
+				// MissionHeader supplied faction key is valid so use it
+				m_sPlayerFactionKey = desiredFactionKey;
+			}
+		}
+	}
+
+
+	string GetPlayerFactionKey()
+	{
+		return m_sPlayerFactionKey;
 	}
 
 
 	protected void ReadConfig()
 	{
 		// Has a valid faction cfg
-		m_pFactionConfig = m_pCombatPatrolsConfig.GetFactionConfigByKey(GetPlayableFactionKey());
+		m_pFactionConfig = m_pCombatPatrolsConfig.GetFactionConfigByKey(GetPlayerFactionKey());
 		if (!m_pFactionConfig || !m_pFactionConfig.IsValid())
 			return;
 

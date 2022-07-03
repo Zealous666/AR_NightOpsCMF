@@ -98,7 +98,7 @@ class NO_SCR_PatrolArea : CommentEntity
 		if (baseSpawnpoint)
        		TryMoveEntity(patrolAssets.ExfilTeleportPoint, baseSpawnpoint.GetOrigin(), baseSpawnpoint.GetAngles());
 
-		string factionKey = GetPatrolManager().GetPlayableFactionKey();
+		string factionKey = GetPatrolManager().GetPlayerFactionKey();
 
 		// Setup for selected patrol type
 		if (patrolType == ENightOpsPatrolType.INTEL)
@@ -174,7 +174,7 @@ class NO_SCR_PatrolArea : CommentEntity
 	{
 		foreach (NO_SCR_DCP_EnvSpawnerComponent spawnerComponent : spawnerComponents)
 		{
-			if (spawnerComponent.GetDCPFactionKey() == GetPatrolManager().GetPlayableFactionKey() ||
+			if (spawnerComponent.GetDCPFactionKey() == GetPatrolManager().GetPlayerFactionKey() ||
 				spawnerComponent.GetDCPFactionKey() == "ANY")
 			{
 				spawnerComponent.DoSpawn();
@@ -208,7 +208,7 @@ class NO_SCR_PatrolArea : CommentEntity
 	{
 		foreach (NO_SCR_DCP_AISpawnerComponent spawnerComponent : spawnerComponents)
 		{
-			if (spawnerComponent.GetDCPFactionKey() == GetPatrolManager().GetPlayableFactionKey() ||
+			if (spawnerComponent.GetDCPFactionKey() == GetPatrolManager().GetPlayerFactionKey() ||
 				spawnerComponent.GetDCPFactionKey() == "ANY")
 			{
 				spawnerComponent.DoSpawn();
