@@ -1,0 +1,16 @@
+GenericEntity {
+ ID "59C7020E9042E7BD"
+ components {
+  MeshObject "{59C7109DC7ADE3A1}" {
+   Object "{D924907BDBD9A146}Assets/Items/Equipment/Accessories/Pouch_ALICE_200rnd_M249/Pouch_ALICE_200rnd_M249.xob"
+   Materials {
+    MaterialAssignClass "{59C7109DD5FF0A67}" {
+     SourceMaterial "Pouch_ALICE_200rnd_M249"
+     AssignedMaterial "{204CC6AFD586C109}Assets/Items/Equipment/Accessories/Pouch_ALICE_200rnd_M249/Data/SatchelCharge.emat"
+    }
+   }
+  }
+  RplComponent "{59C7020FB95A89DF}" {
+  }
+ }
+}

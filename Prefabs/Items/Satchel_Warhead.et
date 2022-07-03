@@ -1,0 +1,53 @@
+GenericEntity {
+ ID "59C7020E9042E7BD"
+ components {
+  SignalsManagerComponent "{59C6FC457BAEDCE3}" {
+  }
+  SoundComponent "{59C6FC457BAEDCC3}" {
+   Filenames {
+    "{6FC67D2C9BF229AB}Sounds/Weapons/Ammo/RPG7/Explosion/Ammo_Rocket_RPG7.acp"
+   }
+  }
+  BaseTriggerComponent "{59C7020A2A967AB0}" {
+   PROJECTILE_EFFECTS {
+    ExplosionDamageContainer "{59C7020BDA3CB643}" {
+     ExplosionDamageEffects {
+      BaseExplosionDamageEffect "{59C7020BF1D9BD43}" {
+       DamageValue 5000
+       DamageDistance 20
+       ExplosionEffectSpeed 50
+       DamageFalloffCurve {
+        0.243 0.784 0.829 0.148
+       }
+      }
+      ExplosionImpulseEffect "{59C7020BFC84AD46}" {
+      }
+      ExplosionFragmentationEffect "{59C7020BB4CFBE44}" {
+       DamageValue 0.2
+       DamageDistance 30
+       DamageFragmentCount 10000
+       CaseWeight 1297
+       FragSpeedScale 554.3
+      }
+     }
+     ChargeWeight 450
+     TntEquivalent 25
+    }
+    ExplosionEffect "{59C71D03303D7DC0}" {
+     EffectPrefab "{250CCD685336BC19}Prefabs/Weapons/Warheads/Warhead_HEAT_M72A3.et"
+     ParticleEffect "{D3F38F8AA37B77E8}Particles/Weapon/Explosion_M72LAW.ptc"
+     SoundEvent "SOUND_EXPLOSION"
+    }
+   }
+   DELETE_ON_TRIGGER 0
+   TRIGGER_ALIVE 1
+  }
+  HitEffectComponent "{59C6FC457BAEDEFA}" {
+   ParticleEffect "{D3F38F8AA37B77E8}Particles/Weapon/Explosion_M72LAW.ptc"
+  }
+  SCR_InstantTriggerComponent "{59C720DCD3481FFF}" {
+  }
+  RplComponent "{59C7020FB95A89DF}" {
+  }
+ }
+}

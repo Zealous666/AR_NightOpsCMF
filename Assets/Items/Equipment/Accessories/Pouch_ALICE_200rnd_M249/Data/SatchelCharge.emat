@@ -1,0 +1,6 @@
+MatPBRBasic {
+ Color 0.212 0.212 0.212 1
+ CavityFromAO 1
+ BCRMap "{32D3C9E2CEB85E5D}Assets/Items/Equipment/Accessories/Pouch_ALICE_200rnd_M249/Data/Pouch_ALICE_200rnd_M249_BCR.edds"
+ NMOMap "{0A0B727017CF0CC3}Assets/Items/Equipment/Accessories/Pouch_ALICE_200rnd_M249/Data/Pouch_ALICE_200rnd_M249_NMO.edds"
+}

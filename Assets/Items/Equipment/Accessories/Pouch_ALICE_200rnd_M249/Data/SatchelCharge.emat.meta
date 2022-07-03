@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{204CC6AFD586C109}Assets/Items/Equipment/Accessories/Pouch_ALICE_200rnd_M249/Data/SatchelCharge.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}
