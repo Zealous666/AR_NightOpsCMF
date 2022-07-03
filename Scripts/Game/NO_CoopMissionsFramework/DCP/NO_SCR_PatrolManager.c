@@ -91,6 +91,8 @@ class NO_SCR_PatrolManager : GenericEntity
 		ReadConfig();
 		Replication.BumpMe();
 
+		SpawnPlayerHQ();
+
 		GetGame().GetCallqueue().Call(SpawnCoreTasks);
 	}
 
@@ -221,6 +223,20 @@ class NO_SCR_PatrolManager : GenericEntity
 		}
 
 		return spawnerComponent;
+	}
+
+
+	protected void SpawnPlayerHQ()
+	{
+		if (!m_pFactionConfig)
+			return;
+
+		NO_SCR_EnvSpawnerComponent playerHQSpawner = FindSpawnerComponent(m_pFactionConfig.GetAssetsConfig().HQSpawner);
+		if (playerHQSpawner)
+		{
+			// Existed but wasn't visible when called on same frame ¯\_(ツ)_/¯
+			GetGame().GetCallqueue().Call(playerHQSpawner.DoSpawn);
+		}
 	}
 
 
@@ -571,6 +587,9 @@ class NO_SCR_PatrolAssetsConfig
 
 	[Attribute(defvalue: "Exfil_TP_Point_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of exfil teleport point.")]
 	string ExfilTeleportPoint;
+
+	[Attribute(defvalue: "HQ_Spawner_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of faction HQ spawner.")]
+	string HQSpawner;
 
 	[Attribute(defvalue: "FOB_Spawner_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of faction FOB spawner.")]
 	string FOBSpawner;
