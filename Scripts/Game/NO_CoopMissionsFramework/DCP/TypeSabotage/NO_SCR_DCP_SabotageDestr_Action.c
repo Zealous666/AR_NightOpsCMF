@@ -95,7 +95,7 @@ class NO_SCR_DCP_SabotageDestr_Action : NO_SCR_OneTimeAction
 		IEntity spawnedWarhead = SpawnEntity(m_rnWarheadPrefab);
 		if (spawnedWarhead)
 		{
-			SCR_Global.DeleteEntityAndChildren(m_pSpawnedSatchel);
+			SCR_EntityHelper.DeleteEntityAndChildren(m_pSpawnedSatchel);
 			GetGame().GetCallqueue().CallLater(StopPhysics, 2000, false);
 		}
 		else
@@ -114,7 +114,7 @@ class NO_SCR_DCP_SabotageDestr_Action : NO_SCR_OneTimeAction
 		}
 
 		// Spawn params
-		ref EntitySpawnParams params = new EntitySpawnParams();
+		EntitySpawnParams params = new EntitySpawnParams();
 		params.TransformMode = ETransformMode.WORLD;
 
 		// When possible use action position
