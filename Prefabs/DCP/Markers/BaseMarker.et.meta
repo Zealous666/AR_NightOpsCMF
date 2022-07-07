@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{7C623647E3CAC985}Prefabs/DCP/Markers/BASE_MARKER.et"
+ Name "{7C623647E3CAC985}Prefabs/DCP/Markers/BaseMarker.et"
  Configurations {
   EntityTemplateResourceClass PC {
   }

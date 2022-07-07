@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{A8BA7577A7FD5BEF}Prefabs/DCP/Full_PatrolArea.et"
+ Name "{A8BA7577A7FD5BEF}Prefabs/DCP/Filled_PatrolArea.et"
  Configurations {
   EntityTemplateResourceClass PC {
   }

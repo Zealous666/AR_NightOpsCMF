@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{CEF40FF9DD9E2884}Prefabs/DCP/Compositions/PlayerHub_US_Fixed.et"
+ Name "{CEF40FF9DD9E2884}Prefabs/DCP/Compositions/PlayerHub_US.et"
  Configurations {
   EntityTemplateResourceClass PC {
   }
