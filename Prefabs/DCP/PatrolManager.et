@@ -5,6 +5,6 @@ NO_SCR_DCP_PatrolManager {
    Streamable Disabled
   }
  }
- m_pPatrolItemsConfig NO_SCR_PatrolItemsConfig "{59B6053A93BE139A}" : "{BE51C108B700CCDF}Configs/Patrols.conf" {
+ m_pCombatPatrolsConfig NO_SCR_DCP_CombatPatrolsConfig "{59B6053A93BE139A}" : "{F40BF4F2BEAB2A2F}Configs/DynamicCombatPatrols.conf" {
  }
 }

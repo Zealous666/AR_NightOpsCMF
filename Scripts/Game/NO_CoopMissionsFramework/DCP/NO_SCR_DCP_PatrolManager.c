@@ -18,7 +18,7 @@ class NO_SCR_DCP_PatrolManager : GenericEntity
 	protected string m_sPlayerFactionKey;
 
 	[Attribute("", UIWidgets.Object, desc: "Change items within config file, not through Object Properties!", category: "COMBAT PATROLS", params: "noDetails")]
-	protected ref NO_SCR_CombatPatrolsConfig m_pCombatPatrolsConfig;
+	protected ref NO_SCR_DCP_CombatPatrolsConfig m_pCombatPatrolsConfig;
 
 
 	// The task prefabs and their spawners are for each faction, the task names are shared among factions
@@ -47,8 +47,8 @@ class NO_SCR_DCP_PatrolManager : GenericEntity
 
 
 	// Faction entities/spawners related
-	protected NO_SCR_PatrolFactionConfig m_pFactionConfig;
-	protected NO_SCR_PatrolAssetsConfig m_pFactionAssets;
+	protected NO_SCR_DCP_PatrolFactionConfig m_pFactionConfig;
+	protected NO_SCR_DCP_PatrolAssetsConfig m_pFactionAssets;
 
 	protected ref array<NO_SCR_EnvSpawnerComponent> m_aCoreTaskSpawners = new array<NO_SCR_EnvSpawnerComponent>();
 	protected ref array<NO_SCR_EnvSpawnerComponent> m_aIntelTaskSpawners = new array<NO_SCR_EnvSpawnerComponent>();
@@ -172,7 +172,7 @@ class NO_SCR_DCP_PatrolManager : GenericEntity
 		BaseWorld world = GetWorld();
 
 		// Find PatrolArea's in world based on config data
-		foreach (NO_SCR_PatrolAreaConfig patrolAreaCfg : m_pCombatPatrolsConfig.GetPatrolAreas())
+		foreach (NO_SCR_DCP_PatrolAreaConfig patrolAreaCfg : m_pCombatPatrolsConfig.GetPatrolAreas())
 		{
 			string patrolAreaName = patrolAreaCfg.GetAreaName();
 			if (patrolAreaName.IsEmpty())
@@ -480,28 +480,28 @@ enum ENightOpsPatrolType
 
 
 [BaseContainerProps(configRoot: true)]
-class NO_SCR_CombatPatrolsConfig
+class NO_SCR_DCP_CombatPatrolsConfig
 {
 	[Attribute(defvalue: "US", uiwidget: UIWidgets.EditBox, desc: "TEMPORARY, JUST FOR TESTING!")]
 	private string m_sDefaultFactionKey;
 
 	[Attribute("", UIWidgets.Object)]
-	private ref array<ref NO_SCR_PatrolFactionConfig> m_aPlayableFactions;
+	private ref array<ref NO_SCR_DCP_PatrolFactionConfig> m_aPlayableFactions;
 
 	[Attribute("", UIWidgets.Object)]
-	private ref array<ref NO_SCR_PatrolAreaConfig> m_aPatrolAreas;
+	private ref array<ref NO_SCR_DCP_PatrolAreaConfig> m_aPatrolAreas;
 
-	array<ref NO_SCR_PatrolAreaConfig> GetPatrolAreas() { return m_aPatrolAreas; }
+	array<ref NO_SCR_DCP_PatrolAreaConfig> GetPatrolAreas() { return m_aPatrolAreas; }
 
-	NO_SCR_PatrolFactionConfig GetFactionConfigByKey(string factionKey)
+	NO_SCR_DCP_PatrolFactionConfig GetFactionConfigByKey(string factionKey)
 	{
 		// See if any factions match the provided key
-		foreach (NO_SCR_PatrolFactionConfig factionCfg : m_aPlayableFactions)
+		foreach (NO_SCR_DCP_PatrolFactionConfig factionCfg : m_aPlayableFactions)
 			if (factionCfg.GetFactionKey() == factionKey)
 				return factionCfg;
 
 		// See if any factions match the default set key
-		foreach (NO_SCR_PatrolFactionConfig factionCfg : m_aPlayableFactions)
+		foreach (NO_SCR_DCP_PatrolFactionConfig factionCfg : m_aPlayableFactions)
 			if (factionCfg.GetFactionKey() == m_sDefaultFactionKey)
 				return factionCfg;
 
@@ -512,7 +512,7 @@ class NO_SCR_CombatPatrolsConfig
 
 
 [BaseContainerProps(), BaseContainerCustomTitleField("m_sAreaName")]
-class NO_SCR_PatrolAreaConfig
+class NO_SCR_DCP_PatrolAreaConfig
 {
 	[Attribute(defvalue: "", uiwidget: UIWidgets.EditBox, desc: "Entity name of a preplaced patrol area.")]
 	private string m_sAreaName;
@@ -535,21 +535,21 @@ class NO_SCR_PatrolAreaConfig
 
 
 [BaseContainerProps(), BaseContainerCustomTitleField("m_sFactionKey")]
-class NO_SCR_PatrolFactionConfig
+class NO_SCR_DCP_PatrolFactionConfig
 {
 	[Attribute(defvalue: "", uiwidget: UIWidgets.EditBox, desc: "Key of a playable faction.")]
 	private string m_sFactionKey;
 
 	[Attribute("", UIWidgets.Object)]
-	private ref NO_SCR_PatrolAssetsConfig m_pFactionAssets;
+	private ref NO_SCR_DCP_PatrolAssetsConfig m_pFactionAssets;
 
 	[Attribute("", UIWidgets.Object)]
-	private ref NO_SCR_PatrolTasksConfig m_pFactionTaskSpawners;
+	private ref NO_SCR_DCP_PatrolTasksConfig m_pFactionTaskSpawners;
 
 	string GetFactionKey() { return m_sFactionKey; }
 	bool IsValid() { return m_pFactionAssets && m_pFactionTaskSpawners; }
 
-	NO_SCR_PatrolAssetsConfig GetAssetsConfig() { return m_pFactionAssets; }
+	NO_SCR_DCP_PatrolAssetsConfig GetAssetsConfig() { return m_pFactionAssets; }
 
 	array<string> GetCoreTaskSpawnerNames()
 	{
@@ -589,7 +589,7 @@ class NO_SCR_PatrolFactionConfig
 
 
 [BaseContainerProps()]
-class NO_SCR_PatrolAssetsConfig
+class NO_SCR_DCP_PatrolAssetsConfig
 {
 	[Attribute(defvalue: "Base_Spawnpoint_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of main base spawnpoint.")]
 	string BaseSpawnpoint;
@@ -619,7 +619,7 @@ class NO_SCR_PatrolAssetsConfig
 
 
 [BaseContainerProps()]
-class NO_SCR_PatrolTasksConfig
+class NO_SCR_DCP_PatrolTasksConfig
 {
 	[Attribute(defvalue: "SelectPatrol_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of 'select patrol' task spawner.")]
 	string SelectPatrol;

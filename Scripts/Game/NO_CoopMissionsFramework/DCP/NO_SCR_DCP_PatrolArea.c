@@ -79,7 +79,7 @@ class NO_SCR_DCP_PatrolArea : CommentEntity
 	}
 
 
-	bool StartPatrolType(ENightOpsPatrolType patrolType, NO_SCR_PatrolAssetsConfig patrolAssets)
+	bool StartPatrolType(ENightOpsPatrolType patrolType, NO_SCR_DCP_PatrolAssetsConfig patrolAssets)
 	{
 		// Spawn FOB at infil location
 		SpawnEnv(patrolAssets.FOBSpawner, m_vInfilPos, m_vInfilRot);
@@ -147,7 +147,7 @@ class NO_SCR_DCP_PatrolArea : CommentEntity
 	}
 
 
-	void EndPatrol(NO_SCR_PatrolAssetsConfig patrolAssets)
+	void EndPatrol(NO_SCR_DCP_PatrolAssetsConfig patrolAssets)
 	{
 		// Despawn any objective assets
 		foreach (NO_SCR_EnvSpawnerComponent envSpawner : m_aInUseEnvSpawners)
