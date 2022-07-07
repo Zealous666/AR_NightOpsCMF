@@ -4,39 +4,32 @@ class NO_SCR_SpawnpointDeployment : NO_SCR_DeploymentInterface
 	[Attribute(desc: "Spawnpoint offset from deployable entity, to avoid being inside it.", params: "inf inf 0 purposeCoords spaceEntity")]
 	protected vector m_vSpawnpointOffset;
 
-	//-----------------------------------------------------------------------
-	// Spawnpoint attributes as seen in SCR_SpawnPoint
-	//-----------------------------------------------------------------------
-	[Attribute("0", desc: "Find empty position for spawning within given radius. When none is found, entity position will be used.")]
-	protected float m_fSpawnRadius;
-
-	[Attribute("2", UIWidgets.EditBox, "Determines how close a player has to be to disable this spawn point.")]
-	private float m_fNoPlayerRadius;
-
-	[Attribute("0", UIWidgets.EditBox, "Determines how close a player looking at the spawn point has to be to disable it.")]
-	private float m_fNoSightRadius;
-
-	[Attribute("US", UIWidgets.EditBox, "Determines which faction can spawn on this spawn point.")]
-	private string m_sFaction;
-
-	[Attribute("0")]
-	protected bool m_bShowInDeployMapOnly;
-
-	[Attribute()]
-	protected ref SCR_UIInfo m_Info;
-	//-----------------------------------------------------------------------
+	[Attribute("{911857823BB92DAC}Prefabs/MP/Spawning/CommandVehicleSpawnpoint_US.et", UIWidgets.ResourceNamePicker, desc: "Spawnpoint prefab to spawn/despawn.", params: "et")]
+	protected ResourceName m_rnSpawnpointPrefab;
 
 	protected ref Resource m_pResource;
-
 	protected SCR_SpawnPoint m_pSpawnpoint;
 
 	override bool Deploy()
 	{
-		// No resource loaded, report a failure to deploy
-		if (!m_pResource || !m_pResource.IsValid())
+		// Using a prefab
+		if (m_rnSpawnpointPrefab && !m_rnSpawnpointPrefab.IsEmpty())
+		{
+			// Try load prefab, return if failed
+			if (!TryLoadResourceName(m_rnSpawnpointPrefab))
+			{
+				Print(string.Format("Resource '%1', was unable to be loaded!", m_rnSpawnpointPrefab), LogLevel.ERROR);
+				return false;
+			}
+		}
+		else
+		{
+			// Not filled out correctly
+			Print("Spawnpoint ResouceName is missing/empty!", LogLevel.ERROR);
 			return false;
+		}
 
-		// Spawn params
+		// Spawn location
 		EntitySpawnParams params = new EntitySpawnParams();
 		params.TransformMode = ETransformMode.WORLD;
 		GetAttachedEntity().GetTransform(params.Transform);
@@ -58,34 +51,20 @@ class NO_SCR_SpawnpointDeployment : NO_SCR_DeploymentInterface
 		return true;
 	}
 
-	protected void LoadAndModifySpawnResource()
+	protected bool TryLoadResourceName(ResourceName resourceName)
 	{
-		// Load the resource
-		m_pResource = Resource.Load("{E7F4D5562F48DDE4}Prefabs/MP/Spawning/SpawnPoint_Base.et");
-		if (!m_pResource)
-			return;
+		if (!m_pResource || !m_pResource.IsValid())
+			m_pResource = Resource.Load(resourceName);
 
-		// Modify the resource with the settings of this deployment
-		BaseContainer baseContainer = m_pResource.GetResource().ToBaseContainer();
-		if (baseContainer)
-		{
-			baseContainer.Set("m_fSpawnRadius", m_fSpawnRadius);
-			baseContainer.Set("m_fNoPlayerRadius", m_fNoPlayerRadius);
-			baseContainer.Set("m_fNoSightRadius", m_fNoSightRadius);
-			baseContainer.Set("m_sFaction", m_sFaction);
-			baseContainer.Set("m_bShowInDeployMapOnly", m_bShowInDeployMapOnly);
-			baseContainer.Set("m_Info", m_Info);
-		}
-	}
-
-	void NO_SCR_SpawnpointDeployment()
-	{
-		LoadAndModifySpawnResource();
+		return m_pResource && m_pResource.IsValid();
 	}
 
 	void ~NO_SCR_SpawnpointDeployment()
 	{
 		if (m_pResource && m_pResource.IsValid())
+		{
 			m_pResource.GetResource().Release();
+			m_pResource = null;
+		}
 	}
 }

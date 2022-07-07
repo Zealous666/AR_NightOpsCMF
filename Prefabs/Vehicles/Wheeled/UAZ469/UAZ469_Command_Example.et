@@ -399,11 +399,6 @@ Vehicle : "{259EE7B78C51B624}Prefabs/Vehicles/Wheeled/UAZ469/UAZ469.et" {
    m_aDeployments {
     NO_SCR_SpawnpointDeployment "{59A9261529E2AEBB}" {
      m_vSpawnpointOffset 0 0 -3.5
-     m_fSpawnRadius 10
-     m_Info SCR_UIInfo "{59C94A4D8412C707}" {
-      Name "Command Vehicle"
-      Icon "{46FB2FB2C2125A3C}UI/Textures/Flags/US-flag-base-3it.edds"
-     }
     }
     NO_SCR_ImmobilizerDeployment "{59A92602204674A6}" {
     }
