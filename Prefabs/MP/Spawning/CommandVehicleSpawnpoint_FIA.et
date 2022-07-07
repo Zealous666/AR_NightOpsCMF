@@ -1,0 +1,9 @@
+SCR_SpawnPoint : "{E7F4D5562F48DDE4}Prefabs/MP/Spawning/SpawnPoint_Base.et" {
+ ID "544EB04DCBFBD126"
+ m_fSpawnRadius 10
+ m_sFaction "FIA"
+ m_Info SCR_UIInfo "{59CEB50C0A592476}" {
+  Name "Command Vehicle"
+  Icon "{B784E694BA4A7D40}UI/Textures/Flags/Everon-flag-base-3it.edds"
+ }
+}
