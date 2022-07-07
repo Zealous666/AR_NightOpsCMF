@@ -7,7 +7,6 @@ NO_SCR_TaskManager : "{2DF590FC1A531940}Prefabs/NO_DTF/TaskManager.et" {
     m_sName "Complete me to unlock trigger!"
     m_faction "US"
     m_bAssignToFactionOnStart 1
-    m_bAssignFirstTask 1
     {
      NO_SCR_TaskTrigger : "{246978CC9E481FD6}Prefabs/NO_DTF/Triggers/MoveAreaTrigger.et" {
       coords 0 0 0
@@ -17,7 +16,7 @@ NO_SCR_TaskManager : "{2DF590FC1A531940}Prefabs/NO_DTF/TaskManager.et" {
     }
    }
    ChangeStateTask {
-    coords -11.709 0 3.694
+    coords 11.77 0.001 -0.333
     m_sName "Trigger has assigned me!"
     m_faction "US"
     {
