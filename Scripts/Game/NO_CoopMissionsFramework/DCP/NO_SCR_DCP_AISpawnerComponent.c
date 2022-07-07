@@ -1,4 +1,4 @@
-[ComponentEditorProps(category: "GameScripted/ScriptWizard", description: "ScriptWizard generated script file.")]
+[ComponentEditorProps(category: "GameScripted/CombatPatrol", description: "Combat patrol wrapper for NO_SCR_AISpawnerComponent.")]
 class NO_SCR_DCP_AISpawnerComponentClass : NO_SCR_AISpawnerComponentClass
 {
 }
