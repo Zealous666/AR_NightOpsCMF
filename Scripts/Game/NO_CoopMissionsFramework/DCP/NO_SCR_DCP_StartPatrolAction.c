@@ -1,4 +1,4 @@
-class NO_SCR_StartPatrolAction : ScriptedUserAction
+class NO_SCR_DCP_StartPatrolAction : ScriptedUserAction
 {
 	[Attribute(SCR_Enum.GetDefault(ENightOpsPatrolType.INTEL), UIWidgets.ComboBox, desc: "What patrol type should this action fire?", enums: ParamEnumArray.FromEnum(ENightOpsPatrolType))]
 	protected ENightOpsPatrolType m_ePatrolType;
