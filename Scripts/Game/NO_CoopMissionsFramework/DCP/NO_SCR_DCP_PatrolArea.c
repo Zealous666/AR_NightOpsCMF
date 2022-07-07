@@ -1,10 +1,10 @@
 [EntityEditorProps(category: "GameScripted/CombatPatrol", description: "Patrol area entity.", visible: false)]
-class NO_SCR_PatrolAreaClass : CommentEntityClass
+class NO_SCR_DCP_PatrolAreaClass : CommentEntityClass
 {
 }
 
 
-class NO_SCR_PatrolArea : CommentEntity
+class NO_SCR_DCP_PatrolArea : CommentEntity
 {
 	protected ref array<NO_SCR_EnvSpawnerComponent> m_aInUseEnvSpawners = new array<NO_SCR_EnvSpawnerComponent>();
 	protected ref array<NO_SCR_AISpawnerComponent> m_aInUseAiSpawners = new array<NO_SCR_AISpawnerComponent>();
@@ -58,7 +58,7 @@ class NO_SCR_PatrolArea : CommentEntity
 		while (childEntity)
 		{
 			// Check if child entity is a PatrolMarker
-			NO_SCR_PatrolMarker patrolMarker = NO_SCR_PatrolMarker.Cast(childEntity);
+			NO_SCR_DCP_PatrolMarker patrolMarker = NO_SCR_DCP_PatrolMarker.Cast(childEntity);
 			if (patrolMarker)
 			{
 				// Consume the given patrol markers state (origin/rotation)
@@ -261,7 +261,7 @@ class NO_SCR_PatrolArea : CommentEntity
 
 
 	// Override CommentEntity attributes (WB only), avoids the need for manual settings or prefabs
-	void NO_SCR_PatrolArea(IEntitySource src, IEntity parent)
+	void NO_SCR_DCP_PatrolArea(IEntitySource src, IEntity parent)
 	{
 		SetEventMask(EntityEvent.INIT);
 		SetFlags(EntityFlags.STATIC, true);

@@ -1,8 +1,8 @@
-NO_SCR_PatrolArea : "{1F98480F3F898EDC}Prefabs/DCP/PatrolArea.et" {
+NO_SCR_DCP_PatrolArea : "{1F98480F3F898EDC}Prefabs/DCP/PatrolArea.et" {
  ID "59B555F1299556D3"
  coords 226.724 15.658 256.829
  {
-  NO_SCR_PatrolMarker : "{2A32E613EB518AE8}Prefabs/DCP/Markers/SABOTAGE_1.et" {
+  NO_SCR_DCP_PatrolMarker : "{2A32E613EB518AE8}Prefabs/DCP/Markers/SABOTAGE_1.et" {
    ID "59C4B40726BF9716"
    components {
    }
@@ -10,23 +10,23 @@ NO_SCR_PatrolArea : "{1F98480F3F898EDC}Prefabs/DCP/PatrolArea.et" {
    angleY 100.401
    m_eMarkerType SABOTAGE_1
   }
-  NO_SCR_PatrolMarker : "{2EF4AB48367A9C9F}Prefabs/DCP/Markers/INTEL_1.et" {
+  NO_SCR_DCP_PatrolMarker : "{2EF4AB48367A9C9F}Prefabs/DCP/Markers/INTEL_1.et" {
    ID "59C4B40726BF9714"
    coords 11.901 -5.658 -8.824
    angleY -152.283
   }
-  NO_SCR_PatrolMarker : "{42A09FA88ABE13B1}Prefabs/DCP/Markers/INTEL_2.et" {
+  NO_SCR_DCP_PatrolMarker : "{42A09FA88ABE13B1}Prefabs/DCP/Markers/INTEL_2.et" {
    ID "59C4B40726BF9715"
    coords 13.728 -5.658 -9.047
    angleY -152.283
   }
-  NO_SCR_PatrolMarker : "{4666D2F3579505C6}Prefabs/DCP/Markers/SABOTAGE_2.et" {
+  NO_SCR_DCP_PatrolMarker : "{4666D2F3579505C6}Prefabs/DCP/Markers/SABOTAGE_2.et" {
    ID "59C4B40726BF357E"
    coords -24.126 -5.658 12.422
    angleY -139.378
    m_eMarkerType SABOTAGE_2
   }
-  NO_SCR_PatrolMarker : "{4E6363AAC3742AAC}Prefabs/DCP/Markers/HVT.et" {
+  NO_SCR_DCP_PatrolMarker : "{4E6363AAC3742AAC}Prefabs/DCP/Markers/HVT.et" {
    ID "59C4B40726BF3578"
    coords -23.706 -5.656 3.292
    {
@@ -41,12 +41,12 @@ NO_SCR_PatrolArea : "{1F98480F3F898EDC}Prefabs/DCP/PatrolArea.et" {
     }
    }
   }
-  NO_SCR_PatrolMarker : "{69AFB55FC21189D1}Prefabs/DCP/Markers/EXFIL.et" {
+  NO_SCR_DCP_PatrolMarker : "{69AFB55FC21189D1}Prefabs/DCP/Markers/EXFIL.et" {
    ID "59C4B40726BF357B"
    coords 57.745 -5.658 -4.956
    m_eMarkerType EXFIL
   }
-  NO_SCR_PatrolMarker : "{95C57EAEC4CFC838}Prefabs/DCP/Markers/INFIL.et" {
+  NO_SCR_DCP_PatrolMarker : "{95C57EAEC4CFC838}Prefabs/DCP/Markers/INFIL.et" {
    ID "59C4B40726BF357A"
    coords 2.178 -5.658 -26.167
    m_eMarkerType INFIL

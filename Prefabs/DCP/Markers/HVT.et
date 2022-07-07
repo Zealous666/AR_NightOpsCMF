@@ -1,4 +1,4 @@
-NO_SCR_PatrolMarker : "{7C623647E3CAC985}Prefabs/DCP/Markers/BaseMarker.et" {
+NO_SCR_DCP_PatrolMarker : "{7C623647E3CAC985}Prefabs/DCP/Markers/BaseMarker.et" {
  ID "59B555F7707586A7"
  components {
   NO_SCR_DCP_AISpawnerComponent "{59BD4253AB0FF828}" {

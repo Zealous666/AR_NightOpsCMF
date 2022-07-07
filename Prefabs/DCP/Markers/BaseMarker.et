@@ -1,4 +1,4 @@
-NO_SCR_PatrolMarker {
+NO_SCR_DCP_PatrolMarker {
  ID "59B555F7707586A7"
  components {
   Hierarchy "{59B32A8070893FEB}" {

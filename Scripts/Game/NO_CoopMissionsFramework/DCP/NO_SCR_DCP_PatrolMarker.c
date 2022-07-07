@@ -1,9 +1,9 @@
 [EntityEditorProps(category: "GameScripted/CombatPatrol", description: "Patrol marker entity.", visible: false)]
-class NO_SCR_PatrolMarkerClass : SCR_PositionClass
+class NO_SCR_DCP_PatrolMarkerClass : SCR_PositionClass
 {
 }
 
-class NO_SCR_PatrolMarker : GenericEntity
+class NO_SCR_DCP_PatrolMarker : GenericEntity
 {
 	[Attribute(SCR_Enum.GetDefault(ENightOpsPatrolMarkerType.NONE), UIWidgets.ComboBox, desc: "What does this mark within a patrol area?", category: "COMBAT PATROLS", enums: ParamEnumArray.FromEnum(ENightOpsPatrolMarkerType))]
 	protected ENightOpsPatrolMarkerType m_eMarkerType;
@@ -55,7 +55,7 @@ class NO_SCR_PatrolMarker : GenericEntity
 		return spawnerComponents;
 	}
 
-	void NO_SCR_PatrolMarker(IEntitySource src, IEntity parent)
+	void NO_SCR_DCP_PatrolMarker(IEntitySource src, IEntity parent)
 	{
 		SetEventMask(EntityEvent.INIT);
 		SetFlags(EntityFlags.STATIC, true);

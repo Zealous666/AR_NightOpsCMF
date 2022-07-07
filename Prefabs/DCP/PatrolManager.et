@@ -1,4 +1,4 @@
-NO_SCR_PatrolManager {
+NO_SCR_DCP_PatrolManager {
  ID "59B6053A9AB8E351"
  components {
   RplComponent "{59B5033248B2C3F6}" {

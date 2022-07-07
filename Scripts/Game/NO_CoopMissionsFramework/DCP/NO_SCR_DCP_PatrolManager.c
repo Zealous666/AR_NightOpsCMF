@@ -1,18 +1,18 @@
 [EntityEditorProps(category: "GameScripted/CombatPatrol", description: "Patrol manager entity.", visible: false)]
-class NO_SCR_PatrolManagerClass : GenericEntityClass
+class NO_SCR_DCP_PatrolManagerClass : GenericEntityClass
 {
 }
 
 
-NO_SCR_PatrolManager g_PatrolManagerInstance;
-NO_SCR_PatrolManager GetPatrolManager()
+NO_SCR_DCP_PatrolManager g_PatrolManagerInstance;
+NO_SCR_DCP_PatrolManager GetPatrolManager()
 {
 	return g_PatrolManagerInstance;
 }
 
 
 
-class NO_SCR_PatrolManager : GenericEntity
+class NO_SCR_DCP_PatrolManager : GenericEntity
 {
 	[Attribute("US", UIWidgets.EditBox, desc: "Player faction key, this is overriden by MissionHeader values (use for editor testing)!", category: "COMBAT PATROLS")]
 	protected string m_sPlayerFactionKey;
@@ -38,12 +38,12 @@ class NO_SCR_PatrolManager : GenericEntity
 
 
 	// Patrol area related
-	protected NO_SCR_PatrolArea m_pActivePatrol;
+	protected NO_SCR_DCP_PatrolArea m_pActivePatrol;
 	protected ENightOpsPatrolType m_eActivePatrolType;
 
-	protected ref array<NO_SCR_PatrolArea> m_aIntelPatrols = new array<NO_SCR_PatrolArea>();
-	protected ref array<NO_SCR_PatrolArea> m_aSabotagePatrols = new array<NO_SCR_PatrolArea>();
-	protected ref array<NO_SCR_PatrolArea> m_aHVTPatrols = new array<NO_SCR_PatrolArea>();
+	protected ref array<NO_SCR_DCP_PatrolArea> m_aIntelPatrols = new array<NO_SCR_DCP_PatrolArea>();
+	protected ref array<NO_SCR_DCP_PatrolArea> m_aSabotagePatrols = new array<NO_SCR_DCP_PatrolArea>();
+	protected ref array<NO_SCR_DCP_PatrolArea> m_aHVTPatrols = new array<NO_SCR_DCP_PatrolArea>();
 
 
 	// Faction entities/spawners related
@@ -76,7 +76,7 @@ class NO_SCR_PatrolManager : GenericEntity
 		m_pRplComponent = RplComponent.Cast(FindComponent(RplComponent));
 		if (!m_pRplComponent)
 		{
-			Print("NO_SCR_PatrolManager requires an RplComponent but has none!", LogLevel.ERROR);
+			Print("NO_SCR_DCP_PatrolManager requires an RplComponent but has none!", LogLevel.ERROR);
 			return;
 		}
 
@@ -181,7 +181,7 @@ class NO_SCR_PatrolManager : GenericEntity
 				continue;
 			}
 
-			NO_SCR_PatrolArea patrolArea = NO_SCR_PatrolArea.Cast(world.FindEntityByName(patrolAreaName));
+			NO_SCR_DCP_PatrolArea patrolArea = NO_SCR_DCP_PatrolArea.Cast(world.FindEntityByName(patrolAreaName));
 			if (!patrolArea)
 			{
 				Print(string.Format("Named PatrolArea not found in world: %1", patrolAreaName), LogLevel.ERROR);
@@ -281,9 +281,9 @@ class NO_SCR_PatrolManager : GenericEntity
 	}
 
 
-	protected NO_SCR_PatrolArea ChoosePatrol(ENightOpsPatrolType patrolType)
+	protected NO_SCR_DCP_PatrolArea ChoosePatrol(ENightOpsPatrolType patrolType)
 	{
-		NO_SCR_PatrolArea chosenPatrol;
+		NO_SCR_DCP_PatrolArea chosenPatrol;
 
 		if (patrolType == ENightOpsPatrolType.INTEL)
 		{
@@ -358,7 +358,7 @@ class NO_SCR_PatrolManager : GenericEntity
 		if (m_pRplComponent.IsProxy())
 			return;
 
-		NO_SCR_PatrolArea chosenPatrol = ChoosePatrol(pickedPatrolType);
+		NO_SCR_DCP_PatrolArea chosenPatrol = ChoosePatrol(pickedPatrolType);
 
 		if (!chosenPatrol)
 		{
@@ -458,7 +458,7 @@ class NO_SCR_PatrolManager : GenericEntity
 	}
 
 
-	void NO_SCR_PatrolManager(IEntitySource src, IEntity parent)
+	void NO_SCR_DCP_PatrolManager(IEntitySource src, IEntity parent)
 	{
 		if (!g_PatrolManagerInstance)
 			g_PatrolManagerInstance = this;
