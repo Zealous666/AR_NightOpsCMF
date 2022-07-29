@@ -1,0 +1,333 @@
+GenericEntity {
+ ID "59FB52DDC1685298"
+ components {
+  Hierarchy "{59FB4EF6B2EBF2C5}" {
+  }
+  RplComponent "{59FB4EF7C9FC02EA}" {
+   Streamable Disabled
+  }
+ }
+ {
+  $grp NO_SCR_EditorTask {
+   Sabotage_2_Task_US {
+    ID "59FB52DDC1684365"
+    components {
+     Hierarchy "{59FB52DED191502E}" {
+     }
+     SCR_MapDescriptorComponent "{59FB52DED191501F}" {
+     }
+     NwkMovementComponent "{59FB52DED1915018}" {
+      HierarchySync 1
+     }
+     RplComponent "{59FB52DED1915075}" {
+      Streamable Disabled
+     }
+    }
+    coords 0 0 0
+    m_sName "Sabotage Ammo Truck"
+    m_sDescription "Plant a satchel charge at the Ammo Truck to sabotage it"
+    m_sMapIconName "Icon_Task_Move"
+    m_sTaskListIconName "Icon_Task_Move"
+    m_bNotifyAssignment 1
+    m_bNotifyUnassign 1
+    m_iTaskCompletionType ALWAYS_MANUAL
+    m_faction "US"
+    m_bAssignToFactionOnStart 0
+    m_bFailOrCompleteTemporarly 1
+    {
+     GenericEntity : "{DC9B59BFF1B7A41D}Prefabs/NO_DTF/Triggers/DestroyAiOrVehicleTrigger.et" {
+      ID "59FB52DDC168C92C"
+      components {
+       NO_SCR_TaskNamedObjectTriggerComponent "{59A0F6DCA0C8FAE0}" {
+        m_bOneTimeTrigger 0
+        m_sTriggerNamedObject "typeSabotage_Truck_2"
+       }
+      }
+      coords 0 0 0
+     }
+    }
+   }
+   Sabotage_1_Task_US {
+    ID "59FB52DDC1684C89"
+    components {
+     Hierarchy "{59FB52DED567654E}" {
+     }
+     SCR_MapDescriptorComponent "{59FB52DED56766BD}" {
+     }
+     NwkMovementComponent "{59FB52DED56766A6}" {
+      HierarchySync 1
+     }
+     RplComponent "{59FB52DED5676690}" {
+      Streamable Disabled
+     }
+    }
+    coords 0 0 0
+    m_sName "Sabotage Fuel Truck"
+    m_sDescription "Plant a satchel charge at the Fuel Truck to sabotage it"
+    m_sMapIconName "Icon_Task_Move"
+    m_sTaskListIconName "Icon_Task_Move"
+    m_bNotifyAssignment 1
+    m_bNotifyUnassign 1
+    m_iTaskCompletionType ALWAYS_MANUAL
+    m_faction "US"
+    m_bAssignToFactionOnStart 0
+    m_bFailOrCompleteTemporarly 1
+    {
+     GenericEntity : "{DC9B59BFF1B7A41D}Prefabs/NO_DTF/Triggers/DestroyAiOrVehicleTrigger.et" {
+      ID "59FB52DDC1684364"
+      components {
+       NO_SCR_TaskNamedObjectTriggerComponent "{59A0F6DCA0C8FAE0}" {
+        m_bOneTimeTrigger 0
+        m_sTriggerNamedObject "typeSabotage_Truck_1"
+       }
+      }
+      coords 0 0 0
+     }
+    }
+   }
+   HVT_Task_US {
+    ID "59FB52DDC1684C97"
+    components {
+     Hierarchy "{59FB52DEC3CD9EB3}" {
+     }
+     SCR_MapDescriptorComponent "{59FB52DEC3CD9EA1}" {
+     }
+     NwkMovementComponent "{59FB52DEC3CD9EAA}" {
+      HierarchySync 1
+     }
+     RplComponent "{59FB52DEC3CD9E82}" {
+      Streamable Disabled
+     }
+    }
+    coords 0 0 0
+    m_sName "Neutralize HVT"
+    m_sDescription "Chase & neutralize High Valuable Target"
+    m_sMapIconName "Icon_Task_Seize"
+    m_sTaskListIconName "Icon_Task_Seize"
+    m_bNotifyAssignment 1
+    m_bNotifyUnassign 1
+    m_iTaskCompletionType ALWAYS_MANUAL
+    m_faction "US"
+    m_bAssignToFactionOnStart 0
+    m_bFailOrCompleteTemporarly 1
+    m_sAdditionalMarkerPosition "char_hvt"
+    m_sCreateTaskNamesSuccess {
+     "EndPatrol_Task_US"
+    }
+    m_bAssignFirstTask 1
+    {
+     GenericEntity : "{DC9B59BFF1B7A41D}Prefabs/NO_DTF/Triggers/DestroyAiOrVehicleTrigger.et" {
+      ID "59FB52DDC1684C96"
+      components {
+       NO_SCR_TaskNamedObjectTriggerComponent "{59A0F6DCA0C8FAE0}" {
+        m_bOneTimeTrigger 0
+        m_sTriggerNamedObject "char_hvt"
+       }
+      }
+      coords 0 0 0
+     }
+    }
+   }
+   StartPatrol_Task_US {
+    ID "59FB52DDC16F15D6"
+    components {
+     Hierarchy "{59D51A9840033805}" {
+     }
+     SCR_MapDescriptorComponent "{59D51A984003380D}" {
+     }
+     NwkMovementComponent "{59D51A984003380A}" {
+      HierarchySync 1
+     }
+     RplComponent "{59D51A9840033870}" {
+      Streamable Disabled
+     }
+    }
+    coords 0 0 0
+    m_sName "Rally players to start patrol"
+    m_sDescription "Rally all players at the designated position to start the next combat patrol"
+    m_sMapIconName "Icon_Task_Move"
+    m_sTaskListIconName "Icon_Task_Move"
+    m_bNotifyAssignment 1
+    m_bNotifyUnassign 1
+    m_iTaskCompletionType ALWAYS_MANUAL
+    m_faction "US"
+    m_bAssignToFactionOnStart 0
+    m_bFailOrCompleteTemporarly 1
+   }
+   Intel_1_Task_US {
+    ID "59FB52DDC16F15D7"
+    components {
+     Hierarchy "{59D51A9840033F91}" {
+     }
+     SCR_MapDescriptorComponent "{59D51A9840033F8A}" {
+     }
+     NwkMovementComponent "{59D51A9840033F88}" {
+      HierarchySync 1
+     }
+     RplComponent "{59D51A9840033FFE}" {
+      Streamable Disabled
+     }
+    }
+    coords 0 0 0
+    m_sName "Collect classified documents"
+    m_sDescription "INTEL: Find and collect the classified documents"
+    m_sMapIconName "Icon_Task_Custom"
+    m_sTaskListIconName "Icon_Task_Custom"
+    m_bNotifyAssignment 1
+    m_bNotifyUnassign 1
+    m_iTaskCompletionType ALWAYS_MANUAL
+    m_faction "US"
+    m_bAssignToFactionOnStart 0
+    m_bFailOrCompleteTemporarly 1
+   }
+   Intel_2_Task_US {
+    ID "59FB52DDC16F28CA"
+    components {
+     Hierarchy "{59D51A984003266C}" {
+     }
+     SCR_MapDescriptorComponent "{59D51A984003264A}" {
+     }
+     NwkMovementComponent "{59D51A9840032648}" {
+      HierarchySync 1
+     }
+     RplComponent "{59D51A98400327BC}" {
+      Streamable Disabled
+     }
+    }
+    coords 0 0 0
+    m_sName "Aquire Frequency Codes"
+    m_sDescription "INTEL: Find and aquire the enemy frequency codes"
+    m_sMapIconName "Icon_Task_Custom"
+    m_sTaskListIconName "Icon_Task_Custom"
+    m_bNotifyAssignment 1
+    m_bNotifyUnassign 1
+    m_iTaskCompletionType ALWAYS_MANUAL
+    m_faction "US"
+    m_bAssignToFactionOnStart 0
+    m_bFailOrCompleteTemporarly 1
+   }
+   Sabotage_Task_US {
+    ID "59FB52DDC16F346C"
+    components {
+     Hierarchy "{59D51A9840032C62}" {
+     }
+     NO_SCR_MultiTaskTriggerComponent "{59D51A9840032DBE}" {
+      m_tTriggerType Finish
+      m_sTaskNames {
+       "Sabotage_1_Task_US" "Sabotage_2_Task_US"
+      }
+      m_allowFailedTasks 0
+      m_bOneTimeTrigger 0
+     }
+     SCR_MapDescriptorComponent "{59D51A9840032DBA}" {
+     }
+     NwkMovementComponent "{59D51A9840032DA7}" {
+      HierarchySync 1
+     }
+     RplComponent "{59D51A9840032D97}" {
+      Streamable Disabled
+     }
+    }
+    coords 0 0 0
+    m_sName "All Trucks Sabotaged"
+    m_sMapIconName "Icon_Task_Seize"
+    m_sTaskListIconName "Icon_Task_Seize"
+    m_faction "US"
+    m_bAssignToFactionOnStart 0
+    m_bFailOrCompleteTemporarly 1
+    m_sCreateTaskNamesSuccess {
+     "EndPatrol_Task_US"
+    }
+    m_bAssignFirstTask 1
+   }
+   EndPatrol_Task_US {
+    ID "59FB52DDC16F6A9C"
+    components {
+     Hierarchy "{59D51A9840033061}" {
+     }
+     SCR_MapDescriptorComponent "{59D51A984003306B}" {
+     }
+     NwkMovementComponent "{59D51A9840033069}" {
+      HierarchySync 1
+     }
+     RplComponent "{59D51A984003305E}" {
+      Streamable Disabled
+     }
+    }
+    coords 0 0 0
+    m_sName "Rally players to exfil point"
+    m_sDescription "Rally all players at the designated position to exit the next combat patrol"
+    m_sMapIconName "Icon_Task_Move"
+    m_sTaskListIconName "Icon_Task_Move"
+    m_bNotifyAssignment 1
+    m_bNotifyUnassign 1
+    m_iTaskCompletionType ALWAYS_MANUAL
+    m_faction "US"
+    m_bAssignToFactionOnStart 0
+    m_bFailOrCompleteTemporarly 1
+    m_sAdditionalMarkerPosition "Exfil_Trigger_US"
+   }
+   SelectPatrol_Task_US {
+    ID "59FB52DDC16F6A9F"
+    components {
+     Hierarchy "{59D51A9840033D37}" {
+     }
+     SCR_MapDescriptorComponent "{59D51A9840033D3B}" {
+     }
+     NwkMovementComponent "{59D51A9840033D39}" {
+      HierarchySync 1
+     }
+     RplComponent "{59D51A9840033D14}" {
+      Streamable Disabled
+     }
+    }
+    coords 0 0 0
+    m_sName "Vote for a Combat Patrol"
+    m_sDescription "Use the Radio in the US base and vote for a combat patrol type"
+    m_sMapIconName "Icon_Task_Custom"
+    m_sTaskListIconName "Icon_Task_Custom"
+    m_bNotifyAssignment 1
+    m_bNotifyUnassign 1
+    m_iTaskCompletionType ALWAYS_MANUAL
+    m_faction "US"
+    m_bAssignToFactionOnStart 0
+    m_bFailOrCompleteTemporarly 1
+    m_sAdditionalMarkerPosition "Patrol_Map_US"
+   }
+   Intel_Task_US {
+    ID "59FB52DDC16FA9D4"
+    components {
+     Hierarchy "{59D51A984003247A}" {
+     }
+     NO_SCR_MultiTaskTriggerComponent "{59D51A9840032451}" {
+      m_tTriggerType Finish
+      m_sTaskNames {
+       "Intel_1_Task_US" "Intel_2_Task_US"
+      }
+      m_allowFailedTasks 0
+      m_bOneTimeTrigger 0
+     }
+     SCR_MapDescriptorComponent "{59D51A984003245F}" {
+     }
+     NwkMovementComponent "{59D51A984003245B}" {
+      HierarchySync 1
+     }
+     RplComponent "{59D51A9840032440}" {
+      Streamable Disabled
+     }
+    }
+    coords 0 0 0
+    m_sName "Aquired both Intel pieces"
+    m_sMapIconName "Icon_Task_Seize"
+    m_sTaskListIconName "Icon_Task_Seize"
+    m_faction "US"
+    m_bAssignToFactionOnStart 0
+    m_bFailOrCompleteTemporarly 1
+    m_sCreateTaskNamesSuccess {
+     "EndPatrol_Task_US"
+    }
+    m_bAssignFirstTask 1
+   }
+  }
+ }
+}

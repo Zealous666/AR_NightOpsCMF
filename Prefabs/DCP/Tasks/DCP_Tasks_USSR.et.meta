@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{C09F6A359576B6E4}Prefabs/DCP/Tasks/SelectPatrol_Task_US.et"
+ Name "{8D35FC23E84FAD60}Prefabs/DCP/Tasks/DCP_Tasks_USSR.et"
  Configurations {
   EntityTemplateResourceClass PC {
   }
