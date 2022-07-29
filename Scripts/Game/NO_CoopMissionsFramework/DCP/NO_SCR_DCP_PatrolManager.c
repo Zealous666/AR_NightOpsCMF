@@ -11,7 +11,6 @@ NO_SCR_DCP_PatrolManager GetPatrolManager()
 }
 
 
-
 class NO_SCR_DCP_PatrolManager : GenericEntity
 {
 	[Attribute("US", UIWidgets.EditBox, desc: "Player faction key, this is overriden by MissionHeader values (use for editor testing)!", category: "COMBAT PATROLS")]
@@ -20,22 +19,7 @@ class NO_SCR_DCP_PatrolManager : GenericEntity
 	[Attribute("", UIWidgets.Object, desc: "Change items within config file, not through Object Properties!", category: "COMBAT PATROLS", params: "noDetails")]
 	protected ref NO_SCR_DCP_CombatPatrolsConfig m_pCombatPatrolsConfig;
 
-
-	// The task prefabs and their spawners are for each faction, the task names are shared among factions
-	static const string SELECT_PATROL_TASKNAME = "SelectPatrol_Task";
-	static const string START_PATROL_TASKNAME = "StartPatrol_Task";
-	static const string END_PATROL_TASKNAME = "EndPatrol_Task";
-
-	static const string INTEL_PATROL_TASKNAME = "Intel_Task";
-	static const string INTEL_PATROL_OBJ1_TASKNAME = "Intel_1_Task";
-	static const string INTEL_PATROL_OBJ2_TASKNAME = "Intel_2_Task";
-	static const string SABOTAGE_PATROL_TASKNAME = "Sabotage_Task";
-
-	static const string SABOTAGE_PATROL_OBJ1_TASKNAME = "Sabotage_1_Task";
-	static const string SABOTAGE_PATROL_OBJ2_TASKNAME = "Sabotage_2_Task";
-
-	static const string HVT_PATROL_TASKNAME = "HVT_Task";
-
+	protected RplComponent m_pRplComponent;
 
 	// Patrol area related
 	protected NO_SCR_DCP_PatrolArea m_pActivePatrol;
@@ -45,18 +29,15 @@ class NO_SCR_DCP_PatrolManager : GenericEntity
 	protected ref array<NO_SCR_DCP_PatrolArea> m_aSabotagePatrols = new array<NO_SCR_DCP_PatrolArea>();
 	protected ref array<NO_SCR_DCP_PatrolArea> m_aHVTPatrols = new array<NO_SCR_DCP_PatrolArea>();
 
-
-	// Faction entities/spawners related
-	protected NO_SCR_DCP_PatrolFactionConfig m_pFactionConfig;
+	// Config related
 	protected NO_SCR_DCP_PatrolAssetsConfig m_pFactionAssets;
+	protected NO_SCR_DCP_PatrolTasksConfig m_pFactionTasksConfig;
+	protected bool m_bIsValidConfig = false;
 
-	protected ref array<NO_SCR_EnvSpawnerComponent> m_aCoreTaskSpawners = new array<NO_SCR_EnvSpawnerComponent>();
-	protected ref array<NO_SCR_EnvSpawnerComponent> m_aIntelTaskSpawners = new array<NO_SCR_EnvSpawnerComponent>();
-	protected ref array<NO_SCR_EnvSpawnerComponent> m_aSabotageTaskSpawners = new array<NO_SCR_EnvSpawnerComponent>();
-	protected ref array<NO_SCR_EnvSpawnerComponent> m_aHVTTaskSpawners = new array<NO_SCR_EnvSpawnerComponent>();
-
-	protected RplComponent m_pRplComponent;
-
+	// Config entities
+	protected ref map<ENightOpsPatrolTasks, NO_SCR_EditorTask> m_mFactionTasks = new map<ENightOpsPatrolTasks, NO_SCR_EditorTask>();
+	protected NO_SCR_MissionTrigger m_pInfilTrigger;
+	protected NO_SCR_MissionTrigger m_pExfilTrigger;
 
 	// Synchronised variables
 	[RplProp()]
@@ -93,9 +74,12 @@ class NO_SCR_DCP_PatrolManager : GenericEntity
 		ReadConfig();
 		Replication.BumpMe();
 
-		SpawnPlayerHQ();
-
-		GetGame().GetCallqueue().Call(SpawnCoreTasks);
+		if (m_bIsValidConfig)
+		{
+			// Existed but wasn't visible when called on same frame ¯\_(ツ)_/¯
+			GetGame().GetCallqueue().Call(SpawnPlayerHQ);
+			GetGame().GetCallqueue().CallLater(AssignInitialTask, 500);
+		}
 	}
 
 
@@ -137,37 +121,22 @@ class NO_SCR_DCP_PatrolManager : GenericEntity
 	protected void ReadConfig()
 	{
 		// Has a valid faction cfg
-		m_pFactionConfig = m_pCombatPatrolsConfig.GetFactionConfigByKey(GetPlayerFactionKey());
-		if (!m_pFactionConfig || !m_pFactionConfig.IsValid())
+		NO_SCR_DCP_PatrolFactionConfig factionConfig = m_pCombatPatrolsConfig.GetFactionConfigByKey(GetPlayerFactionKey());
+		if (factionConfig && factionConfig.IsValid())
+		{
+			m_bIsValidConfig = true;
+		}
+		else
+		{
+			Print("Improperly configured patrol faction detected, aborting setup!", LogLevel.ERROR);
 			return;
+		}
 
 		// Assets for selected faction (names of key entities)
-		m_pFactionAssets = m_pFactionConfig.GetAssetsConfig();
+		m_pFactionAssets = factionConfig.GetAssetsConfig();
 
-		// Find relevant task spawner entities for this faction
-		foreach (string taskSpawnerName : m_pFactionConfig.GetCoreTaskSpawnerNames())
-		{
-			NO_SCR_EnvSpawnerComponent spawnerComponent = FindSpawnerComponent(taskSpawnerName);
-			if (spawnerComponent) m_aCoreTaskSpawners.Insert(spawnerComponent);
-		}
-
-		foreach (string taskSpawnerName : m_pFactionConfig.GetIntelTaskSpawnerNames())
-		{
-			NO_SCR_EnvSpawnerComponent spawnerComponent = FindSpawnerComponent(taskSpawnerName);
-			if (spawnerComponent) m_aIntelTaskSpawners.Insert(spawnerComponent);
-		}
-
-		foreach (string taskSpawnerName : m_pFactionConfig.GetSabotageTaskSpawnerNames())
-		{
-			NO_SCR_EnvSpawnerComponent spawnerComponent = FindSpawnerComponent(taskSpawnerName);
-			if (spawnerComponent) m_aSabotageTaskSpawners.Insert(spawnerComponent);
-		}
-
-		foreach (string taskSpawnerName : m_pFactionConfig.GetHVTTaskSpawnerNames())
-		{
-			NO_SCR_EnvSpawnerComponent spawnerComponent = FindSpawnerComponent(taskSpawnerName);
-			if (spawnerComponent) m_aHVTTaskSpawners.Insert(spawnerComponent);
-		}
+		// Tasks for selected faction (names of key tasks)
+		m_pFactionTasksConfig = factionConfig.GetTasksConfig();
 
 		BaseWorld world = GetWorld();
 
@@ -206,24 +175,37 @@ class NO_SCR_DCP_PatrolManager : GenericEntity
 
 		if (!m_aHVTPatrols.IsEmpty())
 			m_aAvailablePatrolTypes.Insert(ENightOpsPatrolType.HVT);
-	}
 
+		// Register method calls to key MissionTrigger events
+		m_pInfilTrigger = NO_SCR_MissionTrigger.Cast(world.FindEntityByName(m_pFactionAssets.InfilTrigger));
+		m_pExfilTrigger = NO_SCR_MissionTrigger.Cast(world.FindEntityByName(m_pFactionAssets.ExfilTrigger));
 
-	protected void SpawnTasks(array<NO_SCR_EnvSpawnerComponent> taskSpawners)
-	{
-		foreach (NO_SCR_EnvSpawnerComponent spawner : taskSpawners)
+		if (m_pInfilTrigger && m_pExfilTrigger)
 		{
-			if (spawner.IsSpawned())
-				spawner.RemoveSpawned();
-
-			spawner.DoSpawn();
+			m_pInfilTrigger.GetOnPlayerQuotaReached().Insert(DelayedAssignPatrolTasks);
+			m_pExfilTrigger.GetOnPlayerQuotaReached().Insert(FinishCurrentPatrol);
+		}
+		else
+		{
+			Print("Unable to find either infil or exfil trigger in world!", LogLevel.ERROR);
+			m_bIsValidConfig = false;
 		}
 	}
 
 
-	protected void SpawnCoreTasks()
+	protected void SpawnPlayerHQ()
 	{
-		SpawnTasks(m_aCoreTaskSpawners);
+		NO_SCR_EnvSpawnerComponent playerHQSpawner = FindSpawnerComponent(m_pFactionAssets.HQSpawner);
+		if (playerHQSpawner)
+			playerHQSpawner.DoSpawn();
+	}
+
+
+	protected void AssignInitialTask()
+	{
+		NO_SCR_EditorTask initialTask = FindTaskByName(m_pFactionTasksConfig.SelectPatrol);
+		if (initialTask)
+			initialTask.ChangeStateOfTask(TriggerType.Assign);
 	}
 
 
@@ -247,20 +229,6 @@ class NO_SCR_DCP_PatrolManager : GenericEntity
 	}
 
 
-	protected void SpawnPlayerHQ()
-	{
-		if (!m_pFactionConfig)
-			return;
-
-		NO_SCR_EnvSpawnerComponent playerHQSpawner = FindSpawnerComponent(m_pFactionConfig.GetAssetsConfig().HQSpawner);
-		if (playerHQSpawner)
-		{
-			// Existed but wasn't visible when called on same frame ¯\_(ツ)_/¯
-			GetGame().GetCallqueue().Call(playerHQSpawner.DoSpawn);
-		}
-	}
-
-
 	protected NO_SCR_EditorTask FindTaskByName(string taskName)
 	{
 		IEntity taskEntity = GetGame().GetWorld().FindEntityByName(taskName);
@@ -278,6 +246,23 @@ class NO_SCR_DCP_PatrolManager : GenericEntity
 		}
 
 		return task;
+	}
+
+
+	protected void AddTaskToMap(ENightOpsPatrolTasks key, string taskName)
+	{
+		NO_SCR_EditorTask taskEntity = FindTaskByName(taskName);
+
+		if (taskEntity)
+			m_mFactionTasks.Insert(key, taskEntity);
+		else
+			Print(string.Format("Could not find '%1' task: %2", key, taskName), LogLevel.ERROR);
+	}
+
+
+	NO_SCR_EditorTask GetPatrolTask(ENightOpsPatrolTasks taskType)
+	{
+		return m_mFactionTasks.Get(taskType);
 	}
 
 
@@ -355,7 +340,7 @@ class NO_SCR_DCP_PatrolManager : GenericEntity
 
 	void StartPatrol(ENightOpsPatrolType pickedPatrolType)
 	{
-		if (m_pRplComponent.IsProxy())
+		if (m_pRplComponent.IsProxy() || !m_bIsValidConfig)
 			return;
 
 		NO_SCR_DCP_PatrolArea chosenPatrol = ChoosePatrol(pickedPatrolType);
@@ -368,44 +353,66 @@ class NO_SCR_DCP_PatrolManager : GenericEntity
 
 		SetIsOnPatrol(true);
 
-		if (pickedPatrolType == ENightOpsPatrolType.INTEL)
-			SpawnTasks(m_aIntelTaskSpawners);
-		else if (pickedPatrolType == ENightOpsPatrolType.SABOTAGE)
-			SpawnTasks(m_aSabotageTaskSpawners);
-		else if (pickedPatrolType == ENightOpsPatrolType.HVT)
-			SpawnTasks(m_aHVTTaskSpawners);
+		// First time?
+		if (m_mFactionTasks.IsEmpty())
+		{
+			AddTaskToMap(ENightOpsPatrolTasks.SELECT_PATROL, m_pFactionTasksConfig.SelectPatrol);
+			AddTaskToMap(ENightOpsPatrolTasks.START_PATROL, m_pFactionTasksConfig.StartPatrol);
+			AddTaskToMap(ENightOpsPatrolTasks.END_PATROL, m_pFactionTasksConfig.EndPatrol);
+			AddTaskToMap(ENightOpsPatrolTasks.INTEL_MAIN, m_pFactionTasksConfig.IntelPatrolMain);
+			AddTaskToMap(ENightOpsPatrolTasks.INTEL_OBJ_1, m_pFactionTasksConfig.IntelPatrolObj1);
+			AddTaskToMap(ENightOpsPatrolTasks.INTEL_OBJ_2, m_pFactionTasksConfig.IntelPatrolObj2);
+			AddTaskToMap(ENightOpsPatrolTasks.SABOTAGE_MAIN, m_pFactionTasksConfig.SabotagePatrolMain);
+			AddTaskToMap(ENightOpsPatrolTasks.SABOTAGE_OBJ_1, m_pFactionTasksConfig.SabotagePatrolObj1);
+			AddTaskToMap(ENightOpsPatrolTasks.SABOTAGE_OBJ_2, m_pFactionTasksConfig.SabotagePatrolObj2);
+			AddTaskToMap(ENightOpsPatrolTasks.HVT_MAIN, m_pFactionTasksConfig.HVTPatrolMain);
+		}
 
 		// Finish patrol selection task
-		NO_SCR_EditorTask selectPatrolTask = FindTaskByName(SELECT_PATROL_TASKNAME);
+		NO_SCR_EditorTask selectPatrolTask = GetPatrolTask(ENightOpsPatrolTasks.SELECT_PATROL);
 		if (selectPatrolTask)
 			selectPatrolTask.ChangeStateOfTask(TriggerType.Finish);
 
-		NO_SCR_EditorTask startPatrolTask = FindTaskByName(START_PATROL_TASKNAME);
-
-		// Set position of start patrol task to the infil trigger of the played faction
-		IEntity infilTrigger = GetGame().GetWorld().FindEntityByName(m_pFactionAssets.InfilTrigger);
-		if (startPatrolTask && infilTrigger)
-			startPatrolTask.SetOrigin(infilTrigger.GetOrigin());
-
-		// Assign start patrol (group up) task
-		if (startPatrolTask)
+		// Set position of the start patrol task then assign it
+		NO_SCR_EditorTask startPatrolTask = GetPatrolTask(ENightOpsPatrolTasks.START_PATROL);
+		if (startPatrolTask && m_pInfilTrigger)
+		{
+			startPatrolTask.SetOrigin(m_pInfilTrigger.GetOrigin());
 			startPatrolTask.ChangeStateOfTask(TriggerType.Assign);
+		}
 
+		// Have DCP_PatrolArea perform its setup
 		chosenPatrol.StartPatrolType(pickedPatrolType, m_pFactionAssets);
 		m_pActivePatrol = chosenPatrol;
 		m_eActivePatrolType = pickedPatrolType;
+
+		// Unlock infilTrigger
+		if (m_pInfilTrigger)
+			m_pInfilTrigger.SetActive(true);
+	}
+
+
+	void DelayedAssignPatrolTasks(int delay = 1500)
+	{
+		GetGame().GetCallqueue().CallLater(AssignPatrolTasks, delay);
 	}
 
 
 	void AssignPatrolTasks()
 	{
-		if (m_pRplComponent.IsProxy())
+		if (m_pRplComponent.IsProxy() || !m_bIsValidConfig)
 			return;
 
 		if (m_eActivePatrolType == ENightOpsPatrolType.INTEL)
 		{
-			NO_SCR_EditorTask task1 = FindTaskByName(INTEL_PATROL_OBJ1_TASKNAME);
-	        NO_SCR_EditorTask task2 = FindTaskByName(INTEL_PATROL_OBJ2_TASKNAME);
+			NO_SCR_EditorTask taskMain = GetPatrolTask(ENightOpsPatrolTasks.INTEL_MAIN);
+			NO_SCR_EditorTask task1 = GetPatrolTask(ENightOpsPatrolTasks.INTEL_OBJ_1);
+	        NO_SCR_EditorTask task2 = GetPatrolTask(ENightOpsPatrolTasks.INTEL_OBJ_2);
+
+			if (taskMain)
+				taskMain.ChangeStateOfTask(TriggerType.Create);
+			else
+				Print("MULTITASK MISSING", LogLevel.ERROR);
 
 			if (task1)
 				task1.ChangeStateOfTask(TriggerType.Assign);
@@ -415,8 +422,14 @@ class NO_SCR_DCP_PatrolManager : GenericEntity
 		}
 		else if (m_eActivePatrolType == ENightOpsPatrolType.SABOTAGE)
 		{
-	        NO_SCR_EditorTask task1 = FindTaskByName(SABOTAGE_PATROL_OBJ1_TASKNAME);
-	        NO_SCR_EditorTask task2 = FindTaskByName(SABOTAGE_PATROL_OBJ2_TASKNAME);
+			NO_SCR_EditorTask taskMain = GetPatrolTask(ENightOpsPatrolTasks.SABOTAGE_MAIN);
+			NO_SCR_EditorTask task1 = GetPatrolTask(ENightOpsPatrolTasks.SABOTAGE_OBJ_1);
+	        NO_SCR_EditorTask task2 = GetPatrolTask(ENightOpsPatrolTasks.SABOTAGE_OBJ_2);
+
+			if (taskMain)
+				taskMain.ChangeStateOfTask(TriggerType.Create);
+			else
+				Print("MULTITASK MISSING", LogLevel.ERROR);
 
 			if (task1)
 				task1.ChangeStateOfTask(TriggerType.Assign);
@@ -426,33 +439,38 @@ class NO_SCR_DCP_PatrolManager : GenericEntity
 		}
 		else if (m_eActivePatrolType == ENightOpsPatrolType.HVT)
 		{
-	        NO_SCR_EditorTask task = FindTaskByName(HVT_PATROL_TASKNAME);
-			if (task)
-				task.ChangeStateOfTask(TriggerType.Assign);
+	        NO_SCR_EditorTask taskMain = GetPatrolTask(ENightOpsPatrolTasks.HVT_MAIN);
+			if (taskMain)
+				taskMain.ChangeStateOfTask(TriggerType.Assign);
 		}
 	}
 
 
 	void FinishCurrentPatrol()
 	{
-		if (m_pRplComponent.IsProxy())
+		if (m_pRplComponent.IsProxy() || !m_bIsValidConfig)
 			return;
+
+		if (m_pInfilTrigger)
+			m_pInfilTrigger.SetActive(false);
+
+		if (m_pExfilTrigger)
+			m_pExfilTrigger.SetActive(false);
 
 		if (m_pActivePatrol)
 		{
-			m_pActivePatrol.EndPatrol(m_pFactionAssets);
+			m_pActivePatrol.EndPatrol();
 			m_pActivePatrol = null;
 			m_eActivePatrolType = null;
 		}
 
-		IEntity exfilTask = GetGame().GetWorld().FindEntityByName(END_PATROL_TASKNAME);
-		if (exfilTask)
-		{
-        	NO_SCR_EditorTask task = NO_SCR_EditorTask.Cast(exfilTask);
-			task.ChangeStateOfTask(TriggerType.Finish);
-		}
+		NO_SCR_EditorTask endPatrolTask = GetPatrolTask(ENightOpsPatrolTasks.END_PATROL);
+		if (endPatrolTask)
+			endPatrolTask.ChangeStateOfTask(TriggerType.Finish);
 
-		GetGame().GetCallqueue().Call(SpawnCoreTasks);
+		NO_SCR_EditorTask selectPatrolTask = GetPatrolTask(ENightOpsPatrolTasks.SELECT_PATROL);
+		if (selectPatrolTask)
+			selectPatrolTask.ChangeStateOfTask(TriggerType.Assign);
 
 		SetIsOnPatrol(false);
 	}
@@ -466,6 +484,16 @@ class NO_SCR_DCP_PatrolManager : GenericEntity
 		SetEventMask(EntityEvent.INIT);
 		SetFlags(EntityFlags.STATIC, false);
 	}
+
+
+	void ~NO_SCR_DCP_PatrolManager()
+	{
+		if (m_pInfilTrigger && m_pExfilTrigger)
+		{
+			m_pInfilTrigger.GetOnPlayerQuotaReached().Remove(DelayedAssignPatrolTasks);
+			m_pExfilTrigger.GetOnPlayerQuotaReached().Remove(FinishCurrentPatrol);
+		}
+	}
 }
 
 
@@ -475,6 +503,22 @@ enum ENightOpsPatrolType
 	INTEL,
 	SABOTAGE,
 	HVT
+}
+
+
+
+enum ENightOpsPatrolTasks
+{
+	SELECT_PATROL,
+	START_PATROL,
+	END_PATROL,
+	INTEL_MAIN,
+	INTEL_OBJ_1,
+	INTEL_OBJ_2,
+	SABOTAGE_MAIN,
+	SABOTAGE_OBJ_1,
+	SABOTAGE_OBJ_2,
+	HVT_MAIN
 }
 
 
@@ -544,46 +588,13 @@ class NO_SCR_DCP_PatrolFactionConfig
 	private ref NO_SCR_DCP_PatrolAssetsConfig m_pFactionAssets;
 
 	[Attribute("", UIWidgets.Object)]
-	private ref NO_SCR_DCP_PatrolTasksConfig m_pFactionTaskSpawners;
+	private ref NO_SCR_DCP_PatrolTasksConfig m_pFactionTasks;
 
 	string GetFactionKey() { return m_sFactionKey; }
-	bool IsValid() { return m_pFactionAssets && m_pFactionTaskSpawners; }
+	bool IsValid() { return m_pFactionAssets && m_pFactionTasks; }
 
 	NO_SCR_DCP_PatrolAssetsConfig GetAssetsConfig() { return m_pFactionAssets; }
-
-	array<string> GetCoreTaskSpawnerNames()
-	{
-		array<string> taskSpawnerNames = new array<string>();
-		taskSpawnerNames.Insert(m_pFactionTaskSpawners.SelectPatrol);
-		taskSpawnerNames.Insert(m_pFactionTaskSpawners.StartPatrol);
-		taskSpawnerNames.Insert(m_pFactionTaskSpawners.EndPatrol);
-		return taskSpawnerNames;
-	}
-
-	array<string> GetIntelTaskSpawnerNames()
-	{
-		array<string> taskSpawnerNames = new array<string>();
-		taskSpawnerNames.Insert(m_pFactionTaskSpawners.IntelPatrolObj1);
-		taskSpawnerNames.Insert(m_pFactionTaskSpawners.IntelPatrolObj2);
-		taskSpawnerNames.Insert(m_pFactionTaskSpawners.IntelPatrolMain);
-		return taskSpawnerNames;
-	}
-
-	array<string> GetSabotageTaskSpawnerNames()
-	{
-		array<string> taskSpawnerNames = new array<string>();
-		taskSpawnerNames.Insert(m_pFactionTaskSpawners.SabotagePatrolObj1);
-		taskSpawnerNames.Insert(m_pFactionTaskSpawners.SabotagePatrolObj2);
-		taskSpawnerNames.Insert(m_pFactionTaskSpawners.SabotagePatrolMain);
-		return taskSpawnerNames;
-	}
-
-	array<string> GetHVTTaskSpawnerNames()
-	{
-		array<string> taskSpawnerNames = new array<string>();
-		taskSpawnerNames.Insert(m_pFactionTaskSpawners.HVTPatrolMain);
-		return taskSpawnerNames;
-	}
+	NO_SCR_DCP_PatrolTasksConfig GetTasksConfig() { return m_pFactionTasks; }
 }
 
 
@@ -621,33 +632,33 @@ class NO_SCR_DCP_PatrolAssetsConfig
 [BaseContainerProps()]
 class NO_SCR_DCP_PatrolTasksConfig
 {
-	[Attribute(defvalue: "SelectPatrol_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of 'select patrol' task spawner.")]
+	[Attribute(defvalue: "SelectPatrol_Task_US", uiwidget: UIWidgets.EditBox, desc: "Entity name/rename of 'select patrol' task.")]
 	string SelectPatrol;
 
-	[Attribute(defvalue: "StartPatrol_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of 'start patrol' task spawner.")]
+	[Attribute(defvalue: "StartPatrol_Task_US", uiwidget: UIWidgets.EditBox, desc: "Entity name/rename of 'start patrol' task.")]
 	string StartPatrol;
 
-	[Attribute(defvalue: "EndPatrol_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of 'end patrol' task spawner.")]
+	[Attribute(defvalue: "EndPatrol_Task_US", uiwidget: UIWidgets.EditBox, desc: "Entity name/rename of 'end patrol' task.")]
 	string EndPatrol;
 
-	[Attribute(defvalue: "IntelPatrol_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of 'intel patrol' multitask spawner.")]
+	[Attribute(defvalue: "Intel_Task_US", uiwidget: UIWidgets.EditBox, desc: "Entity name/rename of 'intel' multitask.")]
 	string IntelPatrolMain;
 
-	[Attribute(defvalue: "IntelPatrol_1_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of 'intel patrol' sub objective task spawner.")]
+	[Attribute(defvalue: "Intel_1_Task_US", uiwidget: UIWidgets.EditBox, desc: "Entity name/rename of 'intel sub objective 1' task.")]
 	string IntelPatrolObj1;
 
-	[Attribute(defvalue: "IntelPatrol_2_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of 'intel patrol' sub objective task spawner.")]
+	[Attribute(defvalue: "Intel_2_Task_US", uiwidget: UIWidgets.EditBox, desc: "Entity name/rename of 'intel sub objective 2' task.")]
 	string IntelPatrolObj2;
 
-	[Attribute(defvalue: "SabotagePatrol_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of 'sabotage patrol' multitask spawner.")]
+	[Attribute(defvalue: "Sabotage_Task_US", uiwidget: UIWidgets.EditBox, desc: "Entity name/rename of 'sabotage' multitask.")]
 	string SabotagePatrolMain;
 
-	[Attribute(defvalue: "SabotagePatrol_1_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of 'sabotage patrol' sub objective task spawner.")]
+	[Attribute(defvalue: "Sabotage_1_Task_US", uiwidget: UIWidgets.EditBox, desc: "Entity name/rename of 'sabotage sub objective 1' task.")]
 	string SabotagePatrolObj1;
 
-	[Attribute(defvalue: "SabotagePatrol_2_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of 'sabotage patrol' sub objective task spawner.")]
+	[Attribute(defvalue: "Sabotage_2_Task_US", uiwidget: UIWidgets.EditBox, desc: "Entity name/rename of 'sabotage sub objective 2' task.")]
 	string SabotagePatrolObj2;
 
-	[Attribute(defvalue: "HVTPatrol_US", uiwidget: UIWidgets.EditBox, desc: "Entity name of 'HVT patrol' task spawner.")]
+	[Attribute(defvalue: "HVT_Task_US", uiwidget: UIWidgets.EditBox, desc: "Entity name/rename of 'HVT' task.")]
 	string HVTPatrolMain;
 }
