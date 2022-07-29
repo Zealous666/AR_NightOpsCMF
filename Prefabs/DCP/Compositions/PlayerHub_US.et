@@ -4719,68 +4719,10 @@ CommentEntity {
     }
    }
   }
-  NO_SCR_MissionTrigger Infil_Trigger_US : "{52FA44EBEB3115FC}Prefabs/MP/Triggers/NO_MissionTrigger.et" {
-   ID "59C8E52B66737D8A"
-   components {
-    NO_SCR_DTFRenamerComponent "{59BAAB2FB13D47A6}" {
-     m_sNewName "Infil_Trigger_US"
-    }
-   }
-   coords 15.126 -7.799 0.05
-   angleY -90
-   SphereRadius 4.5
-   ShapeColor 0.188 0.745 0.745 0.498
-   OnPlayerQuotaReached ""\
-   "		super.OnPlayerQuotaReached();"\
-   ""\
-   "		if (GetPatrolManager())"\
-   "			GetPatrolManager().AssignPatrolTasks();"\
-   "	"
-   m_bIsActive 0
-   m_bIsRepeatable 1
-   m_fDelay 1
-   m_aTaskStateChanges {
-    NO_SCR_TaskStateChangeEntry "{59B4941EFEB4E0E6}" {
-     m_sTaskEntityName "StartPatrol_Task"
-    }
-   }
-   m_aSpawnpointChanges {
-    NO_SCR_SpawnpointChangeEntry "{59B49400D5781250}" {
-     m_sSpawnpointName "Base_Spawnpoint_US"
-    }
-    NO_SCR_SpawnpointChangeEntry "{59B49400D59025A5}" {
-     m_sSpawnpointName "Infil_Spawnpoint_US"
-     m_sFactionKey "US"
-    }
-   }
-   m_bEnableTeleport 1
-   m_pCustomHint SCR_HintUIInfo "{59B4940328F39EC8}" {
-    Name "Start Combat Patrol"
-    Description " "
-   }
-   {
-    SCR_Position Infil_TP_Point_US : "{68C0C31F6FAD7C2E}Prefabs/MP/NO_MissionTriggerPortPos.et" {
-     ID "59C8E52B66737D89"
-     components {
-      NO_SCR_DTFRenamerComponent "{59BAAB2F8FC4837C}" {
-       m_sNewName "Infil_TP_Point_US"
-      }
-      NwkMovementComponent "{59B6053BA17C1819}" {
-       HierarchySync 1
-      }
-      RplComponent "{59B6053BA41F0A9D}" {
-       Streamable Disabled
-      }
-     }
-     coords 0 0 0
-     angleY 0
-    }
-    GenericEntity Sandbag_Sign_Infil_US : "{BB664061CF5E85C4}Prefabs/Compositions/Misc/SubCompositions/Sandbag_Sign_US_01.et" {
-     ID "59C8E52B66733125"
-     coords -0.186 -0.261 -3.382
-     angleY 1.834
-    }
-   }
+  GenericEntity Sandbag_Sign_Infil_US : "{BB664061CF5E85C4}Prefabs/Compositions/Misc/SubCompositions/Sandbag_Sign_US_01.et" {
+   ID "59D0EC4570A3B871"
+   coords 18.508 -8.06 -0.136
+   angleY -88.166
   }
   $grp StaticModelEntity : "{95A4CF49FC9C0481}Prefabs/Compositions/Misc/SubCompositions/Tent_Barrack_Cluttered_US_01.et" {
    Tent_Barracks_US_2 {
