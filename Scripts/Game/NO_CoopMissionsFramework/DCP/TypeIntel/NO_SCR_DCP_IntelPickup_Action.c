@@ -9,15 +9,12 @@ class NO_SCR_DCP_IntelPickup_Action : ScriptedUserAction
 		}
 
 		// Get intel 1 task
-		IEntity taskEntity = GetGame().GetWorld().FindEntityByName(GetPatrolManager().INTEL_PATROL_OBJ1_TASKNAME);
-		if (!taskEntity)
+		NO_SCR_EditorTask task = GetPatrolManager().GetPatrolTask(ENightOpsPatrolTasks.INTEL_OBJ_1);
+		if (!task)
 		{
 			Print("Task could not be found!", LogLevel.ERROR);
 			return;
 		}
-
-        NO_SCR_EditorTask task = NO_SCR_EditorTask.Cast(taskEntity);
-		if (!task) return;
 
 		// Finish intel 1 task
 		task.ChangeStateOfTask(TriggerType.Finish);

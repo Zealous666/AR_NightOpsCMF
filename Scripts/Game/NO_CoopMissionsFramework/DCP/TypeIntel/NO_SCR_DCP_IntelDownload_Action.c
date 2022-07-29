@@ -18,15 +18,12 @@ class NO_SCR_DCP_IntelDownload_Action : NO_SCR_OneTimeAction
 		}
 
 		// Get intel 2 task
-		IEntity taskEntity = GetGame().GetWorld().FindEntityByName(GetPatrolManager().INTEL_PATROL_OBJ2_TASKNAME);
-		if (!taskEntity)
+		NO_SCR_EditorTask task = GetPatrolManager().GetPatrolTask(ENightOpsPatrolTasks.INTEL_OBJ_2);
+		if (!task)
 		{
 			Print("Task could not be found!", LogLevel.ERROR);
 			return;
 		}
-
-        NO_SCR_EditorTask task = NO_SCR_EditorTask.Cast(taskEntity);
-		if (!task) return;
 
 		// Finish intel 2 task
 		task.ChangeStateOfTask(TriggerType.Finish);
